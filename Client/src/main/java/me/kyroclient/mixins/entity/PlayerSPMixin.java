@@ -130,20 +130,20 @@ public abstract class PlayerSPMixin extends AbstractClientPlayerMixin
         final boolean flag = event.sprinting;
         if (flag != this.serverSprintState) {
             if (flag) {
-                this.sendQueue.addToSendQueue((Packet)new C0BPacketEntityAction(this.inventory.player, C0BPacketEntityAction.Action.START_SPRINTING));
+                this.sendQueue.addToSendQueue((Packet)new C0BPacketEntityAction(this.getCommandSenderEntity(), C0BPacketEntityAction.Action.START_SPRINTING));
             }
             else {
-                this.sendQueue.addToSendQueue((Packet)new C0BPacketEntityAction(this.inventory.player, C0BPacketEntityAction.Action.STOP_SPRINTING));
+                this.sendQueue.addToSendQueue((Packet)new C0BPacketEntityAction(this.getCommandSenderEntity(), C0BPacketEntityAction.Action.STOP_SPRINTING));
             }
             this.serverSprintState = flag;
         }
         final boolean flag2 = event.sneaking;
         if (flag2 != this.serverSneakState) {
             if (flag2) {
-                this.sendQueue.addToSendQueue((Packet)new C0BPacketEntityAction(this.inventory.player, C0BPacketEntityAction.Action.START_SNEAKING));
+                this.sendQueue.addToSendQueue((Packet)new C0BPacketEntityAction(this.getCommandSenderEntity(), C0BPacketEntityAction.Action.START_SNEAKING));
             }
             else {
-                this.sendQueue.addToSendQueue((Packet)new C0BPacketEntityAction(this.inventory.player, C0BPacketEntityAction.Action.STOP_SNEAKING));
+                this.sendQueue.addToSendQueue((Packet)new C0BPacketEntityAction(this.getCommandSenderEntity(), C0BPacketEntityAction.Action.STOP_SNEAKING));
             }
             this.serverSneakState = flag2;
         }
@@ -201,7 +201,7 @@ public abstract class PlayerSPMixin extends AbstractClientPlayerMixin
             //this.motionZ += MathHelper.cos(f) * 0.2f;
         }
         this.isAirBorne = true;
-        ForgeHooks.onLivingJump(this.inventory.player);
+        ForgeHooks.onLivingJump((EntityLivingBase) this.getCommandSenderEntity());
         this.triggerAchievement(StatList.jumpStat);
         if (this.isSprinting()) {
             this.addExhaustion(0.8f);
@@ -238,8 +238,8 @@ public abstract class PlayerSPMixin extends AbstractClientPlayerMixin
     
     public void superMoveEntityWithHeading(final float strafe, final float forward, final boolean onGround, final float friction2Multi) {
         if (this.isServerWorld()) {
-            if (!this.isInWater() || ((this.inventory.player) instanceof EntityPlayer && this.capabilities.isFlying)) {
-                if (!this.isInLava() || ((this.inventory.player) instanceof EntityPlayer && this.capabilities.isFlying)) {
+            if (!this.isInWater() || ((this.getCommandSenderEntity()) instanceof EntityPlayer && this.capabilities.isFlying)) {
+                if (!this.isInLava() || ((this.getCommandSenderEntity()) instanceof EntityPlayer && this.capabilities.isFlying)) {
                     float f4 = 0.91f;
                     if (onGround) {
                         f4 = this.worldObj.getBlockState(new BlockPos(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.getEntityBoundingBox().minY) - 1, MathHelper.floor_double(this.posZ))).getBlock().slipperiness * 0.91f;
@@ -265,7 +265,7 @@ public abstract class PlayerSPMixin extends AbstractClientPlayerMixin
                         if (this.motionY < -0.15) {
                             this.motionY = -0.15;
                         }
-                        final boolean flag = this.isSneaking() && (this.inventory.player) instanceof EntityPlayer;
+                        final boolean flag = this.isSneaking() && (this.getCommandSenderEntity()) instanceof EntityPlayer;
                         if (flag && this.motionY < 0.0) {
                             this.motionY = 0.0;
                         }
@@ -306,7 +306,7 @@ public abstract class PlayerSPMixin extends AbstractClientPlayerMixin
                 final double d2 = this.posY;
                 float f8 = 0.8f;
                 float f9 = 0.02f;
-                float f10 = (float)EnchantmentHelper.getDepthStriderModifier(this.inventory.player);
+                float f10 = (float)EnchantmentHelper.getDepthStriderModifier(this.getCommandSenderEntity());
                 if (f10 > 3.0f) {
                     f10 = 3.0f;
                 }
@@ -439,10 +439,10 @@ public abstract class PlayerSPMixin extends AbstractClientPlayerMixin
             double d4 = x;
             final double d5 = y;
             double d6 = z;
-            final boolean flag = ((this.onGround && this.isSneaking())  && (this.inventory.player) instanceof EntityPlayer);
+            final boolean flag = ((this.onGround && this.isSneaking())  && (this.getCommandSenderEntity()) instanceof EntityPlayer);
             if (flag) {
                 final double d7 = 0.05;
-                while (x != 0.0 && this.worldObj.getCollidingBoundingBoxes(this.inventory.player, this.getEntityBoundingBox().offset(x, -1.0, 0.0)).isEmpty()) {
+                while (x != 0.0 && this.worldObj.getCollidingBoundingBoxes(this.getCommandSenderEntity(), this.getEntityBoundingBox().offset(x, -1.0, 0.0)).isEmpty()) {
                     if (x < d7 && x >= -d7) {
                         x = 0.0;
                     }
@@ -454,7 +454,7 @@ public abstract class PlayerSPMixin extends AbstractClientPlayerMixin
                     }
                     d4 = x;
                 }
-                while (z != 0.0 && this.worldObj.getCollidingBoundingBoxes(this.inventory.player, this.getEntityBoundingBox().offset(0.0, -1.0, z)).isEmpty()) {
+                while (z != 0.0 && this.worldObj.getCollidingBoundingBoxes(this.getCommandSenderEntity(), this.getEntityBoundingBox().offset(0.0, -1.0, z)).isEmpty()) {
                     if (z < d7 && z >= -d7) {
                         z = 0.0;
                     }
@@ -466,7 +466,7 @@ public abstract class PlayerSPMixin extends AbstractClientPlayerMixin
                     }
                     d6 = z;
                 }
-                while (x != 0.0 && z != 0.0 && this.worldObj.getCollidingBoundingBoxes(this.inventory.player, this.getEntityBoundingBox().offset(x, -1.0, z)).isEmpty()) {
+                while (x != 0.0 && z != 0.0 && this.worldObj.getCollidingBoundingBoxes(this.getCommandSenderEntity(), this.getEntityBoundingBox().offset(x, -1.0, z)).isEmpty()) {
                     if (x < d7 && x >= -d7) {
                         x = 0.0;
                     }
@@ -489,7 +489,7 @@ public abstract class PlayerSPMixin extends AbstractClientPlayerMixin
                     d6 = z;
                 }
             }
-            final List<AxisAlignedBB> list1 = (List<AxisAlignedBB>)this.worldObj.getCollidingBoundingBoxes(this.inventory.player, this.getEntityBoundingBox().addCoord(x, y, z));
+            final List<AxisAlignedBB> list1 = (List<AxisAlignedBB>)this.worldObj.getCollidingBoundingBoxes(this.getCommandSenderEntity(), this.getEntityBoundingBox().addCoord(x, y, z));
             final AxisAlignedBB axisalignedbb = this.getEntityBoundingBox();
             for (final AxisAlignedBB axisalignedbb2 : list1) {
                 y = axisalignedbb2.calculateYOffset(this.getEntityBoundingBox(), y);
@@ -513,7 +513,7 @@ public abstract class PlayerSPMixin extends AbstractClientPlayerMixin
                 final StepEvent.Pre stepEvent = new StepEvent.Pre((double)this.stepHeight);
                 MinecraftForge.EVENT_BUS.post((Event)stepEvent);
                 y = stepEvent.getHeight();
-                final List<AxisAlignedBB> list2 = (List<AxisAlignedBB>)this.worldObj.getCollidingBoundingBoxes(this.inventory.player, this.getEntityBoundingBox().addCoord(d4, y, d6));
+                final List<AxisAlignedBB> list2 = (List<AxisAlignedBB>)this.worldObj.getCollidingBoundingBoxes(this.getCommandSenderEntity(), this.getEntityBoundingBox().addCoord(d4, y, d6));
                 AxisAlignedBB axisalignedbb6 = this.getEntityBoundingBox();
                 final AxisAlignedBB axisalignedbb7 = axisalignedbb6.addCoord(d4, 0.0, d6);
                 double d11 = y;
@@ -602,7 +602,7 @@ public abstract class PlayerSPMixin extends AbstractClientPlayerMixin
                 this.motionZ = 0.0;
             }
             if (d5 != y) {
-                block1.onLanded(this.worldObj, this.inventory.player);
+                block1.onLanded(this.worldObj, this.getCommandSenderEntity());
             }
             if (this.canTriggerWalking() && !flag && this.ridingEntity == null) {
                 final double d19 = this.posX - d0;
@@ -612,7 +612,7 @@ public abstract class PlayerSPMixin extends AbstractClientPlayerMixin
                     d20 = 0.0;
                 }
                 if (block1 != null && this.onGround) {
-                    block1.onEntityCollidedWithBlock(this.worldObj, blockpos, this.inventory.player);
+                    block1.onEntityCollidedWithBlock(this.worldObj, blockpos, this.getCommandSenderEntity());
                 }
                 this.distanceWalkedModified += (float)(MathHelper.sqrt_double(d19 * d19 + d21 * d21) * 0.6);
                 this.distanceWalkedOnStepModified += (float)(MathHelper.sqrt_double(d19 * d19 + d20 * d20 + d21 * d21) * 0.6);
@@ -659,7 +659,7 @@ public abstract class PlayerSPMixin extends AbstractClientPlayerMixin
     }
     
     public void attackTargetEntityWithCurrentItem(final Entity targetEntity) {
-        if (ForgeHooks.onPlayerAttackTarget(this.inventory.player, targetEntity) && targetEntity.canAttackWithItem() && !targetEntity.hitByEntity(this.inventory.player)) {
+        if (ForgeHooks.onPlayerAttackTarget((EntityPlayer) this.getCommandSenderEntity(), targetEntity) && targetEntity.canAttackWithItem() && !targetEntity.hitByEntity(this.getCommandSenderEntity())) {
             float f = (float)this.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
             int i = 0;
             float f2 = 0.0f;
@@ -669,7 +669,7 @@ public abstract class PlayerSPMixin extends AbstractClientPlayerMixin
             else {
                 f2 = EnchantmentHelper.getModifierForCreature(this.getHeldItem(), EnumCreatureAttribute.UNDEFINED);
             }
-            i += EnchantmentHelper.getKnockbackModifier(this.inventory.player);
+            i += EnchantmentHelper.getKnockbackModifier((EntityLivingBase) this.getCommandSenderEntity());
             if (this.isSprinting()) {
                 ++i;
             }
@@ -680,7 +680,7 @@ public abstract class PlayerSPMixin extends AbstractClientPlayerMixin
                 }
                 f += f2;
                 boolean flag2 = false;
-                final int j = EnchantmentHelper.getFireAspectModifier(this.inventory.player);
+                final int j = EnchantmentHelper.getFireAspectModifier((EntityLivingBase) this.getCommandSenderEntity());
                 if (targetEntity instanceof EntityLivingBase && j > 0 && !targetEntity.isBurning()) {
                     flag2 = true;
                     targetEntity.setFire(1);
@@ -688,7 +688,7 @@ public abstract class PlayerSPMixin extends AbstractClientPlayerMixin
                 final double d0 = targetEntity.motionX;
                 final double d2 = targetEntity.motionY;
                 final double d3 = targetEntity.motionZ;
-                final boolean flag3 = targetEntity.attackEntityFrom(DamageSource.causePlayerDamage(this.inventory.player), f);
+                final boolean flag3 = targetEntity.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) this.getCommandSenderEntity()), f);
                 if (flag3) {
                     if (i > 0) {
                         targetEntity.addVelocity((double)(-MathHelper.sin(this.rotationYaw * 3.1415927f / 180.0f) * i * 0.5f), 0.1, (double)(MathHelper.cos(this.rotationYaw * 3.1415927f / 180.0f) * i * 0.5f));
@@ -711,9 +711,9 @@ public abstract class PlayerSPMixin extends AbstractClientPlayerMixin
                     }
                     this.setLastAttacker(targetEntity);
                     if (targetEntity instanceof EntityLivingBase) {
-                        EnchantmentHelper.applyThornEnchantments((EntityLivingBase)targetEntity, this.inventory.player);
+                        EnchantmentHelper.applyThornEnchantments((EntityLivingBase)targetEntity, this.getCommandSenderEntity());
                     }
-                    EnchantmentHelper.applyArthropodEnchantments(this.inventory.player, targetEntity);
+                    EnchantmentHelper.applyArthropodEnchantments((EntityLivingBase) this.getCommandSenderEntity(), targetEntity);
                     final ItemStack itemstack = this.getCurrentEquippedItem();
                     Entity entity = targetEntity;
                     if (targetEntity instanceof EntityDragonPart) {
@@ -723,7 +723,7 @@ public abstract class PlayerSPMixin extends AbstractClientPlayerMixin
                         }
                     }
                     if (itemstack != null && entity instanceof EntityLivingBase) {
-                        itemstack.hitEntity((EntityLivingBase)entity, this.inventory.player);
+                        itemstack.hitEntity((EntityLivingBase)entity, (EntityPlayer) this.getCommandSenderEntity());
                         if (itemstack.stackSize <= 0) {
                             this.destroyCurrentEquippedItem();
                         }

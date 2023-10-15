@@ -151,7 +151,9 @@ public abstract class EntityMixin
     
     @Shadow
     public abstract void setSneaking(final boolean p0);
-    
+
+    @Shadow public abstract Entity getCommandSenderEntity();
+
     public void doResetPositionToBB() {
         this.resetPositionToBB();
     }

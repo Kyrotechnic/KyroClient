@@ -142,6 +142,7 @@ METHOD	me/kyroclient/mixins/entity/EntityMixin	()V	entityInit	func_70088_a
 METHOD	me/kyroclient/mixins/entity/EntityMixin	()Z	isInLava	func_180799_ab
 METHOD	me/kyroclient/mixins/entity/EntityMixin	(DDD)Z	isOffsetPositionInLiquid	func_70038_c
 METHOD	me/kyroclient/mixins/entity/EntityMixin	(Z)V	setSneaking	func_70095_a
+METHOD	me/kyroclient/mixins/entity/EntityMixin	()Lnet/minecraft/entity/Entity;	getCommandSenderEntity	func_174793_f
 METHOD	me/kyroclient/mixins/entity/PlayerMixin	(Lnet/minecraft/stats/StatBase;)V	triggerAchievement	func_71029_a
 METHOD	me/kyroclient/mixins/entity/PlayerMixin	(F)V	addExhaustion	func_71020_j
 METHOD	me/kyroclient/mixins/entity/PlayerMixin	()Lnet/minecraft/util/FoodStats;	getFoodStats	func_71024_bL
