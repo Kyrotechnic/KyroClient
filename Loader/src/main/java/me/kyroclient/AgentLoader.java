@@ -6,8 +6,12 @@ import java.io.*;
 import java.lang.instrument.Instrumentation;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
+import java.util.List;
 
 public class AgentLoader {
     public static final String VERSION_LINK = "https://raw.githubusercontent.com/Kyrotechnic/KyroClient/main/update/Latest.txt";
@@ -59,7 +63,7 @@ public class AgentLoader {
         }
         catch (Exception e)
         {
-
+            e.printStackTrace();
         }
     }
 
@@ -76,9 +80,9 @@ public class AgentLoader {
 
             File versionFile = new File(LOCALE_VERSION);
 
-            BufferedWriter writer = new BufferedWriter(new FileWriter(versionFile));
-            writer.write(version.toString());
-            IOUtils.closeQuietly(writer);
+            List<String> arr = Arrays.asList(version.toString());
+            Path fil = versionFile.toPath();
+            Files.write(fil, arr, StandardCharsets.UTF_8);
         }
         catch (Exception e)
         {
