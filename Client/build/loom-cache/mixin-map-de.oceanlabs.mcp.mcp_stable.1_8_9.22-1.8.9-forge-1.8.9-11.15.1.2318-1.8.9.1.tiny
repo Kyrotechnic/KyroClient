@@ -1,0 +1,11 @@
+v1	named	intermediary
+FIELD	me/kyroclient/mixins/MixinMinecraft	Lnet/minecraft/client/entity/EntityPlayerSP;	thePlayer	field_71439_g
+FIELD	me/kyroclient/mixins/MixinMinecraft	Lnet/minecraft/client/gui/GuiScreen;	currentScreen	field_71462_r
+FIELD	me/kyroclient/mixins/MixinMinecraft	Lnet/minecraft/client/settings/GameSettings;	gameSettings	field_71474_y
+FIELD	me/kyroclient/mixins/MixinMinecraft	Z	inGameHasFocus	field_71415_G
+FIELD	me/kyroclient/mixins/MixinMinecraft	Lnet/minecraft/util/MovingObjectPosition;	objectMouseOver	field_71476_x
+FIELD	me/kyroclient/mixins/MixinMinecraft	Lnet/minecraft/entity/Entity;	renderViewEntity	field_175622_Z
+FIELD	me/kyroclient/mixins/MixinMinecraft	Lnet/minecraft/client/multiplayer/PlayerControllerMP;	playerController	field_71442_b
+FIELD	me/kyroclient/mixins/MixinMinecraft	Lnet/minecraft/client/multiplayer/WorldClient;	theWorld	field_71441_e
+METHOD	me/kyroclient/mixins/MixinFontRenderer	(Ljava/lang/String;Z)V	renderStringAtPos	func_78255_a
+METHOD	me/kyroclient/mixins/MixinFontRenderer	(Ljava/lang/String;)I	getStringWidth	func_78256_a

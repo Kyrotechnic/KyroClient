@@ -1,0 +1,60 @@
+{
+  "mappings": {
+    "me/kyroclient/mixins/MixinFontRenderer": {
+      "getStringWidth": "Lnet/minecraft/client/gui/FontRenderer;func_78256_a(Ljava/lang/String;)I",
+      "renderStringAtPos": "Lnet/minecraft/client/gui/FontRenderer;func_78255_a(Ljava/lang/String;Z)V"
+    },
+    "me/kyroclient/mixins/MixinNetworkManager": {
+      "sendPacket(Lnet/minecraft/network/Packet;)V": "Lnet/minecraft/network/NetworkManager;func_179290_a(Lnet/minecraft/network/Packet;)V",
+      "channelRead0": "Lnet/minecraft/network/NetworkManager;channelRead0(Lio/netty/channel/ChannelHandlerContext;Lnet/minecraft/network/Packet;)V"
+    },
+    "me/kyroclient/mixins/MinecraftAccessor": {
+      "timer": "field_71428_T:Lnet/minecraft/util/Timer;"
+    },
+    "me/kyroclient/mixins/MixinMinecraft": {
+      "sendClickBlockToController": "Lnet/minecraft/client/Minecraft;func_147115_a(Z)V",
+      "Lnet/minecraft/client/Minecraft;dispatchKeypresses()V": "Lnet/minecraft/client/Minecraft;func_152348_aa()V",
+      "startGame": "Lnet/minecraft/client/Minecraft;func_71384_a()V",
+      "runTick": "Lnet/minecraft/client/Minecraft;func_71407_l()V"
+    },
+    "me/kyroclient/mixins/PlayerSPAccessor": {
+      "lastReportedPitch": "field_175165_bM:F",
+      "serverSneakState": "field_175170_bN:Z",
+      "lastReportedPosY": "field_175166_bJ:D",
+      "serverSprintState": "field_175171_bO:Z",
+      "lastReportedPosZ": "field_175167_bK:D",
+      "lastReportedPosX": "field_175172_bI:D",
+      "lastReportedYaw": "field_175164_bL:F"
+    }
+  },
+  "data": {
+    "named:intermediary": {
+      "me/kyroclient/mixins/MixinFontRenderer": {
+        "getStringWidth": "Lnet/minecraft/client/gui/FontRenderer;func_78256_a(Ljava/lang/String;)I",
+        "renderStringAtPos": "Lnet/minecraft/client/gui/FontRenderer;func_78255_a(Ljava/lang/String;Z)V"
+      },
+      "me/kyroclient/mixins/MixinNetworkManager": {
+        "sendPacket(Lnet/minecraft/network/Packet;)V": "Lnet/minecraft/network/NetworkManager;func_179290_a(Lnet/minecraft/network/Packet;)V",
+        "channelRead0": "Lnet/minecraft/network/NetworkManager;channelRead0(Lio/netty/channel/ChannelHandlerContext;Lnet/minecraft/network/Packet;)V"
+      },
+      "me/kyroclient/mixins/MinecraftAccessor": {
+        "timer": "field_71428_T:Lnet/minecraft/util/Timer;"
+      },
+      "me/kyroclient/mixins/MixinMinecraft": {
+        "sendClickBlockToController": "Lnet/minecraft/client/Minecraft;func_147115_a(Z)V",
+        "Lnet/minecraft/client/Minecraft;dispatchKeypresses()V": "Lnet/minecraft/client/Minecraft;func_152348_aa()V",
+        "startGame": "Lnet/minecraft/client/Minecraft;func_71384_a()V",
+        "runTick": "Lnet/minecraft/client/Minecraft;func_71407_l()V"
+      },
+      "me/kyroclient/mixins/PlayerSPAccessor": {
+        "lastReportedPitch": "field_175165_bM:F",
+        "serverSneakState": "field_175170_bN:Z",
+        "lastReportedPosY": "field_175166_bJ:D",
+        "serverSprintState": "field_175171_bO:Z",
+        "lastReportedPosZ": "field_175167_bK:D",
+        "lastReportedPosX": "field_175172_bI:D",
+        "lastReportedYaw": "field_175164_bL:F"
+      }
+    }
+  }
+}

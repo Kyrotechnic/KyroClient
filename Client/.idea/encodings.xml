@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/build.gradle.kts" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/oringo/oringoclient/OringoClient.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/zip/kyro/OringoClient.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/zip/kyro/OringoClient.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/zip/kyro/OringoClient.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/zip/kyro/commands/Command.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/zip/kyro/commands/Command.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/zip/kyro/commands/Command.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/zip/kyro/qolfeatures/module/Module.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/zip/kyro/qolfeatures/module/Module.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/zip/kyro/qolfeatures/module/Module.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/zip/kyro/utils/font/MinecraftFontRenderer.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/zip/kyro/utils/font/MinecraftFontRenderer.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/zip/kyro/utils/font/MinecraftFontRenderer.java" charset="windows-1252" />
+    <file url="PROJECT" charset="windows-1252" />
+  </component>
+</project>

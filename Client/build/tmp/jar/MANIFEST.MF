@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+FMLCorePluginContainsFMLMod: true
+ForceLoadAsMod: true
+TweakClass: gg.essential.loader.stage0.EssentialSetupTweaker
+MixinConfigs: mixins.kyroclient.json
+

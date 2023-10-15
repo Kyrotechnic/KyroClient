@@ -1,0 +1,12 @@
+{
+  "compatibilityLevel": "JAVA_8",
+  "package": "me.kyroclient.mixins",
+  "refmap": "mixins.kyroclient.refmap.json",
+  "mixins": [
+    "MixinMinecraft",
+    "MinecraftAccessor",
+    "MixinNetworkManager",
+    "MixinFontRenderer",
+    "PlayerSPAccessor"
+  ]
+}

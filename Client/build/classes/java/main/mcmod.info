@@ -1,0 +1,16 @@
+[
+{
+  "modid": "dsm",
+  "name": "Kyro Client",
+  "description": "",
+  "version": "b4",
+  "mcversion": "1.8.9",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Kyro"],
+  "credits": "",
+  "logoFile": "logo.png",
+  "screenshots": [],
+  "dependencies": []
+}
+]
