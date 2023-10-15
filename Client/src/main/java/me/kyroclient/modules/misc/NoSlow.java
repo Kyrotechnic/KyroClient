@@ -60,4 +60,10 @@ public class NoSlow extends Module {
             this.blockDelay.reset();
         }
     }
+
+    @Override
+    public void assign()
+    {
+        KyroClient.noSlow = this;
+    }
 }
