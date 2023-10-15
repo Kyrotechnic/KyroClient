@@ -90,7 +90,7 @@ tasks.withType(JavaCompile::class) {
 }
 
 tasks.withType(Jar::class) {
-    archiveBaseName.set(modid)
+    archiveBaseName.set("KyroClient")
     manifest.attributes.run {
         this["FMLCorePluginContainsFMLMod"] = "true"
         this["ForceLoadAsMod"] = "true"
