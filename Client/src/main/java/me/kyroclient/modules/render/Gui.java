@@ -79,7 +79,7 @@ public class Gui extends Module {
     public void onRender(final RenderGameOverlayEvent.Post event) {
         if (event.type == RenderGameOverlayEvent.ElementType.CROSSHAIRS) {
             if (this.waterMark.isEnabled()) {
-                Fonts.tahomaBold.drawSmoothString("yro", Fonts.tahomaBold.drawSmoothString("K", 5.0, 5.0f, this.getColor().getRGB()) + 1.0f, 5.0f, KyroClient.iconColor.getRGB());
+                Fonts.getSecondary().drawSmoothString("yro", Fonts.getSecondary().drawSmoothString("K", 5.0, 5.0f, this.getColor().getRGB()) + 1.0f, 5.0f, KyroClient.iconColor.getRGB());
             }
             if (this.arrayList.isEnabled()) {
                 GL11.glPushMatrix();

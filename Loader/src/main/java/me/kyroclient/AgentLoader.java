@@ -21,53 +21,10 @@ public class AgentLoader {
     public static boolean needUpdate = false;
     public static void premain(String agentArgs, Instrumentation instrumentation)
     {
-        Version onlineVersion;
-        Version localeVersion;
-        try
-        {
-            onlineVersion = new Version(new BufferedReader(new InputStreamReader(new URL(VERSION_LINK).openStream())).readLine());
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            return;
-        }
-
-        if (!new File(MOD_LOCATION).exists())
-        {
-            downloadUpdate(onlineVersion);
-            return;
-        }
-
-        try
-        {
-            File file = new File(LOCALE_VERSION);
-            if (!file.exists())
-            {
-                needUpdate = true;
-                downloadUpdate(onlineVersion);
-                return;
-            }
-
-            localeVersion = new Version(new BufferedReader(new FileReader(file)).readLine());
-
-            boolean needsUpdate = Version.isUpdated(localeVersion, onlineVersion);
-
-            if (needsUpdate)
-            {
-                needUpdate = true;
-                downloadUpdate(onlineVersion);
-            }
-
-            return;
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+        downloadUpdate();
     }
 
-    public static void downloadUpdate(Version version)
+    public static void downloadUpdate()
     {
         try
         {
@@ -79,10 +36,6 @@ public class AgentLoader {
             }
 
             File versionFile = new File(LOCALE_VERSION);
-
-            List<String> arr = Arrays.asList(version.toString());
-            Path fil = versionFile.toPath();
-            Files.write(fil, arr, StandardCharsets.UTF_8);
         }
         catch (Exception e)
         {
