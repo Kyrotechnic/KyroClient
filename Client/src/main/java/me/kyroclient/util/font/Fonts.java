@@ -5,7 +5,15 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 
 import java.awt.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,8 +33,8 @@ public class Fonts
         return tenacityBold;
     }
 
-    public static final String FONT_LOCALE_LOCATION = KyroClient.mc.mcDataDir + "/config/KyroClient/fonts";
-    public static final String FONT_ONLINE_LOCATION = ""
+    public static final String FONT_LOCALE_LOCATION = KyroClient.mc.mcDataDir + "/config/KyroClient/fonts/";
+    public static final String FONT_ONLINE_LOCATION = "https://github.com/Kyrotechnic/KyroClient/raw/main/fonts/";
 
     private static Font getFont(final String location, final int size) {
         Font font;
@@ -55,7 +63,37 @@ public class Fonts
 
     public static InputStream getStream(String fontName)
     {
+        File locale = new File(FONT_LOCALE_LOCATION + fontName);
+        try
+        {
+            URL downloadUrl = new URL(FONT_ONLINE_LOCATION + fontName);
+            if (!locale.exists()) {
+                downloadFont(downloadUrl, locale.toPath());
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
+        InputStream inputStream;
+        try
+        {
+            inputStream = new FileInputStream(locale);
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+
+        return inputStream;
+    }
+
+    public static void downloadFont(URL downloadUrl, Path filePath) throws IOException {
+        try (InputStream in = downloadUrl.openStream())
+        {
+            Files.copy(in, filePath, StandardCopyOption.REPLACE_EXISTING);
+        }
     }
 
     public static void bootstrap() {
