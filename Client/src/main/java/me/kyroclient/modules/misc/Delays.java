@@ -1,5 +1,6 @@
 package me.kyroclient.modules.misc;
 
+import me.kyroclient.KyroClient;
 import me.kyroclient.modules.Module;
 import me.kyroclient.settings.NumberSetting;
 
@@ -14,5 +15,11 @@ public class Delays extends Module {
                 hitDelay,
                 jumpDelay
         );
+    }
+
+    @Override
+    public void assign()
+    {
+        KyroClient.delays = this;
     }
 }

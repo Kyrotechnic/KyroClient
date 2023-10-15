@@ -7,6 +7,19 @@
     "MinecraftAccessor",
     "MixinNetworkManager",
     "MixinFontRenderer",
-    "PlayerSPAccessor"
+    "PlayerSPAccessor",
+    "gui.MixinGuiIngame",
+    "settings.GameSettings",
+    "gui.MixinGui",
+    "gui.MixinGuiButton",
+    "entity.AbstractClientPlayerMixin",
+    "entity.EntityLivingBaseMixin",
+    "entity.PlayerSPMixin",
+    "entity.EntityMixin",
+    "entity.PlayerMixin",
+    "MixinFMLHandshakeMessage",
+    "blocks.MixinBlock",
+    "blocks.MixinChunk",
+    "blocks.MixinCropBlock"
   ]
 }

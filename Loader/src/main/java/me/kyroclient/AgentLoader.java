@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class AgentLoader {
-    public static final String VERSION_LINK = "https://raw.githubusercontent.com/Kyrotechnic/KyroClient/main/update/Latest.txt";
+    public static final String VERSION_LINK = "https://github.com/Kyrotechnic/KyroClient/raw/main/update/Latest.txt";
     public static final String VERSION_DOWNLOAD = "https://raw.githubusercontent.com/Kyrotechnic/KyroClient/main/update/KyroClient.jar";
     public static final String MOD_LOCATION = System.getenv("APPDATA") + "\\.minecraft\\mods\\KyroClient.jar";
     public static final String LOCALE_VERSION = System.getenv("APPDATA") + "\\.minecraft\\config\\KyroClient\\Version.txt";

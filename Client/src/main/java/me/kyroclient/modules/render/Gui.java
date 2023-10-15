@@ -75,11 +75,23 @@ public class Gui extends Module {
         this.addSettings(this.colorMode, this.hsb, this.rgbSpeed, this.shiftSpeed, this.redCustom, this.greenCustom, this.blueCustom, this.redShift1, this.greenShift1, this.blueShift1, this.redShift2, this.greenShift2, this.blueShift2, Gui.commandPrefix, this.blur, this.waterMark, this.arrayList, this.arrayOutline, this.arrayBlur, this.disableNotifs, this.scaleGui);
     }
 
+    public float getHeight() {
+        if (!this.arrayList.isEnabled()) {
+            return 0.0f;
+        }
+        final List<Module> list = (List<Module>)KyroClient.moduleManager.getModules().stream().filter(module ->  (module.isToggled() || module.toggledTime.getTimePassed() <= 250L)).sorted(Comparator.comparingDouble(module -> Fonts.getPrimary().getStringWidth(module.getName()))).collect(Collectors.toList());
+        float y = 3.0f;
+        for (final Module module2 : list) {
+            y += (Fonts.getPrimary().getHeight() + 5.0f) * Math.max(Math.min(module2.isToggled() ? (module2.toggledTime.getTimePassed() / 250.0f) : ((250.0f - module2.toggledTime.getTimePassed()) / 250.0f), 1.0f), 0.0f);
+        }
+        return y;
+    }
+
     @SubscribeEvent
     public void onRender(final RenderGameOverlayEvent.Post event) {
         if (event.type == RenderGameOverlayEvent.ElementType.CROSSHAIRS) {
             if (this.waterMark.isEnabled()) {
-                Fonts.getSecondary().drawSmoothString("yro", Fonts.getSecondary().drawSmoothString("K", 5.0, 5.0f, this.getColor().getRGB()) + 1.0f, 5.0f, KyroClient.iconColor.getRGB());
+                Fonts.getSecondary().drawSmoothString("yro", Fonts.getSecondary().drawSmoothString("K", 5.0, 5.0f, Color.white.darker().getRGB()) + 1.0f, 5.0f, getColor().getRGB());
             }
             if (this.arrayList.isEnabled()) {
                 GL11.glPushMatrix();
@@ -92,6 +104,10 @@ public class Gui extends Module {
                     --x;
                     GL11.glPushMatrix();
                     String moduleName = module2.getName() + " | " + module2.suffix();
+                    if (module2.suffix() == "")
+                    {
+                        moduleName = module2.getName();
+                    }
                     final float width = (float)(Fonts.getPrimary().getStringWidth(moduleName) + 5.0);
                     final float translatedWidth = width * Math.max(Math.min(module2.isToggled() ? ((250.0f - module2.toggledTime.getTimePassed()) / 250.0f) : (module2.toggledTime.getTimePassed() / 250.0f), 1.0f), 0.0f);
                     GL11.glTranslated((double)translatedWidth, 0.0, 0.0);

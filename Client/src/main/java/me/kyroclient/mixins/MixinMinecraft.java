@@ -2,6 +2,8 @@ package me.kyroclient.mixins;
 
 import me.kyroclient.KyroClient;
 import me.kyroclient.events.KeyboardEvent;
+import me.kyroclient.events.LeftClickEvent;
+import me.kyroclient.events.RightClickEvent;
 import me.kyroclient.util.PlayerUtil;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -40,6 +42,10 @@ public class MixinMinecraft {
     @Shadow public PlayerControllerMP playerController;
 
     @Shadow public WorldClient theWorld;
+
+    @Shadow private int leftClickCounter;
+
+    @Shadow private int rightClickDelayTimer;
 
     @Inject(method = "startGame", at = @At("HEAD"))
     public void startGame(CallbackInfo ci)
@@ -83,6 +89,32 @@ public class MixinMinecraft {
                 ex.printStackTrace();
             }
         }
+    }
+
+    @Inject(method = "clickMouse", at = @At("HEAD"), cancellable = true)
+    public void clickMouse(CallbackInfo ci)
+    {
+        if (MinecraftForge.EVENT_BUS.post(new LeftClickEvent()))
+        {
+            ci.cancel();
+        }
+
+        if (KyroClient.delays.isToggled())
+        {
+            this.leftClickCounter = (int) KyroClient.delays.hitDelay.getValue();
+        }
+    }
+
+    @Inject(method = "rightClickMouse", at = @At("HEAD"), cancellable = true)
+    public void rightClick(CallbackInfo ci)
+    {
+        if (MinecraftForge.EVENT_BUS.post(new RightClickEvent()))
+        {
+            ci.cancel();
+        }
+
+        if (KyroClient.fastPlace.isToggled())
+            rightClickDelayTimer = (int) KyroClient.fastPlace.placeDelay.getValue();
     }
 
     private boolean blockNuker()
