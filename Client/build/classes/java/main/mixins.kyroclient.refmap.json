@@ -33,9 +33,16 @@
     "me/kyroclient/mixins/MinecraftAccessor": {
       "timer": "field_71428_T:Lnet/minecraft/util/Timer;"
     },
+    "me/kyroclient/mixins/entity/MixinRenderLivingEntity": {
+      "renderLayers": "Lnet/minecraft/client/renderer/entity/RendererLivingEntity;func_177093_a(Lnet/minecraft/entity/EntityLivingBase;FFFFFFF)V",
+      "doRender(Lnet/minecraft/entity/EntityLivingBase;DDDFF)V": "Lnet/minecraft/client/renderer/entity/RendererLivingEntity;func_76986_a(Lnet/minecraft/entity/EntityLivingBase;DDDFF)V",
+      "preRenderCallback": "Lnet/minecraft/client/renderer/entity/RendererLivingEntity;func_77041_b(Lnet/minecraft/entity/EntityLivingBase;F)V",
+      "Lnet/minecraft/client/renderer/entity/RendererLivingEntity;renderModel(Lnet/minecraft/entity/EntityLivingBase;FFFFFF)V": "Lnet/minecraft/client/renderer/entity/RendererLivingEntity;func_77036_a(Lnet/minecraft/entity/EntityLivingBase;FFFFFF)V"
+    },
     "me/kyroclient/mixins/MixinMinecraft": {
       "sendClickBlockToController": "Lnet/minecraft/client/Minecraft;func_147115_a(Z)V",
       "Lnet/minecraft/client/Minecraft;dispatchKeypresses()V": "Lnet/minecraft/client/Minecraft;func_152348_aa()V",
+      "getRenderViewEntity": "Lnet/minecraft/client/Minecraft;func_175606_aa()Lnet/minecraft/entity/Entity;",
       "startGame": "Lnet/minecraft/client/Minecraft;func_71384_a()V",
       "runTick": "Lnet/minecraft/client/Minecraft;func_71407_l()V",
       "clickMouse": "Lnet/minecraft/client/Minecraft;func_147116_af()V",
@@ -89,9 +96,16 @@
       "me/kyroclient/mixins/MinecraftAccessor": {
         "timer": "field_71428_T:Lnet/minecraft/util/Timer;"
       },
+      "me/kyroclient/mixins/entity/MixinRenderLivingEntity": {
+        "renderLayers": "Lnet/minecraft/client/renderer/entity/RendererLivingEntity;func_177093_a(Lnet/minecraft/entity/EntityLivingBase;FFFFFFF)V",
+        "doRender(Lnet/minecraft/entity/EntityLivingBase;DDDFF)V": "Lnet/minecraft/client/renderer/entity/RendererLivingEntity;func_76986_a(Lnet/minecraft/entity/EntityLivingBase;DDDFF)V",
+        "preRenderCallback": "Lnet/minecraft/client/renderer/entity/RendererLivingEntity;func_77041_b(Lnet/minecraft/entity/EntityLivingBase;F)V",
+        "Lnet/minecraft/client/renderer/entity/RendererLivingEntity;renderModel(Lnet/minecraft/entity/EntityLivingBase;FFFFFF)V": "Lnet/minecraft/client/renderer/entity/RendererLivingEntity;func_77036_a(Lnet/minecraft/entity/EntityLivingBase;FFFFFF)V"
+      },
       "me/kyroclient/mixins/MixinMinecraft": {
         "sendClickBlockToController": "Lnet/minecraft/client/Minecraft;func_147115_a(Z)V",
         "Lnet/minecraft/client/Minecraft;dispatchKeypresses()V": "Lnet/minecraft/client/Minecraft;func_152348_aa()V",
+        "getRenderViewEntity": "Lnet/minecraft/client/Minecraft;func_175606_aa()Lnet/minecraft/entity/Entity;",
         "startGame": "Lnet/minecraft/client/Minecraft;func_71384_a()V",
         "runTick": "Lnet/minecraft/client/Minecraft;func_71407_l()V",
         "clickMouse": "Lnet/minecraft/client/Minecraft;func_147116_af()V",

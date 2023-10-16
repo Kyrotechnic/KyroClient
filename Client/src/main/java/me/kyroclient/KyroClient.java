@@ -8,6 +8,8 @@ import me.kyroclient.managers.ModuleManager;
 import me.kyroclient.managers.NotificationManager;
 import me.kyroclient.modules.Module;
 import me.kyroclient.modules.combat.AntiBot;
+import me.kyroclient.modules.combat.Aura;
+import me.kyroclient.modules.combat.AutoBlock;
 import me.kyroclient.modules.combat.Hitboxes;
 import me.kyroclient.modules.garden.CropNuker;
 import me.kyroclient.modules.misc.Delays;
@@ -17,9 +19,7 @@ import me.kyroclient.modules.player.FastPlace;
 import me.kyroclient.modules.player.NickHider;
 import me.kyroclient.modules.player.Speed;
 import me.kyroclient.modules.player.Velocity;
-import me.kyroclient.modules.render.FreeCam;
-import me.kyroclient.modules.render.Gui;
-import me.kyroclient.modules.render.Interfaces;
+import me.kyroclient.modules.render.*;
 import me.kyroclient.util.font.Fonts;
 import me.kyroclient.util.render.BlurUtils;
 import net.minecraft.client.Minecraft;
@@ -59,6 +59,10 @@ public class KyroClient {
     public static Hitboxes hitBoxes;
     public static NoSlow noSlow;
     public static FreeCam freeCam;
+    public static Giants giants;
+    public static Animations animations;
+    public static Aura aura;
+    public static AutoBlock autoBlock;
 
 
     //Methods

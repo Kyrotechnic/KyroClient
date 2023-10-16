@@ -547,7 +547,7 @@ public class RenderUtils
         GL11.glDisable(2929);
         GL11.glDepthMask(false);
         setColor(color);
-        //RenderGlobal.drawSelectionBoundingBox(block.getRenderBoundingBox().offset(-KyroClient.mc.getRenderManager().viewerPosX, -KyroClient.mc.getRenderManager().viewerPosY, -KyroClient.mc.getRenderManager().viewerPosZ));
+        RenderGlobal.drawSelectionBoundingBox(block.getRenderBoundingBox().offset(-KyroClient.mc.getRenderManager().viewerPosX, -KyroClient.mc.getRenderManager().viewerPosY, -KyroClient.mc.getRenderManager().viewerPosZ));
         GL11.glEnable(3553);
         GL11.glEnable(2929);
         GL11.glDepthMask(true);

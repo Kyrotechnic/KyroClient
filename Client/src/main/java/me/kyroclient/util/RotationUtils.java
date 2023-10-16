@@ -11,6 +11,8 @@ import net.minecraft.util.Vec3;
 
 import java.util.Random;
 
+import static me.kyroclient.KyroClient.mc;
+
 public class RotationUtils
 {
     public static float lastLastReportedPitch;
@@ -19,11 +21,24 @@ public class RotationUtils
     }
 
     public static Rotation getClosestRotation(final AxisAlignedBB aabb) {
-        return getRotations(getClosestPointInAABB(KyroClient.mc.thePlayer.getPositionEyes(1.0f), aabb));
+        return getRotations(getClosestPointInAABB(mc.thePlayer.getPositionEyes(1.0f), aabb));
     }
 
     public static Rotation getClosestRotation(final AxisAlignedBB aabb, final float offset) {
         return getClosestRotation(aabb.expand((double)(-offset), (double)(-offset), (double)(-offset)));
+    }
+
+    public static Vec3 getVectorForRotation(final float pitch, final float yaw) {
+        final float f2 = -MathHelper.cos(-pitch * 0.017453292f);
+        return new Vec3(MathHelper.sin(-yaw * 0.017453292f - 3.1415927f) * f2, MathHelper.sin(-pitch * 0.017453292f), MathHelper.cos(-yaw * 0.017453292f - 3.1415927f) * f2);
+    }
+
+    public static Vec3 getLook(final Vec3 vec) {
+        final double diffX = vec.xCoord - mc.thePlayer.posX;
+        final double diffY = vec.yCoord - (mc.thePlayer.posY + mc.thePlayer.getEyeHeight());
+        final double diffZ = vec.zCoord - mc.thePlayer.posZ;
+        final double dist = MathHelper.sqrt_double(diffX * diffX + diffZ * diffZ);
+        return getVectorForRotation((float)(-(MathHelper.atan2(diffY, dist) * 180.0 / 3.141592653589793)), (float)(MathHelper.atan2(diffZ, diffX) * 180.0 / 3.141592653589793 - 90.0));
     }
 
     public static Rotation getRotations(final EntityLivingBase target) {
@@ -43,9 +58,9 @@ public class RotationUtils
     }
 
     public static Rotation getRotations(final double posX, final double posY, final double posZ) {
-        final double x = posX - KyroClient.mc.thePlayer.posX;
-        final double y = posY - (KyroClient.mc.thePlayer.posY + KyroClient.mc.thePlayer.getEyeHeight());
-        final double z = posZ - KyroClient.mc.thePlayer.posZ;
+        final double x = posX - mc.thePlayer.posX;
+        final double y = posY - (mc.thePlayer.posY + mc.thePlayer.getEyeHeight());
+        final double z = posZ - mc.thePlayer.posZ;
         final double dist = MathHelper.sqrt_double(x * x + z * z);
         final float yaw = (float)(Math.atan2(z, x) * 180.0 / 3.141592653589793) - 90.0f;
         final float pitch = (float)(-(Math.atan2(y, dist) * 180.0 / 3.141592653589793));
@@ -57,11 +72,11 @@ public class RotationUtils
     }
 
     public static Rotation getLastReportedRotation() {
-        return new Rotation(((PlayerSPAccessor)KyroClient.mc.thePlayer).getLastReportedYaw(), ((PlayerSPAccessor)KyroClient.mc.thePlayer).getLastReportedPitch());
+        return new Rotation(((PlayerSPAccessor) mc.thePlayer).getLastReportedYaw(), ((PlayerSPAccessor) mc.thePlayer).getLastReportedPitch());
     }
 
     public static Rotation getPlayerRotation() {
-        return new Rotation(KyroClient.mc.thePlayer.rotationYaw, KyroClient.mc.thePlayer.rotationPitch);
+        return new Rotation(mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch);
     }
 
     public static Rotation getLimitedRotation(final Rotation currentRotation, final Rotation targetRotation, final float turnSpeed) {
@@ -75,14 +90,14 @@ public class RotationUtils
     public static Rotation getBowRotation(final Entity entity) {
         final double xDelta = (entity.posX - entity.lastTickPosX) * 0.4;
         final double zDelta = (entity.posZ - entity.lastTickPosZ) * 0.4;
-        double d = KyroClient.mc.thePlayer.getDistanceToEntity(entity);
+        double d = mc.thePlayer.getDistanceToEntity(entity);
         d -= d % 0.8;
         final double xMulti = d / 0.8 * xDelta;
         final double zMulti = d / 0.8 * zDelta;
-        final double x = entity.posX + xMulti - KyroClient.mc.thePlayer.posX;
-        final double z = entity.posZ + zMulti - KyroClient.mc.thePlayer.posZ;
-        final double y = KyroClient.mc.thePlayer.posY + KyroClient.mc.thePlayer.getEyeHeight() - (entity.posY + entity.getEyeHeight());
-        final double dist = KyroClient.mc.thePlayer.getDistanceToEntity(entity);
+        final double x = entity.posX + xMulti - mc.thePlayer.posX;
+        final double z = entity.posZ + zMulti - mc.thePlayer.posZ;
+        final double y = mc.thePlayer.posY + mc.thePlayer.getEyeHeight() - (entity.posY + entity.getEyeHeight());
+        final double dist = mc.thePlayer.getDistanceToEntity(entity);
         final float yaw = (float)Math.toDegrees(Math.atan2(z, x)) - 90.0f;
         final double d2 = MathHelper.sqrt_double(x * x + z * z);
         final float pitch = (float)(-(Math.atan2(y, d2) * 180.0 / 3.141592653589793)) + (float)dist * 0.11f;

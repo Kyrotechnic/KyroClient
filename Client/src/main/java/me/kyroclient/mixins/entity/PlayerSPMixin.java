@@ -7,6 +7,7 @@ package me.kyroclient.mixins.entity;
 import me.kyroclient.KyroClient;
 import me.kyroclient.events.*;
 import me.kyroclient.managers.CommandManager;
+import me.kyroclient.modules.combat.Aura;
 import me.kyroclient.util.MovementUtils;
 import me.kyroclient.util.PlayerUtil;
 import me.kyroclient.util.RotationUtils;
@@ -196,9 +197,9 @@ public abstract class PlayerSPMixin extends AbstractClientPlayerMixin
             this.motionY += (this.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1f;
         }
         if (this.isSprinting() && MovementUtils.isMoving()) {
-            //final float f = ((OringoClient.sprint.isToggled() && OringoClient.sprint.omni.isEnabled()) ? MovementUtils.getYaw() : ((OringoClient.killAura.isToggled() && KillAura.target != null && OringoClient.killAura.movementFix.isEnabled()) ? RotationUtils.getRotations(KillAura.target).getYaw() : this.rotationYaw)) * 0.017453292f;
-            //this.motionX -= MathHelper.sin(f) * 0.2f;
-            //this.motionZ += MathHelper.cos(f) * 0.2f;
+            final float f = ((KyroClient.aura.isToggled() && Aura.target != null && KyroClient.aura.movementFix.isEnabled()) ? RotationUtils.getRotations(Aura.target).getYaw() : this.rotationYaw) * 0.017453292f;
+            this.motionX -= MathHelper.sin(f) * 0.2f;
+            this.motionZ += MathHelper.cos(f) * 0.2f;
         }
         this.isAirBorne = true;
         ForgeHooks.onLivingJump((EntityLivingBase) this.getCommandSenderEntity());

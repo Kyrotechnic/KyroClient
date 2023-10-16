@@ -4,6 +4,8 @@ import me.kyroclient.KyroClient;
 import me.kyroclient.events.KeyboardEvent;
 import me.kyroclient.events.LeftClickEvent;
 import me.kyroclient.events.RightClickEvent;
+import me.kyroclient.modules.combat.Aura;
+import me.kyroclient.modules.player.ServerRotations;
 import me.kyroclient.util.PlayerUtil;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -13,6 +15,7 @@ import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.play.client.C07PacketPlayerDigging;
 import net.minecraft.util.BlockPos;
@@ -24,6 +27,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Minecraft.class)
 public class MixinMinecraft {
@@ -102,6 +106,17 @@ public class MixinMinecraft {
         if (KyroClient.delays.isToggled())
         {
             this.leftClickCounter = (int) KyroClient.delays.hitDelay.getValue();
+        }
+    }
+
+    @Inject(method = { "getRenderViewEntity" }, at = { @At("HEAD") })
+    public void getRenderViewEntity(final CallbackInfoReturnable<Entity> cir) {
+        if (!ServerRotations.getInstance().isToggled() || this.renderViewEntity == null || this.renderViewEntity != KyroClient.mc.thePlayer) {
+            return;
+        }
+        if (!ServerRotations.getInstance().onlyKillAura.isEnabled() || Aura.target != null) {
+            ((EntityLivingBase)this.renderViewEntity).rotationYawHead = ((PlayerSPAccessor)this.renderViewEntity).getLastReportedYaw();
+            ((EntityLivingBase)this.renderViewEntity).renderYawOffset = ((PlayerSPAccessor)this.renderViewEntity).getLastReportedYaw();
         }
     }
 
