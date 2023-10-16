@@ -38,7 +38,7 @@ public class FairySoulESP extends Module {
         final Color color = KyroClient.clickGui.getColor();
         for (EntityArmorStand entity : KyroClient.mc.theWorld.getEntities(EntityArmorStand.class, z -> SkyblockUtils.isFairySoul(z)))
         {
-            BlockPos pos = new BlockPos(entity.posX, entity.posY + 1, entity.posZ);
+            BlockPos pos = new BlockPos(entity.posX, entity.posY + 2, entity.posZ);
             if (box.isEnabled())
                 RenderUtils.blockBox(pos, color);
             if (tracers.isEnabled())

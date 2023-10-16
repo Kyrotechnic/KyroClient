@@ -3,6 +3,7 @@ package me.kyroclient.mixins;
 import me.kyroclient.KyroClient;
 import me.kyroclient.events.KeyboardEvent;
 import me.kyroclient.events.LeftClickEvent;
+import me.kyroclient.events.PostGuiOpenEvent;
 import me.kyroclient.events.RightClickEvent;
 import me.kyroclient.modules.combat.Aura;
 import me.kyroclient.modules.player.ServerRotations;
@@ -93,6 +94,11 @@ public class MixinMinecraft {
                 ex.printStackTrace();
             }
         }
+    }
+
+    @Inject(method = { "displayGuiScreen" }, at = { @At("RETURN") })
+    public void onGuiOpen(final GuiScreen i, final CallbackInfo ci) {
+        MinecraftForge.EVENT_BUS.post(new PostGuiOpenEvent(i));
     }
 
     @Inject(method = "clickMouse", at = @At("HEAD"), cancellable = true)

@@ -33,6 +33,18 @@ public class FairySoulAura extends Module {
 
         for (EntityArmorStand entity : fairySouls)
         {
+            boolean brk = false;
+            for (EntityArmorStand entity2 : clicked)
+            {
+                if (entity == entity2) {
+                    brk = true;
+                    break;
+                }
+
+            }
+
+            if (brk) break;
+
             if (KyroClient.mc.thePlayer.getPositionEyes(1.0f).distanceTo(entity.getPositionEyes(1.0f)) < auraRange.getValue())
             {
                 KyroClient.mc.getNetHandler().addToSendQueue(new C02PacketUseEntity(entity, RotationUtils.getLook(entity.getPositionEyes(1.0f))));

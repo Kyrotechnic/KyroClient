@@ -88,6 +88,10 @@ FIELD	me/kyroclient/mixins/gui/MixinGuiButton	I	yPosition	field_146129_i
 FIELD	me/kyroclient/mixins/gui/MixinGuiButton	I	width	field_146120_f
 FIELD	me/kyroclient/mixins/gui/MixinGuiButton	Z	enabled	field_146124_l
 FIELD	me/kyroclient/mixins/gui/MixinGuiButton	Ljava/lang/String;	displayString	field_146126_j
+FIELD	me/kyroclient/mixins/gui/MixinGuiContainer	Lnet/minecraft/inventory/Container;	inventorySlots	field_147002_h
+FIELD	me/kyroclient/mixins/gui/MixinGuiScreen	Lnet/minecraft/client/Minecraft;	mc	field_146297_k
+FIELD	me/kyroclient/mixins/gui/MixinGuiScreen	I	height	field_146295_m
+FIELD	me/kyroclient/mixins/gui/MixinGuiScreen	I	width	field_146294_l
 FIELD	me/kyroclient/mixins/MixinMinecraft	Lnet/minecraft/client/entity/EntityPlayerSP;	thePlayer	field_71439_g
 FIELD	me/kyroclient/mixins/MixinMinecraft	Lnet/minecraft/client/gui/GuiScreen;	currentScreen	field_71462_r
 FIELD	me/kyroclient/mixins/MixinMinecraft	Lnet/minecraft/client/settings/GameSettings;	gameSettings	field_71474_y
@@ -102,6 +106,8 @@ FIELD	me/kyroclient/mixins/MixinNetHandlerPlayClient	Lnet/minecraft/client/Minec
 FIELD	me/kyroclient/mixins/MixinNetHandlerPlayClient	Lnet/minecraft/client/multiplayer/WorldClient;	clientWorldController	field_147300_g
 FIELD	me/kyroclient/mixins/MixinNetHandlerPlayClient	Z	doneLoadingTerrain	field_147309_h
 FIELD	me/kyroclient/mixins/MixinNetHandlerPlayClient	Lnet/minecraft/network/NetworkManager;	netManager	field_147302_e
+FIELD	me/kyroclient/mixins/render/MixinEntityRenderer	F	thirdPersonDistanceTemp	field_78491_C
+FIELD	me/kyroclient/mixins/render/MixinEntityRenderer	F	thirdPersonDistance	field_78490_B
 FIELD	me/kyroclient/mixins/render/MixinItemRenderer	F	prevEquippedProgress	field_78451_d
 FIELD	me/kyroclient/mixins/render/MixinItemRenderer	F	equippedProgress	field_78454_c
 FIELD	me/kyroclient/mixins/render/MixinItemRenderer	Lnet/minecraft/client/Minecraft;	mc	field_78455_a
@@ -200,6 +206,8 @@ METHOD	me/kyroclient/mixins/gui/MixinGuiButton	()I	getButtonWidth	func_146117_b
 METHOD	me/kyroclient/mixins/gui/MixinGuiButton	(Z)I	getHoverState	func_146114_a
 METHOD	me/kyroclient/mixins/gui/MixinGuiButton	(Lnet/minecraft/client/Minecraft;II)V	mouseDragged	func_146119_b
 METHOD	me/kyroclient/mixins/gui/MixinGuiIngame	()Lnet/minecraft/client/gui/FontRenderer;	getFontRenderer	func_175179_f
+METHOD	me/kyroclient/mixins/gui/MixinGuiScreen	(III)V	mouseReleased	func_146286_b
+METHOD	me/kyroclient/mixins/gui/MixinGuiScreen	(IIF)V	drawScreen	func_73863_a
 METHOD	me/kyroclient/mixins/MixinFontRenderer	(Ljava/lang/String;Z)V	renderStringAtPos	func_78255_a
 METHOD	me/kyroclient/mixins/MixinFontRenderer	(Ljava/lang/String;)I	getStringWidth	func_78256_a
 METHOD	me/kyroclient/mixins/render/MixinItemRenderer	(FF)V	rotateArroundXAndY	func_178101_a

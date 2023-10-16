@@ -29,4 +29,7 @@ public class SkyblockUtils {
         return false;
     }
 
+    public static boolean isTerminal(final String name) {
+        return name.contains("Correct all the panes!") || name.contains("Navigate the maze!") || name.contains("Click in order!") || name.contains("What starts with:") || name.contains("Select all the") || name.contains("Change all to same color!") || name.contains("Click the button on time!");
+    }
 }

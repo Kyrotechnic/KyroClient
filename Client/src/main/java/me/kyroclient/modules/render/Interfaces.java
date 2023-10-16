@@ -38,6 +38,7 @@ public class Interfaces extends Module
     public ModeSetting blurStrength;
     public ModeSetting buttonLine;
     public ModeSetting lineLocation;
+    public BooleanSetting roundedButton = new BooleanSetting("Round Button", true, aBoolean -> !customButtons.isEnabled());
 
     public Interfaces() {
         super("Interfaces", Category.RENDER);
@@ -81,7 +82,7 @@ public class Interfaces extends Module
                 return !Interfaces.this.customButtons.isEnabled() || Interfaces.this.buttonLine.is("None");
             }
         };
-        this.addSettings(this.customChat, this.customChatFont, this.customScoreboard, this.customFont, this.outline, this.hideLobby, this.blurStrength, this.customButtons, this.buttonLine, this.lineLocation);
+        this.addSettings(this.customChat, this.customChatFont, this.customScoreboard, this.customFont, this.outline, this.hideLobby, this.blurStrength, this.customButtons, roundedButton, this.buttonLine, this.lineLocation);
     }
 
     @SubscribeEvent
@@ -154,7 +155,7 @@ public class Interfaces extends Module
             final ScorePlayerTeam scoreplayerteam2 = scoreboard.getPlayersTeam(score2.getPlayerName());
             String s2 = ScorePlayerTeam.formatPlayerName((Team)scoreplayerteam2, score2.getPlayerName());
             if (s2.contains("?ewww.hypixel.ne\ud83c\udf82?et")) {
-                s2 = s2.replaceAll("?ewww.hypixel.ne\ud83c\udf82?et", "Oringo Client");
+                s2 = s2.replaceAll("?   ewww.hypixel.ne\ud83c\udf82?et", "Oringo Client");
             }
             final float k2 = j1 - i3 * fontHeight;
             final Matcher matcher = Pattern.compile("[0-9][0-9]/[0-9][0-9]/[0-9][0-9]").matcher(s2);

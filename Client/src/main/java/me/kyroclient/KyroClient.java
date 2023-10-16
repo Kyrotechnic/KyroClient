@@ -7,12 +7,10 @@ import me.kyroclient.managers.ConfigManager;
 import me.kyroclient.managers.ModuleManager;
 import me.kyroclient.managers.NotificationManager;
 import me.kyroclient.modules.Module;
-import me.kyroclient.modules.combat.AntiBot;
-import me.kyroclient.modules.combat.Aura;
-import me.kyroclient.modules.combat.AutoBlock;
-import me.kyroclient.modules.combat.Hitboxes;
+import me.kyroclient.modules.combat.*;
 import me.kyroclient.modules.garden.CropNuker;
 import me.kyroclient.modules.misc.Delays;
+import me.kyroclient.modules.misc.GuiMove;
 import me.kyroclient.modules.misc.Modless;
 import me.kyroclient.modules.misc.NoSlow;
 import me.kyroclient.modules.player.FastPlace;
@@ -63,6 +61,12 @@ public class KyroClient {
     public static Animations animations;
     public static Aura aura;
     public static AutoBlock autoBlock;
+    public static PopupAnimation popupAnimation;
+    public static GuiMove guiMove;
+    public static Camera camera;
+    public static Reach reach;
+    public static InventoryDisplay inventoryDisplay;
+    public static LoreDisplay loreDisplay;
 
 
     //Methods
