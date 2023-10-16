@@ -23,6 +23,7 @@ import java.util.List;
 
 public class LoreDisplay extends Module {
     public NumberSetting scale = new NumberSetting("Scale", 1, 0.5, 2, 0.1);
+    public NumberSetting opacity = new NumberSetting("Opacity", 150, 0, 255, 1);
     public BooleanSetting customFont = new BooleanSetting("Custom Font", false);
     public LoreDisplay()
     {
@@ -30,6 +31,7 @@ public class LoreDisplay extends Module {
 
         addSettings(
                 scale,
+                opacity,
                 customFont
         );
     }
@@ -72,12 +74,13 @@ public class LoreDisplay extends Module {
             lore.add(str);
         }
 
-        int height = (lore.size()*KyroClient.mc.fontRendererObj.FONT_HEIGHT)+4;
+        int height = (lore.size()*10)+4;
         if (customFont.isEnabled())
             height = (lore.size()*Fonts.getPrimary().getHeight())+4;
 
+        GlStateManager.pushMatrix();
         GlStateManager.scale(scale.getValue(), scale.getValue(), scale.getValue());
-        RenderUtils.drawBorderedRoundedRect(3, 3, (float) longest + 2, height, 5, 2, Color.GRAY.darker().darker().getRGB(), KyroClient.clickGui.getColor().getRGB());
+        RenderUtils.drawGradientRoundedRect(3, 3, (float) longest + 2, height, 5, new Color(103, 103, 103, (int) opacity.getValue()).getRGB(), KyroClient.clickGui.getColor().getRGB());
         int y = 5;
         for (String str : lore)
         {
@@ -89,11 +92,10 @@ public class LoreDisplay extends Module {
             else
             {
                 KyroClient.mc.fontRendererObj.drawString(str, 4, y, Color.white.getRGB());
-                y += 11;
+                y += 10;
             }
 
         }
-
-        GlStateManager.scale(1, 1, 1);
+        GlStateManager.popMatrix();
     }
 }
