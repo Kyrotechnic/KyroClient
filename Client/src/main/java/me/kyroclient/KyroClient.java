@@ -18,6 +18,7 @@ import me.kyroclient.modules.player.NickHider;
 import me.kyroclient.modules.player.Speed;
 import me.kyroclient.modules.player.Velocity;
 import me.kyroclient.modules.render.*;
+import me.kyroclient.notifications.Notification;
 import me.kyroclient.util.font.Fonts;
 import me.kyroclient.util.render.BlurUtils;
 import net.minecraft.client.Minecraft;
@@ -34,7 +35,7 @@ import java.net.URL;
 public class KyroClient {
     //Vars
     public static final String MOD_ID = "dankers";
-    public static String VERSION = "b4";
+    public static String VERSION = "0.1-b93";
     public static ModuleManager moduleManager;
     public static NotificationManager notificationManager;
     public static ConfigManager configManager;
@@ -115,6 +116,8 @@ public class KyroClient {
             if (module.getKeycode() == key)
             {
                 module.toggle();
+                if (!clickGui.disableNotifs.isEnabled())
+                    notificationManager.showNotification(module.getName() + " has been " + (module.isToggled() ? "Enabled" : "Disabled"), 2000, Notification.NotificationType.INFO);
             }
         }
     }

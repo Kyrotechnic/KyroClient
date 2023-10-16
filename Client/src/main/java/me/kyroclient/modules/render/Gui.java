@@ -96,7 +96,7 @@ public class Gui extends Module {
             if (this.arrayList.isEnabled()) {
                 GL11.glPushMatrix();
                 final ScaledResolution resolution = new ScaledResolution(KyroClient.mc);
-                final List<Module> list = KyroClient.moduleManager.getModules().stream().filter(module -> (module.isToggled() || module.toggledTime.getTimePassed() <= 250L)).sorted(Comparator.comparingDouble(module -> Fonts.getPrimary().getStringWidth(module.getName() + module.suffix()))).collect(Collectors.toList());
+                final List<Module> list = KyroClient.moduleManager.getModules().stream().filter(module -> (module.isToggled() || module.toggledTime.getTimePassed() <= 250L)).sorted(Comparator.comparingDouble(module -> Fonts.getPrimary().getStringWidth(module.getName() + " | " + module.suffix()))).collect(Collectors.toList());
                 Collections.reverse(list);
                 float y = 2.0f;
                 int x = list.size();

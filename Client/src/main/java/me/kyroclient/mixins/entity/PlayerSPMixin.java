@@ -356,7 +356,7 @@ public abstract class PlayerSPMixin extends AbstractClientPlayerMixin
     
     @Inject(method = { "onLivingUpdate" }, at = { @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/AbstractClientPlayer;onLivingUpdate()V") }, cancellable = true)
     public void onLivingUpdate(final CallbackInfo ci) {
-        if (KyroClient.noSlow.isToggled()) {
+        if (KyroClient.noSlow.isToggled() && getHeldItem() != null) {
             final EnumAction action = this.getHeldItem().getItem().getItemUseAction(this.getHeldItem());
             if (action == EnumAction.BLOCK) {
                 final MovementInput movementInput = this.movementInput;
