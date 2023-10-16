@@ -99,7 +99,12 @@ public class LoreDisplay extends Module {
         List<String> lore = new ArrayList<>();
 
         lore.add(SkyblockUtils.getDisplayName(item));
-        NBTTagList compound = item.getTagCompound().getCompoundTag("display").getTagList("Lore", 8);
+        NBTTagCompound c = item.getTagCompound().getCompoundTag("display");
+        NBTTagList compound;
+        if (c == null)
+            return;
+        if ((compound = c.getTagList("Lore", 8)) == null)
+            return;
         double longest = KyroClient.mc.fontRendererObj.getStringWidth(lore.get(0));
 
         if (customFont.isEnabled())
