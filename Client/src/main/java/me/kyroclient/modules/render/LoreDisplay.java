@@ -10,6 +10,7 @@ import me.kyroclient.settings.NumberSetting;
 import me.kyroclient.util.SkyblockUtils;
 import me.kyroclient.util.font.Fonts;
 import me.kyroclient.util.render.RenderUtils;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -56,34 +57,43 @@ public class LoreDisplay extends Module {
         lore.add(SkyblockUtils.getDisplayName(item));
         NBTTagList compound = item.getTagCompound().getCompoundTag("display").getTagList("Lore", 8);
 
-        double longest = Fonts.getPrimary().getStringWidth(lore.get(0));
+        double longest = KyroClient.mc.fontRendererObj.getStringWidth(lore.get(0));
+        if (customFont.isEnabled())
+            longest = Fonts.getPrimary().getStringWidth(lore.get(0));
 
         for (int i = 0; i < compound.tagCount(); i++)
         {
             String str = compound.get(i).toString();
-            if (Fonts.getPrimary().getStringWidth(str) > longest)
+            str = str.substring(1, str.length()-1);
+            if (customFont.isEnabled() && Fonts.getPrimary().getStringWidth(str) > longest)
                 longest = Fonts.getPrimary().getStringWidth(str);
-
+            else if (KyroClient.mc.fontRendererObj.getStringWidth(str) > longest)
+                longest = KyroClient.mc.fontRendererObj.getStringWidth(str);
             lore.add(str);
         }
-        int height = (lore.size()*11)+4;
+
+        int height = (lore.size()*KyroClient.mc.fontRendererObj.FONT_HEIGHT)+4;
         if (customFont.isEnabled())
             height = (lore.size()*Fonts.getPrimary().getHeight())+4;
-        RenderUtils.drawBorderedRoundedRect(0, 0, (float) longest + 2, height, 5, 2, Color.GRAY.darker().darker().getRGB(), KyroClient.clickGui.getColor().getRGB());
-        int y = 2;
+
+        GlStateManager.scale(scale.getValue(), scale.getValue(), scale.getValue());
+        RenderUtils.drawBorderedRoundedRect(3, 3, (float) longest + 2, height, 5, 2, Color.GRAY.darker().darker().getRGB(), KyroClient.clickGui.getColor().getRGB());
+        int y = 5;
         for (String str : lore)
         {
             if (customFont.isEnabled())
             {
-                Fonts.getPrimary().drawStringWithShadow(str, 1, y, Color.white.getRGB());
+                Fonts.getPrimary().drawStringWithShadow(str, 4, y, Color.white.getRGB());
                 y += Fonts.getPrimary().getHeight();
             }
             else
             {
-                KyroClient.mc.fontRendererObj.drawString(str, 1, y, Color.white.getRGB());
+                KyroClient.mc.fontRendererObj.drawString(str, 4, y, Color.white.getRGB());
                 y += 11;
             }
 
         }
+
+        GlStateManager.scale(1, 1, 1);
     }
 }
