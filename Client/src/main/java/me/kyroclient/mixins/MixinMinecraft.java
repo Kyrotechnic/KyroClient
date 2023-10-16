@@ -101,6 +101,8 @@ public class MixinMinecraft {
         MinecraftForge.EVENT_BUS.post(new PostGuiOpenEvent(i));
     }
 
+
+
     @Inject(method = "clickMouse", at = @At("HEAD"), cancellable = true)
     public void clickMouse(CallbackInfo ci)
     {
@@ -133,9 +135,13 @@ public class MixinMinecraft {
         {
             ci.cancel();
         }
+    }
 
-        if (KyroClient.fastPlace.isToggled())
-            rightClickDelayTimer = (int) KyroClient.fastPlace.placeDelay.getValue();
+    @Inject(method = { "rightClickMouse" }, at = { @At("RETURN") }, cancellable = true)
+    public void onRightClickPost(final CallbackInfo callbackInfo) {
+        if (KyroClient.fastPlace.isToggled()) {
+            this.rightClickDelayTimer = (int)KyroClient.fastPlace.placeDelay.getValue();
+        }
     }
 
     private boolean blockNuker()

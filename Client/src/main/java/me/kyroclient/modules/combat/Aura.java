@@ -231,6 +231,11 @@ public class Aura extends Module {
 
     @SubscribeEvent(priority = EventPriority.NORMAL)
     public void onMovePre(final MotionUpdateEvent.Pre event) {
+        if (!isToggled())
+        {
+            target = null;
+            return;
+        }
         Aura.target = this.getTarget();
         if (this.attackOnly.isEnabled() && !KyroClient.mc.gameSettings.keyBindAttack.isKeyDown()) {
             return;
