@@ -24,7 +24,7 @@ public class GuiMove extends Module
     private BooleanSetting drag;
     private BooleanSetting hideTerminalGui;
     private NumberSetting sensivity;
-    public static final KeyBinding[] binds;
+    public static KeyBinding[] binds;
 
     public GuiMove() {
         super("InvMove", Category.MISC);
@@ -60,8 +60,14 @@ public class GuiMove extends Module
         }
     }
 
+    private void updateBinds()
+    {
+        binds = new KeyBinding[] { KyroClient.mc.gameSettings.keyBindSneak, KyroClient.mc.gameSettings.keyBindJump, KyroClient.mc.gameSettings.keyBindSprint, KyroClient.mc.gameSettings.keyBindForward, KyroClient.mc.gameSettings.keyBindBack, KyroClient.mc.gameSettings.keyBindLeft, KyroClient.mc.gameSettings.keyBindRight };
+    }
+
     @SubscribeEvent
     public void onGui(final PostGuiOpenEvent event) {
+        if (binds == null) updateBinds();
         if (!(event.gui instanceof GuiChat) && this.isToggled()) {
             for (final KeyBinding bind : GuiMove.binds) {
                 KeyBinding.setKeyBindState(bind.getKeyCode(), GameSettings.isKeyDown(bind));
@@ -72,6 +78,7 @@ public class GuiMove extends Module
     @SubscribeEvent
     public void onRender(final RenderWorldLastEvent event) {
         if (KyroClient.mc.currentScreen != null && !(KyroClient.mc.currentScreen instanceof GuiChat) && this.isToggled()) {
+            if (binds == null) updateBinds();
             for (final KeyBinding bind : GuiMove.binds) {
                 KeyBinding.setKeyBindState(bind.getKeyCode(), GameSettings.isKeyDown(bind));
             }
@@ -98,9 +105,5 @@ public class GuiMove extends Module
 
     public boolean shouldHideGui(final ContainerChest chest) {
         return SkyblockUtils.isTerminal(chest.getLowerChestInventory().getName()) && this.isToggled() && this.hideTerminalGui.isEnabled();
-    }
-
-    static {
-        binds = new KeyBinding[] { KyroClient.mc.gameSettings.keyBindSneak, KyroClient.mc.gameSettings.keyBindJump, KyroClient.mc.gameSettings.keyBindSprint, KyroClient.mc.gameSettings.keyBindForward, KyroClient.mc.gameSettings.keyBindBack, KyroClient.mc.gameSettings.keyBindLeft, KyroClient.mc.gameSettings.keyBindRight };
     }
 }
