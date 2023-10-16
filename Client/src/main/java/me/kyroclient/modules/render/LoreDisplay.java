@@ -64,55 +64,28 @@ public class LoreDisplay extends Module {
         }
     }
 
+    @SubscribeEvent
+    public void onChatEvent(final GuiChatEvent event) {
+        if (!this.isToggled()) {
+            return;
+        }
+        final DraggableComponent component = InventoryHUD.inventoryHUD;
+        if (event instanceof GuiChatEvent.MouseClicked) {
+            if (component.isHovered(event.mouseX, event.mouseY)) {
+                component.startDragging();
+            }
+        }
+        else if (event instanceof GuiChatEvent.MouseReleased) {
+            component.stopDragging();
+        }
+        else if (event instanceof GuiChatEvent.Closed) {
+            component.stopDragging();
+        }
+        else if (event instanceof GuiChatEvent.DrawChatEvent) {}
+    }
+
     public void render(double x, double y)
     {
-        /*ItemStack item = KyroClient.mc.thePlayer.getHeldItem();
-        if (item == null) return;
-
-        List<String> lore = new ArrayList<>();
-
-        lore.add(SkyblockUtils.getDisplayName(item));
-        NBTTagList compound = item.getTagCompound().getCompoundTag("display").getTagList("Lore", 8);
-
-        double longest = KyroClient.mc.fontRendererObj.getStringWidth(lore.get(0));
-        if (customFont.isEnabled())
-            longest = Fonts.getPrimary().getStringWidth(lore.get(0));
-
-        for (int i = 0; i < compound.tagCount(); i++)
-        {
-            String str = compound.get(i).toString();
-            str = str.substring(1, str.length()-1);
-            if (customFont.isEnabled() && Fonts.getPrimary().getStringWidth(str) > longest)
-                longest = Fonts.getPrimary().getStringWidth(str);
-            else if (KyroClient.mc.fontRendererObj.getStringWidth(str) > longest)
-                longest = KyroClient.mc.fontRendererObj.getStringWidth(str);
-            lore.add(str);
-        }
-
-        int height = (lore.size()*10)+4;
-        if (customFont.isEnabled())
-            height = (lore.size()*Fonts.getPrimary().getHeight())+4;
-
-        GlStateManager.pushMatrix();
-        GlStateManager.scale(scale.getValue(), scale.getValue(), scale.getValue());
-        RenderUtils.drawBorderedRoundedRect(3, 3, (float) longest + 4, height + 2, 5, 2, new Color(103, 103, 103, (int) opacity.getValue()).getRGB(), KyroClient.clickGui.getColor().getRGB());
-        int yy = 5;
-        for (String str : lore)
-        {
-            if (customFont.isEnabled())
-            {
-                Fonts.getPrimary().drawStringWithShadow(str, 4, yy, Color.white.getRGB());
-                yy += Fonts.getPrimary().getHeight();
-            }
-            else
-            {
-                KyroClient.mc.fontRendererObj.drawString(str, 4, yy, Color.white.getRGB());
-                yy += 10;
-            }
-
-        }
-        GlStateManager.popMatrix();*/
-
         ItemStack item = KyroClient.mc.thePlayer.getHeldItem();
         if (item == null)
         {
@@ -152,8 +125,8 @@ public class LoreDisplay extends Module {
 
         itemLoreDisplay.setSize(longest, height);
 
-        RenderUtils.drawBorderedRoundedRect((float) itemLoreDisplay.getX(), (float) itemLoreDisplay.getY(), (float) longest + 3, height + 1, 5, 2, new Color(103, 103, 103, (int) opacity.getValue()).getRGB(), KyroClient.clickGui.getColor().getRGB());
-        int yy = 5;
+        RenderUtils.drawBorderedRoundedRect((float) itemLoreDisplay.getX(), (float) itemLoreDisplay.getY(), (float) longest + 5, height + 1, 5, 2, new Color(103, 103, 103, (int) opacity.getValue()).getRGB(), KyroClient.clickGui.getColor().getRGB());
+        int yy = 2;
         for (String str : lore)
         {
             if (customFont.isEnabled())
