@@ -99,6 +99,7 @@ public class LoreDisplay extends Module {
         List<String> lore = new ArrayList<>();
 
         lore.add(SkyblockUtils.getDisplayName(item));
+        if (item.getTagCompound() == null) return;
         if (!item.getTagCompound().hasKey("display")) return;
         NBTTagCompound c = item.getTagCompound().getCompoundTag("display");
         if (!c.hasKey("Lore"))
