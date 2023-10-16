@@ -69,7 +69,7 @@ public class LoreDisplay extends Module {
         if (!this.isToggled()) {
             return;
         }
-        final DraggableComponent component = InventoryHUD.inventoryHUD;
+        final DraggableComponent component = itemLoreDisplay;
         if (event instanceof GuiChatEvent.MouseClicked) {
             if (component.isHovered(event.mouseX, event.mouseY)) {
                 component.startDragging();
