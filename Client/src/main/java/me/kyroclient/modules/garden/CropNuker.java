@@ -24,6 +24,7 @@ public class CropNuker extends Module {
             nukerMode,
             extra1,
             extra2,
+            extra3,
             swing,
             packet
         );
