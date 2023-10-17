@@ -26,9 +26,10 @@ public class YawSetter extends Module {
     {
         if (!isToggled() || rotation == null) return;
 
-        event.setRotation(RotationUtils.getSmoothRotation(RotationUtils.getLastReportedRotation(), rotation, 12));
+        Rotation tempRotation = RotationUtils.getSmoothRotation(RotationUtils.getLastReportedRotation(), rotation, 12);
+        KyroClient.mc.thePlayer.rotationYaw = tempRotation.getYaw();
 
-        if (RotationUtils.getLastReportedRotation() == rotation)
+        if (KyroClient.mc.thePlayer.rotationYaw == yaw.getValue())
             setToggled(false);
     }
 
