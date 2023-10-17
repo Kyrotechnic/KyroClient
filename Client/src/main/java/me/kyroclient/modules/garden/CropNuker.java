@@ -9,10 +9,11 @@ import me.kyroclient.settings.NumberSetting;
 import java.util.Random;
 
 public class CropNuker extends Module {
-    public static String[] MODES = new String[]{"None", "1 Extra", "2 Extra"};
+    public static String[] MODES = new String[]{"None", "1 Extra", "2 Extra", "3 Extra"};
     public ModeSetting nukerMode = new ModeSetting("Mode", "1 Extra", MODES);
-    public NumberSetting extra1 = new NumberSetting("Chance 1", 50, 1, 100, 0.5);
-    public NumberSetting extra2 = new NumberSetting("Chance 2", 20, 1, 100, 0.5);
+    public NumberSetting extra1 = new NumberSetting("Chance 1", 50, 1, 100, 1, aBoolean -> nukerMode.is("None"));
+    public NumberSetting extra2 = new NumberSetting("Chance 2", 40, 1, 100, 1, aBoolean -> !(nukerMode.is("3 Extra") || nukerMode.is("2 Extra")));
+    public NumberSetting extra3 = new NumberSetting("Chance 3", 30, 1, 100, 1, aBoolean -> !(nukerMode.is("3 Extra")));
     public BooleanSetting swing = new BooleanSetting("Swing On Nuke", true);
     public BooleanSetting packet = new BooleanSetting("Packet Mine", false);
     public CropNuker()
@@ -44,6 +45,8 @@ public class CropNuker extends Module {
                 return 20 + (0.2 * this.extra1.getValue());
             case "2 Extra":
                 return 20 + (0.2 * (this.extra1.getValue() + (this.extra2.getValue()*(extra1.getValue()/100))));
+            case "3 Extra":
+                return 20 + (0.2 * (this.extra1.getValue() + (this.extra2.getValue()*(extra1.getValue()/100)) + (this.extra3.getValue()*((extra1.getValue()+extra2.getValue())/200))));
             case "None":
             default:
                 return 20;
@@ -66,6 +69,13 @@ public class CropNuker extends Module {
         {
             int rand = random.nextInt(100);
             if (rand < extra2.getValue())
+                num++;
+        }
+
+        if (nukerMode.getIndex() > 2 && num == 2)
+        {
+            int rand = random.nextInt(100);
+            if (rand < extra3.getValue())
                 num++;
         }
 
