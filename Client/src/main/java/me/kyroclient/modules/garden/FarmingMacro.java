@@ -39,13 +39,14 @@ public class FarmingMacro extends Module {
     @SubscribeEvent
     public void packet(PacketReceivedEvent e)
     {
+        if (!isToggled()) return;
         if ((rotationSafe.isEnabled()) && e.packet instanceof S08PacketPlayerPosLook)
         {
-            if (KyroClient.mc.thePlayer.posY < 30)
+            if (KyroClient.mc.thePlayer.posY < 20)
             {
                 sendMessage("Congrats, you farmed the entire farm!");
             }
-            else
+            else if (failsafeCounter <= 0)
             {
                 sendMessage("STAFF TELEPORT OR ROTATION! STOPPING");
                 setToggled(false);
@@ -178,8 +179,11 @@ public class FarmingMacro extends Module {
     @SubscribeEvent
     public void onWorldChange(WorldEvent.Load e)
     {
-        if (disableOnWorld.isEnabled())
+        if (disableOnWorld.isEnabled() && isToggled())
+        {
             setToggled(false);
+            sendMessage("CHANGE WORLD STAFF");
+        }
     }
 
     public void updateBinds(boolean forward, boolean back, boolean left, boolean right, boolean attack)
