@@ -39,6 +39,7 @@ public class FarmingMacro extends Module {
 
         tickCounter = 0;
         secondTick = 0;
+        state = FarmState.FARMING;
     }
 
     @SubscribeEvent
@@ -48,8 +49,11 @@ public class FarmingMacro extends Module {
 
         if (KyroClient.mc.currentScreen != null)
         {
-            toggle();
-            return;
+            if (KyroClient.mc.currentScreen != KyroClient.clickGui.clickGUI)
+            {
+                toggle();
+                return;
+            }
         }
         if (secondTick > 0)
         {
