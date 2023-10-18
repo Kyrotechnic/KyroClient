@@ -117,7 +117,7 @@ public class FarmingMacro extends Module {
                 {
                     farmState = FarmState.GOINGLEFT;
                     updateState(farmState);
-                    tickCounter = 30;
+                    tickCounter = 20;
                 }
                 break;
             case GOINGLEFT:
@@ -136,8 +136,14 @@ public class FarmingMacro extends Module {
                 break;
         }
 
-        if (tickCounter > 0 && tickCounter < 15 && farmState == FarmState.GOINGRIGHT)
+
+        if (tickCounter >= 15 && farmState == FarmState.GOINGRIGHT)
         {
+            KeyBinding.setKeyBindState(KyroClient.mc.gameSettings.keyBindBack.getKeyCode(), true);
+        }
+        else if (tickCounter > 0 && tickCounter < 15 && farmState == FarmState.GOINGRIGHT)
+        {
+            KeyBinding.setKeyBindState(KyroClient.mc.gameSettings.keyBindBack.getKeyCode(), false);
             KeyBinding.setKeyBindState(KyroClient.mc.gameSettings.keyBindForward.getKeyCode(), true);
         }
         else if (tickCounter == 0 && farmState == FarmState.GOINGRIGHT)
@@ -145,7 +151,7 @@ public class FarmingMacro extends Module {
             KeyBinding.setKeyBindState(KyroClient.mc.gameSettings.keyBindForward.getKeyCode(), false);
         }
 
-        if (tickCounter > 0 && tickCounter < 15 && farmState == FarmState.GOINGLEFT)
+        if (tickCounter > 0 && farmState == FarmState.GOINGLEFT)
         {
             KeyBinding.setKeyBindState(KyroClient.mc.gameSettings.keyBindForward.getKeyCode(), true);
         }
