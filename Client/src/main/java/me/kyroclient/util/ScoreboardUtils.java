@@ -13,6 +13,8 @@ import java.util.stream.Collectors;
 public class ScoreboardUtils {
     public static boolean contains(String str)
     {
+        if (KyroClient.mc.theWorld == null) return false;
+
         Scoreboard scoreboard = KyroClient.mc.theWorld.getScoreboard();
         ScoreObjective objective = scoreboard.getObjectiveInDisplaySlot(1);
         List<Score> scores = scoreboard.getSortedScores(objective).stream().collect(Collectors.toList());
