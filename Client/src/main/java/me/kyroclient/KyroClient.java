@@ -9,6 +9,7 @@ import me.kyroclient.managers.NotificationManager;
 import me.kyroclient.modules.Module;
 import me.kyroclient.modules.combat.*;
 import me.kyroclient.modules.garden.CropNuker;
+import me.kyroclient.modules.garden.FarmingMacro;
 import me.kyroclient.modules.misc.Delays;
 import me.kyroclient.modules.misc.GuiMove;
 import me.kyroclient.modules.misc.Modless;
@@ -68,6 +69,7 @@ public class KyroClient {
     public static Reach reach;
     public static InventoryDisplay inventoryDisplay;
     public static LoreDisplay loreDisplay;
+    public static FarmingMacro macro;
 
 
     //Methods

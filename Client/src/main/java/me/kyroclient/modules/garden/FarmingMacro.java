@@ -163,6 +163,12 @@ public class FarmingMacro extends Module {
         tickCounter--;
     }
 
+    @Override
+    public void assign()
+    {
+        KyroClient.macro = this;
+    }
+
     public void updateState(FarmState state)
     {
         switch (farmState)
