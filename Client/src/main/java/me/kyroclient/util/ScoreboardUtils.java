@@ -11,18 +11,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ScoreboardUtils {
-    public static boolean contains(ScoreObjective objective, String str)
+    public static boolean contains(String str)
     {
-        Scoreboard board = objective.getScoreboard();
-        Collection<Score> score1 = board.getScores();
-        List<Score> scores = score1.stream().filter(e -> e != null && e.getPlayerName() != null && !e.getPlayerName().startsWith("#")).collect(Collectors.toList());
+        Scoreboard scoreboard = KyroClient.mc.theWorld.getScoreboard();
+        ScoreObjective objective = scoreboard.getObjectiveInDisplaySlot(1);
+        List<Score> scores = scoreboard.getSortedScores(objective).stream().collect(Collectors.toList());
 
-        for (Score score : scores)
+        List<Score> filteredScores = scores.stream().filter(i -> i != null && i.getPlayerName() != null && !i.getPlayerName().startsWith("#")).collect(Collectors.toList());
+        for (Score score : filteredScores)
         {
-            ScorePlayerTeam team = board.getPlayersTeam(score.getPlayerName());
-            String s2 = ScorePlayerTeam.formatPlayerName(team, score.getPlayerName());
-
-            if (s2.contains(str))
+            String formatted = ScorePlayerTeam.formatPlayerName(scoreboard.getPlayersTeam(score.getPlayerName()), score.getPlayerName());
+            if (formatted == str)
                 return true;
         }
 
