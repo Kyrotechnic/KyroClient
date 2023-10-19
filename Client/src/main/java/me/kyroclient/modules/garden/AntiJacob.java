@@ -1,6 +1,7 @@
 package me.kyroclient.modules.garden;
 
 
+import at.hannibal2.skyhanni.events.FarmingContestEvent;
 import me.kyroclient.KyroClient;
 import me.kyroclient.events.ScoreboardRenderEvent;
 import me.kyroclient.modules.Module;
@@ -28,23 +29,25 @@ public class AntiJacob extends Module {
     }
 
     @SubscribeEvent
-    public void scoreboard(TickEvent.ClientTickEvent e)
+    public void onSkyHanni(FarmingContestEvent event)
     {
         if (!isToggled()) return;
 
-        if (ScoreboardUtils.contains("§eJacob's Contest") && (KyroClient.macro.isToggled() || KyroClient.cropNuker.isToggled()))
+        switch (event.getPhase())
         {
-            KyroClient.macro.setToggled(false);
-            KyroClient.cropNuker.setToggled(false);
-
-            disabled = true;
+            case START:
+                disabled = true;
+                update(false);
+            case STOP:
+                if (!disabled) return;
+                update(true);
+                disabled = false;
         }
-        else if (disabled && !ScoreboardUtils.contains("§eJacob's Contest"))
-        {
-            disabled = false;
+    }
 
-            KyroClient.macro.setToggled(true);
-            KyroClient.cropNuker.setToggled(true);
-        }
+    public void update(boolean state)
+    {
+        KyroClient.cropNuker.setToggled(state);
+        KyroClient.macro.setToggled(state);
     }
 }

@@ -77,6 +77,7 @@ dependencies {
     api(libs.bundles.asm)
 
     compileOnly(libs.lombok)
+    compileOnly(files("lib/SkyHanni.jar"))
     annotationProcessor(libs.lombok)
 
     compileOnly(libs.mixin)
