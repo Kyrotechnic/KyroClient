@@ -37,7 +37,8 @@ public class FarmingMacro extends Module {
                 defaultDirection,
                 disableOnWorld,
                 rotationSafe,
-                stopOnGui
+                stopOnGui,
+                fixDesync
         );
     }
 
@@ -132,6 +133,7 @@ public class FarmingMacro extends Module {
             fixingDesync = false;
             KeyBinding.setKeyBindState(KyroClient.mc.gameSettings.keyBindAttack.getKeyCode(), true);
             updateState(farmState);
+            lastBreakTicks = 0;
         }
 
 
