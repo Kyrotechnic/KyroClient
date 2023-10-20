@@ -1,53 +1,47 @@
 package me.kyroclient.modules.garden;
 
-
-import at.hannibal2.skyhanni.events.FarmingContestEvent;
 import me.kyroclient.KyroClient;
-import me.kyroclient.events.ScoreboardRenderEvent;
 import me.kyroclient.modules.Module;
-import me.kyroclient.util.ScoreboardUtils;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
+import me.kyroclient.settings.BooleanSetting;
 
 public class AntiJacob extends Module {
+    public BooleanSetting disableNuker = new BooleanSetting("Disable Nuker", true);
+    public BooleanSetting disableMacro = new BooleanSetting("Disable Macro", true);
+    public BooleanSetting autoReenable = new BooleanSetting("Auto Re-enable", true);
+    public static AntiJacob instance;
     public AntiJacob()
     {
-        super("Anti Jacob", Category.GARDEN);
+        super("Anti Jacob", Module.Category.GARDEN);
+
+        instance = this;
+
+        addSettings(
+                disableNuker,
+                disableMacro,
+                autoReenable
+        );
     }
 
-    public boolean disabled = false;
-    @Override
-    public void onEnable()
-    {
-        disabled = false;
-    }
-
-    @Override
-    public void onDisable()
-    {
-        disabled = false;
-    }
-
-    @SubscribeEvent
-    public void onSkyHanni(FarmingContestEvent event)
+    public void disable()
     {
         if (!isToggled()) return;
 
-        switch (event.getPhase())
-        {
-            case START:
-                disabled = true;
-                update(false);
-            case STOP:
-                if (!disabled) return;
-                update(true);
-                disabled = false;
-        }
+        if (disableMacro.isEnabled())
+            KyroClient.macro.setToggled(false);
+
+        if (disableNuker.isEnabled())
+            KyroClient.cropNuker.setToggled(false);
     }
 
-    public void update(boolean state)
+    public void reenable()
     {
-        KyroClient.cropNuker.setToggled(state);
-        KyroClient.macro.setToggled(state);
+        if (!isToggled()) return;
+        if (!autoReenable.isEnabled()) return;
+
+        if (disableMacro.isEnabled())
+            KyroClient.macro.setToggled(true);
+
+        if (disableNuker.isEnabled())
+            KyroClient.cropNuker.setToggled(true);
     }
 }
