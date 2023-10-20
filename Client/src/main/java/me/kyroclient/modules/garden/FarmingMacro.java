@@ -119,11 +119,11 @@ public class FarmingMacro extends Module {
         IBlockState shiftedLeft = KyroClient.mc.theWorld.getBlockState(shiftLeft);
         IBlockState shiftedRight = KyroClient.mc.theWorld.getBlockState(shiftRight);
 
-        if (lastBreakTicks > 120)
+        if (lastBreakTicks > 120 && !fixingDesync)
         {
             sendMessage("Detecting desync, fixing.");
             fixingDesync = true;
-            KeyBinding.setKeyBindState(KyroClient.mc.gameSettings.keyBindAttack.getKeyCode(), false);
+            updateBinds(false, false, false, false, false);
             desyncCounter = 200;
         }
 
@@ -131,6 +131,7 @@ public class FarmingMacro extends Module {
         {
             fixingDesync = false;
             KeyBinding.setKeyBindState(KyroClient.mc.gameSettings.keyBindAttack.getKeyCode(), true);
+            updateState(farmState);
         }
 
 
@@ -243,6 +244,8 @@ public class FarmingMacro extends Module {
         KeyBinding.setKeyBindState(KyroClient.mc.gameSettings.keyBindRight.getKeyCode(), right);
         if (!fixingDesync)
             KeyBinding.setKeyBindState(KyroClient.mc.gameSettings.keyBindAttack.getKeyCode(), attack);
+        else if (fixingDesync && !attack)
+            KeyBinding.setKeyBindState(KyroClient.mc.gameSettings.keyBindAttack.getKeyCode(), false);
     }
 
     @Override
