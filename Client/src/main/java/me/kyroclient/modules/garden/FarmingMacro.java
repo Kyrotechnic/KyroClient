@@ -10,6 +10,7 @@ import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.init.Blocks;
+import net.minecraft.network.play.server.S02PacketChat;
 import net.minecraft.network.play.server.S08PacketPlayerPosLook;
 import net.minecraft.util.BlockPos;
 import net.minecraftforge.event.world.WorldEvent;
@@ -21,9 +22,13 @@ public class FarmingMacro extends Module {
     public BooleanSetting disableOnWorld = new BooleanSetting("Disable on Join", true);
     public BooleanSetting rotationSafe = new BooleanSetting("Rotation safe", true);
     public BooleanSetting stopOnGui = new BooleanSetting("Stop on GUI", true);
+    public BooleanSetting fixDesync = new BooleanSetting("Fix Desync", true);
     public FarmState farmState;
     public int tickCounter;
     public int failsafeCounter;
+    public int desyncCounter;
+    public int lastBreakTicks;
+    public boolean fixingDesync = false;
     public FarmingMacro()
     {
         super("Farming Macro", Category.GARDEN);
@@ -55,6 +60,18 @@ public class FarmingMacro extends Module {
 
             failsafeCounter = 100;
         }
+
+        if ((fixDesync.isEnabled()) && e.packet instanceof S02PacketChat)
+        {
+            S02PacketChat packet = (S02PacketChat) e.packet;
+            if (packet.getType() != 2) return;
+
+            if (packet.getChatComponent().getUnformattedText().toLowerCase().contains("farming"))
+            {
+                lastBreakTicks = 0;
+                fixingDesync = false;
+            }
+        }
     }
 
     @Override
@@ -67,6 +84,8 @@ public class FarmingMacro extends Module {
 
         tickCounter = 0;
         failsafeCounter = 0;
+        desyncCounter = 0;
+        fixingDesync = false;
 
         updateState(farmState);
     }
@@ -100,7 +119,20 @@ public class FarmingMacro extends Module {
         IBlockState shiftedLeft = KyroClient.mc.theWorld.getBlockState(shiftLeft);
         IBlockState shiftedRight = KyroClient.mc.theWorld.getBlockState(shiftRight);
 
-        boolean updateState = false;
+        if (lastBreakTicks > 120)
+        {
+            sendMessage("Detecting desync, fixing.");
+            fixingDesync = true;
+            KeyBinding.setKeyBindState(KyroClient.mc.gameSettings.keyBindAttack.getKeyCode(), false);
+            desyncCounter = 200;
+        }
+
+        if (desyncCounter == 0)
+        {
+            fixingDesync = false;
+            KeyBinding.setKeyBindState(KyroClient.mc.gameSettings.keyBindAttack.getKeyCode(), true);
+        }
+
 
         switch (farmState)
         {
@@ -136,7 +168,6 @@ public class FarmingMacro extends Module {
                 break;
         }
 
-
         if (tickCounter >= 15 && farmState == FarmState.GOINGRIGHT)
         {
             KeyBinding.setKeyBindState(KyroClient.mc.gameSettings.keyBindBack.getKeyCode(), true);
@@ -161,12 +192,18 @@ public class FarmingMacro extends Module {
         }
 
         tickCounter--;
+        desyncCounter--;
+        lastBreakTicks++;
     }
 
     @Override
     public void assign()
     {
         KyroClient.macro = this;
+    }
+    public void breakBlock()
+    {
+        lastBreakTicks = 0;
     }
 
     public void updateState(FarmState state)
@@ -204,7 +241,8 @@ public class FarmingMacro extends Module {
         KeyBinding.setKeyBindState(KyroClient.mc.gameSettings.keyBindBack.getKeyCode(), back);
         KeyBinding.setKeyBindState(KyroClient.mc.gameSettings.keyBindLeft.getKeyCode(), left);
         KeyBinding.setKeyBindState(KyroClient.mc.gameSettings.keyBindRight.getKeyCode(), right);
-        KeyBinding.setKeyBindState(KyroClient.mc.gameSettings.keyBindAttack.getKeyCode(), attack);
+        if (!fixingDesync)
+            KeyBinding.setKeyBindState(KyroClient.mc.gameSettings.keyBindAttack.getKeyCode(), attack);
     }
 
     @Override
@@ -220,6 +258,7 @@ public class FarmingMacro extends Module {
         GOINGLEFT,
         GOINGRIGHT,
         GOINGBACK,
-        GOINGFORWARD;
+        GOINGFORWARD,
+        DESYNC;
     }
 }
