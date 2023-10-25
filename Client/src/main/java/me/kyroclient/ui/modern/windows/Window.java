@@ -2,6 +2,8 @@ package me.kyroclient.ui.modern.windows;
 
 public abstract class Window {
     private final String name;
+    public static final int LEFT_CLICK = 0;
+    public static final int RIGHT_CLICK = 1;
 
     public Window(String name) {
         this.name = name;

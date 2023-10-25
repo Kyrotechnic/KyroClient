@@ -54,7 +54,6 @@ public class Gui extends Module {
     public Gui() {
         super("Gui", 54, Module.Category.RENDER);
         this.clickGUI = new ClickGUI();
-        modernClickGui = new ModernClickGui();
         this.colorMode = new ModeSetting("Mode", "Color shift", new String[] { "Rainbow", "Color shift", "Astolfo", "Pulse", "Custom" });
         this.redCustom = new NumberSetting("Red", 0.0, 0.0, 255.0, 1.0, aBoolean -> !this.colorMode.is("Custom") && !this.colorMode.is("Pulse"));
         this.greenCustom = new NumberSetting("Green", 80.0, 0.0, 255.0, 1.0, aBoolean -> !this.colorMode.is("Custom") && !this.colorMode.is("Pulse"));
@@ -183,6 +182,8 @@ public class Gui extends Module {
     @Override
     public void onEnable()
     {
+        if (modernClickGui == null)
+            modernClickGui = new ModernClickGui();
         KyroClient.mc.displayGuiScreen(modernClickGui);
     }
 

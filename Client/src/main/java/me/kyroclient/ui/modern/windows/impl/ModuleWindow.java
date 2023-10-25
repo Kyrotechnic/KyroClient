@@ -5,6 +5,7 @@ import me.kyroclient.ui.modern.ModernClickGui;
 import me.kyroclient.ui.modern.windows.Window;
 import me.kyroclient.util.AnimationUtils;
 import me.kyroclient.util.MouseUtils;
+import me.kyroclient.util.StencilUtils;
 import me.kyroclient.util.font.Fonts;
 import me.kyroclient.util.render.RenderUtils;
 
@@ -44,7 +45,7 @@ public class ModuleWindow extends Window {
         {
             for (Module module : modulesInCategory)
             {
-                RenderUtils.drawBorderedRoundedRect((float) (ModernClickGui.getX() + 95), (float) (ModernClickGui.getY() + offset + scrollAnimation.getValue()), ModernClickGui.getWidth() - 100, 20, 3, 1, module.isToggled() ? ModernClickGui.themeManager.getPrimaryColor().getRGB() : ModernClickGui.themeManager.getSecondaryColor().getRGB(), ModernClickGui.themeManager.getSecondaryColor().getRGB());
+                RenderUtils.drawBorderedRoundedRect((float) (ModernClickGui.getX() + 95), (float) (ModernClickGui.getY() + offset + scrollAnimation.getValue()), ModernClickGui.getWidth() - 100, 20, 3, 1, module.isToggled() ? ModernClickGui.themeManager.getSecondaryColor().getRGB() : ModernClickGui.themeManager.getPrimaryColor().getRGB(), ModernClickGui.themeManager.getSecondaryColor().getRGB());
                 Fonts.getPrimary().drawString(module.getName(), ModernClickGui.getX() + 105, ModernClickGui.getY() + offset + scrollAnimation.getValue() + 8, Color.WHITE.getRGB());
                 offset += 25;
             }
@@ -74,6 +75,8 @@ public class ModuleWindow extends Window {
                     break;
             }
         }
+
+        StencilUtils.disableStencilBuffer();
 
         scrollAnimation.setAnimation(scrollY, 16);
     }

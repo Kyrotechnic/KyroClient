@@ -3,11 +3,11 @@ package me.kyroclient.themes;
 import java.awt.*;
 
 public enum Themes {
-    VAPE("Vape", new Color(4049313), new Color(0xFF35B791, true)),
     DEVIL("Devil", new Color(210, 39, 48), new Color(79, 13, 26)),
     PURPLE("Purple", new Color(0xFF7F00FF), new Color(0xFFE100FF)),
     BLACK("Black", new Color(0x0), new Color(0x0)),
-    MINT("Mint", new Color(5, 135, 65), new Color(158, 227, 191));
+    MINT("Mint", new Color(5, 135, 65), new Color(158, 227, 191)),
+    VAPE("Vape", new Color(50, 50, 50), new Color(120, 55, 150));
     String name;
     Color mainColor;
     Color accentColor;

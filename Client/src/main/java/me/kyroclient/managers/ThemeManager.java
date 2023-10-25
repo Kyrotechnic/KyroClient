@@ -8,7 +8,7 @@ public class ThemeManager {
     public Themes activeTheme = Themes.VAPE;
     public ThemeManager()
     {
-
+        activeTheme = Themes.VAPE;
     }
 
     public void setTheme(Themes theme)

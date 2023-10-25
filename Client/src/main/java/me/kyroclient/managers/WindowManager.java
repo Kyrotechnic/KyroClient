@@ -25,6 +25,6 @@ public class WindowManager {
 
     public Window getDefaultWindow()
     {
-        return windows.get(0);
+        return windows.get(2);
     }
 }

@@ -22,6 +22,7 @@ public class Fonts
     private static Map<String, Font> fontCache;
     public static MinecraftFontRenderer tenacity;
     public static MinecraftFontRenderer tenacityBold;
+    public static MinecraftFontRenderer icon;
 
     public static MinecraftFontRenderer getPrimary()
     {
@@ -45,7 +46,6 @@ public class Fonts
             else {
                 //final InputStream is = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("kyroclient", "fonts/" + location)).getInputStream();
                 InputStream is;
-
                 is = getStream(location);
 
                 font = Font.createFont(0, is);
@@ -99,6 +99,7 @@ public class Fonts
     public static void bootstrap() {
         Fonts.tenacity = new MinecraftFontRenderer(getFont("tenacity.ttf", 19), true, false);
         Fonts.tenacityBold = new MinecraftFontRenderer(getFont("tenacity-bold.ttf", 19), true, false);
+        Fonts.icon = new MinecraftFontRenderer(getFont("icon.ttf", 20), true, false);
     }
 
     static {

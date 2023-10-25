@@ -55,7 +55,7 @@ public abstract class MixinGuiButton extends MixinGui
 
     @Inject(method = { "drawButton" }, at = { @At("HEAD") }, cancellable = true)
     public void drawButton(final Minecraft mc, final int mouseX, final int mouseY, final CallbackInfo callbackInfo) {
-        if (this.visible && KyroClient.interfaces.customButtons.isEnabled()) {
+        /*if (this.visible && KyroClient.interfaces.customButtons.isEnabled()) {
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             this.hovered = (mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height);
             GlStateManager.enableBlend();
@@ -70,7 +70,7 @@ public abstract class MixinGuiButton extends MixinGui
             Fonts.getPrimary().drawSmoothCenteredString(this.displayString, this.xPosition + this.width / 2.0f, this.yPosition + (this.height - Fonts.getPrimary().getHeight()) / 2.0f, this.hovered ? Color.white.getRGB() : new Color(200, 200, 200).getRGB());
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             callbackInfo.cancel();
-        }
+        }*/
     }
 
     public void drawGradientRect(final float expand, final int opacity) {

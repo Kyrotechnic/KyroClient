@@ -5,6 +5,8 @@ import net.minecraft.client.shader.Framebuffer;
 import org.lwjgl.opengl.EXTFramebufferObject;
 import org.lwjgl.opengl.GL11;
 
+import static org.lwjgl.opengl.GL11.*;
+
 public class StencilUtils
 {
     public static void checkSetupFBO(final Framebuffer framebuffer) {
@@ -12,6 +14,32 @@ public class StencilUtils
             setupFBO(framebuffer);
             framebuffer.depthBuffer = -1;
         }
+    }
+
+    public static void enableStencilBuffer() {
+        KyroClient.mc.getFramebuffer().bindFramebuffer(false);
+        if (KyroClient.mc.getFramebuffer() != null) {
+            if (KyroClient.mc.getFramebuffer().depthBuffer > -1) {
+                setupFBO(KyroClient.mc.getFramebuffer());
+                KyroClient.mc.getFramebuffer().depthBuffer = -1;
+            }
+        }
+        glClear(GL_STENCIL_BUFFER_BIT);
+        glEnable(GL_STENCIL_TEST);
+
+        glStencilFunc(GL_ALWAYS, 1, 1);
+        glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
+        glColorMask(false, false, false, false);
+    }
+
+    public static void readStencilBuffer(int ref) {
+        glColorMask(true, true, true, true);
+        glStencilFunc(GL_EQUAL, ref, 1);
+        glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+    }
+
+    public static void disableStencilBuffer() {
+        glDisable(GL_STENCIL_TEST);
     }
 
     public static void setupFBO(final Framebuffer framebuffer) {
@@ -30,8 +58,8 @@ public class StencilUtils
     public static void initStencil(final Framebuffer framebuffer) {
         framebuffer.bindFramebuffer(false);
         checkSetupFBO(framebuffer);
-        GL11.glClear(1024);
-        GL11.glEnable(2960);
+        glClear(1024);
+        glEnable(2960);
     }
 
     public static void bindWriteStencilBuffer() {
