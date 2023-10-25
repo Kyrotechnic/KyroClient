@@ -27,4 +27,8 @@ public class MilliTimer
     public void reset(final long time) {
         this.time = System.currentTimeMillis() - time;
     }
+    public void setTime(long time)
+    {
+        this.time = time;
+    }
 }

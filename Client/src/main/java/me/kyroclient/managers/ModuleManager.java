@@ -10,7 +10,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class ModuleManager {
     public CopyOnWriteArrayList<Module> modules = new CopyOnWriteArrayList<>();
     public String classPath;
-
     public ModuleManager(String classPath)
     {
         this.classPath = classPath;

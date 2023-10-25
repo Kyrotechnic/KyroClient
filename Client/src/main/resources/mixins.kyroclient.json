@@ -18,6 +18,7 @@
     "gui.MixinGuiScreen",
     "gui.MixinGuiContainer",
     "gui.MixinGuiChat",
+    "gui.MixinGuiMainMenu",
     "render.MixinItemRenderer",
     "render.MixinRender",
     "render.MixinRenderCaveSpider",

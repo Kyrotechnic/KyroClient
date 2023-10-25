@@ -28,15 +28,18 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
 import java.awt.*;
+import java.util.List;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.ArrayList;
 
 @Mod(modid = KyroClient.MOD_ID, version = "indev", clientSideOnly = true)
 public class KyroClient {
     //Vars
     public static final String MOD_ID = "dankers";
-    public static String VERSION = "0.1-b93";
+    public static String VERSION = "0.2-b3";
+    public static List<String> changelog;
     public static ModuleManager moduleManager;
     public static NotificationManager notificationManager;
     public static ConfigManager configManager;
@@ -109,6 +112,19 @@ public class KyroClient {
         URL url = new URL("https://raw.githubusercontent.com/Kyrotechnic/KyroClient/main/update/Latest.txt");
 
         VERSION = new BufferedReader(new InputStreamReader(url.openStream())).readLine();
+
+        URL url2 = new URL("https://raw.githubusercontent.com/Kyrotechnic/KyroClient/main/update/Changelog.txt");
+
+        List<String> changelog = new ArrayList<String>();
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(url2.openStream()));
+        String b = null;
+        while ((b = reader.readLine()) != null)
+        {
+            changelog.add(b);
+        }
+
+        KyroClient.changelog = changelog;
     }
 
     public static void handleKey(int key)
