@@ -61,8 +61,9 @@ public class ModuleWindow extends Window {
                 }
                 else if (module.getKeycode() != 0)
                 {
-                    String keyname = ((module.getKeycode() >= 256) ? "  " : Keyboard.getKeyName(module.getKeycode()).replaceAll("NONE", "  "));
-                    Fonts.getPrimary().drawString("[" + keyname + "]", ModernClickGui.getX() + (double)ModernClickGui.getWidth() - 35, ModernClickGui.getY() + (double)offset + this.scrollAnimation.getValue() + 7.0, Color.WHITE.getRGB());
+                    String keyname = "[" + ((module.getKeycode() >= 256) ? "  " : Keyboard.getKeyName(module.getKeycode()).replaceAll("NONE", "  ")) + "]";
+                    int length = (int) Fonts.getPrimary().getStringWidth(keyname);
+                    Fonts.getPrimary().drawString(keyname, ModernClickGui.getX() + (double)ModernClickGui.getWidth() - 20 - length, ModernClickGui.getY() + (double)offset + this.scrollAnimation.getValue() + 7.0, Color.WHITE.getRGB());
                 }
                 offset += 25;
             }
