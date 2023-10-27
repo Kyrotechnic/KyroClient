@@ -29,7 +29,7 @@ public class HomeWindow extends Window {
 
         MouseUtils.Scroll scrol = MouseUtils.scroll();
 
-        if (scroll != null)
+        if (scrol != null)
         {
             switch (scrol)
             {
