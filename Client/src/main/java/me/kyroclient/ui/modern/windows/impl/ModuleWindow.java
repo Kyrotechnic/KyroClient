@@ -244,7 +244,7 @@ public class ModuleWindow extends Window {
             }
         }
 
-        if (changeBind != null)
+        if (changeBind != null && keyCode != 1)
         {
             changeBind.setKeycode(keyCode);
             changeBind = null;
