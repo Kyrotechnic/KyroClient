@@ -1,5 +1,7 @@
 package me.kyroclient.util;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Random;
 
 public class MathUtil
@@ -14,6 +16,15 @@ public class MathUtil
 
     public static int interpolateInt(int oldValue, int newValue, double interpolationValue){
         return interpolate(oldValue, newValue, (float) interpolationValue).intValue();
+    }
+
+    public static double round(double value, int places) {
+        if (places < 0 || !Double.isFinite(value)) {
+            return 0;
+        }
+        BigDecimal bigDecimal = new BigDecimal(value);
+        bigDecimal = bigDecimal.setScale(places, RoundingMode.HALF_UP);
+        return bigDecimal.doubleValue();
     }
     private static final Random rand;
 

@@ -2,10 +2,7 @@ package me.kyroclient;
 
 
 import lombok.SneakyThrows;
-import me.kyroclient.managers.CommandManager;
-import me.kyroclient.managers.ConfigManager;
-import me.kyroclient.managers.ModuleManager;
-import me.kyroclient.managers.NotificationManager;
+import me.kyroclient.managers.*;
 import me.kyroclient.modules.Module;
 import me.kyroclient.modules.combat.*;
 import me.kyroclient.modules.garden.CropNuker;
@@ -33,6 +30,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 @Mod(modid = KyroClient.MOD_ID, version = "indev", clientSideOnly = true)
 public class KyroClient {
@@ -43,6 +41,7 @@ public class KyroClient {
     public static ModuleManager moduleManager;
     public static NotificationManager notificationManager;
     public static ConfigManager configManager;
+    public static ThemeManager themeManager;
     public static Minecraft mc;
     public static boolean isDev = true;
     public static Color iconColor = new Color(237, 107, 0);
@@ -96,6 +95,7 @@ public class KyroClient {
 
         notificationManager = new NotificationManager();
         configManager = new ConfigManager();
+        themeManager = new ThemeManager();
 
         CommandManager.init();
 
@@ -109,10 +109,6 @@ public class KyroClient {
     @SneakyThrows
     public static void threadTask()
     {
-        URL url = new URL("https://raw.githubusercontent.com/Kyrotechnic/KyroClient/main/update/Latest.txt");
-
-        VERSION = new BufferedReader(new InputStreamReader(url.openStream())).readLine();
-
         URL url2 = new URL("https://raw.githubusercontent.com/Kyrotechnic/KyroClient/main/update/Changelog.txt");
 
         List<String> changelog = new ArrayList<String>();
@@ -124,7 +120,9 @@ public class KyroClient {
             changelog.add(b);
         }
 
-        KyroClient.changelog = changelog;
+        KyroClient.VERSION = changelog.get(0);
+
+        KyroClient.changelog = changelog.stream().filter(c -> !(c.equals(KyroClient.VERSION))).collect(Collectors.toList());
     }
 
     public static void handleKey(int key)

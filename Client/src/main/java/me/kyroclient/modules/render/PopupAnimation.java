@@ -5,6 +5,7 @@ import me.kyroclient.modules.Module;
 import me.kyroclient.settings.BooleanSetting;
 import me.kyroclient.settings.NumberSetting;
 import me.kyroclient.ui.ClickGUI;
+import me.kyroclient.ui.modern.ModernClickGui;
 import me.kyroclient.util.MilliTimer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
@@ -39,7 +40,7 @@ public class PopupAnimation extends Module
     }
 
     public static boolean shouldScale(final GuiScreen gui) {
-        return KyroClient.popupAnimation.isToggled() && ((gui instanceof ClickGUI && PopupAnimation.clickGui.isEnabled()) || (gui instanceof GuiInventory && PopupAnimation.inventory.isEnabled()) || (gui instanceof GuiChest && PopupAnimation.chests.isEnabled()));
+        return KyroClient.popupAnimation.isToggled() && ((gui instanceof ModernClickGui && PopupAnimation.clickGui.isEnabled()) || (gui instanceof GuiInventory && PopupAnimation.inventory.isEnabled()) || (gui instanceof GuiChest && PopupAnimation.chests.isEnabled()));
     }
 
     @SubscribeEvent

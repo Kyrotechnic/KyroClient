@@ -1,1 +1,13 @@
-+ Fake Lag
+0.4-b37
+(10/27/2023) v0.4-b37
+[+] New GUI
+[+] Theme Manager
+[+] Home Screen (this!)
+[+] Fake Lag (crashes dont enable)
+[+] Dojo Helper (placeholder)
+[+] Rift Helper (placeholder)
+[+] Blood Aura (placeholder)
+[+] ...more
+
+[-] More coming very soon
+[-] :troll_face:

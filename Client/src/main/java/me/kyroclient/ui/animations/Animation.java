@@ -2,96 +2,50 @@ package me.kyroclient.ui.animations;
 
 import me.kyroclient.util.MilliTimer;
 
-public abstract class Animation {
+public class Animation {
+    private final float speed;
+    private float target;
+    private float value;
 
-    public MilliTimer timerUtil = new MilliTimer();
-    protected int duration;
-    protected double endPoint;
-    protected Direction direction;
-
-    public Animation(int ms, double endPoint) {
-        this(ms, endPoint, Direction.FORWARDS);
+    public Animation(float start, float speed) {
+        this.speed = speed;
+        this.value = this.target = start;
     }
 
-    public Animation(int ms, double endPoint, Direction direction) {
-        this.duration = ms; //Time in milliseconds of how long you want the animation to take.
-        this.endPoint = endPoint; //The desired distance for the animated object to go.
-        this.direction = direction; //Direction in which the graph is going. If backwards, will start from endPoint and go to 0.
+    public void update(float target, double deltaTime) {
+        this.updateTarget(target);
+        this.updateAnimation(deltaTime);
     }
 
-
-    public boolean finished(Direction direction) {
-        return isDone() && this.direction.equals(direction);
-    }
-
-    public double getLinearOutput() {
-        return 1 - ((timerUtil.getTime() / (double) duration) * endPoint);
-    }
-
-    public double getEndPoint() {
-        return endPoint;
-    }
-
-    public void setEndPoint(double endPoint) {
-        this.endPoint = endPoint;
-    }
-
-    public void reset() {
-        timerUtil.reset();
-    }
-
-    public boolean isDone() {
-        return timerUtil.hasTimePassed(duration);
-    }
-
-    public void changeDirection() {
-        setDirection(direction.opposite());
-    }
-
-    public Direction getDirection() {
-        return direction;
-    }
-
-    public Animation setDirection(Direction direction) {
-        if (this.direction != direction) {
-            this.direction = direction;
-            timerUtil.setTime(System.currentTimeMillis() - (duration - Math.min(duration, timerUtil.getTime())));
+    public void updateAnimation(double deltaTime) {
+        if (this.target == this.value) {
+            return;
         }
-        return this;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-
-    protected boolean correctOutput() {
-        return false;
-    }
-
-    public Double getOutput() {
-        if (direction.forwards()) {
-            if (isDone()) {
-                return endPoint;
-            }
-
-            return getEquation(timerUtil.getTime() / (double) duration) * endPoint;
-        } else {
-            if (isDone()) {
-                return 0.0;
-            }
-
-            if (correctOutput()) {
-                double revTime = Math.min(duration, Math.max(0, duration - timerUtil.getTime()));
-                return getEquation(revTime / (double) duration) * endPoint;
-            }
-
-            return (1 - getEquation(timerUtil.getTime() / (double) duration)) * endPoint;
+        if (this.value < this.target) {
+            this.value = (float)((double)this.value + (double)(this.target - this.value) * deltaTime * (double)this.speed);
+            this.value = (float)((double)this.value + (double)this.speed * 0.75 * deltaTime);
+            this.value = Math.min(this.target, this.value);
+            return;
         }
+        this.value = (float)((double)this.value - (double)(this.value - this.target) * deltaTime * (double)this.speed);
+        this.value = (float)((double)this.value - (double)this.speed * 0.75 * deltaTime);
+        this.value = Math.max(this.target, this.value);
     }
 
+    public boolean done() {
+        if (this.value != this.target) return false;
+        return true;
+    }
 
-    //This is where the animation equation should go, for example, a logistic function. Output should range from 0 - 1.
-    //This will take the timer's time as an input, x.
-    protected abstract double getEquation(double x);
+    public void updateTarget(float target) {
+        this.target = target;
+    }
 
+    public float value() {
+        return this.value;
+    }
+
+    public void forceValue(float value) {
+        this.value = value;
+    }
 }
