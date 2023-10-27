@@ -28,7 +28,7 @@ public class FairySoulAura extends Module {
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event)
     {
-        if (!isToggled()) return;
+        if (!isToggled() || KyroClient.mc.thePlayer == null || KyroClient.mc.theWorld == null) return;
         List<EntityArmorStand> fairySouls = KyroClient.mc.theWorld.getEntities(EntityArmorStand.class, e -> SkyblockUtils.isFairySoul(e));
 
         for (EntityArmorStand entity : fairySouls)
