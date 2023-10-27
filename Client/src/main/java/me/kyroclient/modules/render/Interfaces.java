@@ -165,10 +165,10 @@ public class Interfaces extends Module
             final boolean flag = s2.equals("Oringo Client");
             if (flag) {
                 if (customFont) {
-                    Fonts.getPrimary().drawSmoothCenteredStringWithShadow(s2, l1 + width / 2.0f, k2, KyroClient.clickGui.getColor().getRGB());
+                    Fonts.getPrimary().drawSmoothCenteredStringWithShadow(s2, l1 + width / 2.0f, k2, KyroClient.themeManager.getSecondaryColor().getRGB());
                 }
                 else {
-                    KyroClient.mc.fontRendererObj.drawString(s2, (int)(l1 + width / 2.0f - KyroClient.mc.fontRendererObj.getStringWidth(s2) / 2), (int)k2, KyroClient.clickGui.getColor().getRGB());
+                    KyroClient.mc.fontRendererObj.drawString(s2, (int)(l1 + width / 2.0f - KyroClient.mc.fontRendererObj.getStringWidth(s2) / 2), (int)k2, KyroClient.themeManager.getSecondaryColor().getRGB());
                 }
             }
             else {
@@ -184,7 +184,7 @@ public class Interfaces extends Module
 
     private void drawBorderedRoundedRect(final float x, final float y, final float width, final float height, final float radius, final float linewidth) {
         RenderUtils.drawRoundedRect(x, y, x + width, y + height, radius, new Color(21, 21, 21, 50).getRGB());
-        RenderUtils.drawGradientOutlinedRoundedRect(x, y, width, height, radius, linewidth, KyroClient.clickGui.getColor(0).getRGB(), KyroClient.clickGui.getColor(3).getRGB(), KyroClient.clickGui.getColor(6).getRGB(), KyroClient.clickGui.getColor(9).getRGB());
+        RenderUtils.drawGradientOutlinedRoundedRect(x, y, width, height, radius, linewidth, KyroClient.themeManager.getSecondaryColor(0).getRGB(), KyroClient.themeManager.getSecondaryColor(3).getRGB(), KyroClient.themeManager.getSecondaryColor(6).getRGB(), KyroClient.themeManager.getSecondaryColor(9).getRGB());
     }
 
     private void drawString(String s, final float x, final float y, final int color, final boolean customFont) {

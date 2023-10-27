@@ -64,7 +64,7 @@ public class Notification
         }
 
         public Color getColor(final int i) {
-            return (this == NotificationType.INFO) ? KyroClient.clickGui.getColor(i) : this.color;
+            return (this == NotificationType.INFO) ? KyroClient.themeManager.getSecondaryColor(i) : this.color;
         }
     }
 }

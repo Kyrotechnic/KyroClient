@@ -16,4 +16,10 @@ public class Rainbow extends Theme {
     {
         return Color.getHSBColor((float) ((System.currentTimeMillis() * KyroClient.clickGui.rgbSpeed.getValue()) / 5000.0 % 1.0), 0.8f, 1.0f);
     }
+
+    @Override
+    public Color getSecondary(int index)
+    {
+        return Color.getHSBColor((float) ((index * 100 + System.currentTimeMillis() * KyroClient.clickGui.rgbSpeed.getValue()) / 5000.0 % 1.0), 0.8f, 1.0f);
+    }
 }

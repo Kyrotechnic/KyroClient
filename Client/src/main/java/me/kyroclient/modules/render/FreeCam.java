@@ -85,7 +85,7 @@ public class FreeCam extends Module
     @SubscribeEvent
     public void onRenderWorld(final RenderWorldLastEvent event) {
         if (this.isToggled() && this.playerEntity != null && this.tracer.isEnabled()) {
-            RenderUtils.tracerLine(this.playerEntity, event.partialTicks, 1.0f, KyroClient.clickGui.getColor());
+            RenderUtils.tracerLine(this.playerEntity, event.partialTicks, 1.0f, KyroClient.themeManager.getSecondaryColor());
         }
     }
 

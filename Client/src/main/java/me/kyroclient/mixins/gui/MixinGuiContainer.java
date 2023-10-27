@@ -30,7 +30,7 @@ public abstract class MixinGuiContainer extends MixinGuiScreen {
             this.mc.inGameHasFocus = true;
             this.mc.mouseHelper.grabMouseCursor();
             final ScaledResolution res = new ScaledResolution(this.mc);
-            Fonts.getSecondary().drawSmoothCenteredStringWithShadow("In terminal!", res.getScaledWidth() / 2, res.getScaledHeight() / 2, KyroClient.clickGui.getColor().getRGB());
+            Fonts.getSecondary().drawSmoothCenteredStringWithShadow("In terminal!", res.getScaledWidth() / 2, res.getScaledHeight() / 2, KyroClient.themeManager.getSecondaryColor().getRGB());
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             MinecraftForge.EVENT_BUS.post((Event)new GuiScreenEvent.BackgroundDrawnEvent((GuiScreen) KyroClient.mc.currentScreen));

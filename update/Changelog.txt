@@ -1,4 +1,8 @@
-0.4-b41
+0.4-b43
+(10/27/2023)
+[*] Fixed binding again
+[*] Fixed escape
+
 (10/27/2023)
 [*] Fixed Binding not working
 [*] Fixed Themes not changing

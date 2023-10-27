@@ -6,7 +6,6 @@ import me.kyroclient.settings.BooleanSetting;
 import me.kyroclient.settings.ModeSetting;
 import me.kyroclient.settings.NumberSetting;
 import me.kyroclient.settings.StringSetting;
-import me.kyroclient.ui.ClickGUI;
 import me.kyroclient.ui.modern.ModernClickGui;
 import me.kyroclient.util.font.Fonts;
 import me.kyroclient.util.font.MinecraftFontRenderer;
@@ -183,6 +182,12 @@ public class Gui extends Module {
         if (modernClickGui == null)
             modernClickGui = new ModernClickGui();
         KyroClient.mc.displayGuiScreen(modernClickGui);
+    }
+
+    @Override
+    public void onDisable()
+    {
+        KyroClient.mc.displayGuiScreen(null);
     }
 
     public Color getColor() {

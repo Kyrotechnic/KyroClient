@@ -4,7 +4,6 @@ import me.kyroclient.KyroClient;
 import me.kyroclient.modules.Module;
 import me.kyroclient.settings.BooleanSetting;
 import me.kyroclient.settings.NumberSetting;
-import me.kyroclient.ui.ClickGUI;
 import me.kyroclient.ui.modern.ModernClickGui;
 import me.kyroclient.util.MilliTimer;
 import net.minecraft.client.gui.GuiScreen;

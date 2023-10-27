@@ -62,4 +62,7 @@ public class ThemeManager {
     public Color getSecondaryColor() {
         return this.activeTheme.getSecondary();
     }
+    public Color getSecondaryColor(int index) {
+        return this.activeTheme.getSecondary(index);
+    }
 }

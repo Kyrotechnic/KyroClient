@@ -233,6 +233,24 @@ public class ModuleWindow extends Window {
     @Override
     public void keyTyped(char typedChar, int keyCode) {
         KyroClient.configManager.saveConfig();
+        /*if (changeBind != null && keyCode == 1)
+        {
+
+        }
+        if (changeBind != null)
+        {
+            changeBind.setKeycode(keyCode);
+            changeBind = null;
+        }*/
+        if (keyCode == 1 || keyCode == KyroClient.clickGui.getKeycode())
+        {
+            if (changeBind != null)
+            {
+                changeBind.setKeycode(0);
+                changeBind = null;
+            }
+        }
+
         if (changeBind != null)
         {
             changeBind.setKeycode(keyCode);

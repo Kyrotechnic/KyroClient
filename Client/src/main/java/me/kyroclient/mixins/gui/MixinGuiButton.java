@@ -55,7 +55,7 @@ public abstract class MixinGuiButton extends MixinGui
 
     @Inject(method = { "drawButton" }, at = { @At("HEAD") }, cancellable = true)
     public void drawButton(final Minecraft mc, final int mouseX, final int mouseY, final CallbackInfo callbackInfo) {
-        /*if (this.visible && KyroClient.interfaces.customButtons.isEnabled()) {
+        if (this.visible && KyroClient.interfaces.customButtons.isEnabled()) {
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             this.hovered = (mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height);
             GlStateManager.enableBlend();
@@ -70,7 +70,7 @@ public abstract class MixinGuiButton extends MixinGui
             Fonts.getPrimary().drawSmoothCenteredString(this.displayString, this.xPosition + this.width / 2.0f, this.yPosition + (this.height - Fonts.getPrimary().getHeight()) / 2.0f, this.hovered ? Color.white.getRGB() : new Color(200, 200, 200).getRGB());
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             callbackInfo.cancel();
-        }*/
+        }
     }
 
     public void drawGradientRect(final float expand, final int opacity) {
@@ -80,10 +80,10 @@ public abstract class MixinGuiButton extends MixinGui
             for (int i = 1; i < 11; ++i) {
                 final float pos = this.xPosition + i * 0.1f * this.width;
                 if (KyroClient.interfaces.lineLocation.is("Top")) {
-                    this.addVertexes(prevPos - expand, this.yPosition - expand, pos + expand, this.yPosition + 1.5f + expand, RenderUtils.applyOpacity(KyroClient.clickGui.getColor(i), opacity).getRGB(), RenderUtils.applyOpacity(KyroClient.clickGui.getColor(i + 1), opacity).getRGB());
+                    this.addVertexes(prevPos - expand, this.yPosition - expand, pos + expand, this.yPosition + 1.5f + expand, RenderUtils.applyOpacity(KyroClient.themeManager.getSecondaryColor(i), opacity).getRGB(), RenderUtils.applyOpacity(KyroClient.themeManager.getSecondaryColor(i + 1), opacity).getRGB());
                 }
                 else {
-                    this.addVertexes(prevPos - expand, this.yPosition - expand + this.height - 1.5f, pos + expand, this.yPosition + this.height + expand, RenderUtils.applyOpacity(KyroClient.clickGui.getColor(i), opacity).getRGB(), RenderUtils.applyOpacity(KyroClient.clickGui.getColor(i + 1), opacity).getRGB());
+                    this.addVertexes(prevPos - expand, this.yPosition - expand + this.height - 1.5f, pos + expand, this.yPosition + this.height + expand, RenderUtils.applyOpacity(KyroClient.themeManager.getSecondaryColor(i), opacity).getRGB(), RenderUtils.applyOpacity(KyroClient.themeManager.getSecondaryColor(i + 1), opacity).getRGB());
                 }
                 prevPos = pos;
             }
@@ -91,10 +91,10 @@ public abstract class MixinGuiButton extends MixinGui
         }
         else if (KyroClient.interfaces.buttonLine.is("Single")) {
             if (KyroClient.interfaces.lineLocation.is("Top")) {
-                RenderUtils.drawRect(this.xPosition - expand, this.yPosition - expand, this.xPosition + this.width + expand, this.yPosition + 1.5f + expand, RenderUtils.applyOpacity(KyroClient.clickGui.getColor(), opacity).getRGB());
+                RenderUtils.drawRect(this.xPosition - expand, this.yPosition - expand, this.xPosition + this.width + expand, this.yPosition + 1.5f + expand, RenderUtils.applyOpacity(KyroClient.themeManager.getSecondaryColor(), opacity).getRGB());
             }
             else {
-                RenderUtils.drawRect(this.xPosition - expand, this.yPosition - expand + this.height - 1.5f, this.xPosition + this.width + expand, this.yPosition + this.height + expand, RenderUtils.applyOpacity(KyroClient.clickGui.getColor(), opacity).getRGB());
+                RenderUtils.drawRect(this.xPosition - expand, this.yPosition - expand + this.height - 1.5f, this.xPosition + this.width + expand, this.yPosition + this.height + expand, RenderUtils.applyOpacity(KyroClient.themeManager.getSecondaryColor(), opacity).getRGB());
             }
         }
     }

@@ -40,7 +40,7 @@ public class PlayerESP extends Module
         if (!this.isToggled() || (!this.mode.getSelected().equals("2D") && !this.mode.getSelected().equals("Box") && !this.mode.getSelected().equals("Tracers"))) {
             return;
         }
-        final Color color = KyroClient.clickGui.getColor();
+        final Color color = KyroClient.themeManager.getSecondaryColor();
         for (final EntityPlayer entityPlayer : KyroClient.mc.theWorld.playerEntities) {
             if (this.isValidEntity(entityPlayer) && entityPlayer != KyroClient.mc.thePlayer) {
                 final String selected = this.mode.getSelected();
@@ -64,7 +64,7 @@ public class PlayerESP extends Module
 
     @SubscribeEvent
     public void onRender(final RenderLayersEvent event) {
-        final Color color = KyroClient.clickGui.getColor();
+        final Color color = KyroClient.themeManager.getSecondaryColor();
         if (this.isToggled() && event.entity instanceof EntityPlayer && this.isValidEntity((EntityPlayer)event.entity) && event.entity != KyroClient.mc.thePlayer && this.mode.getSelected().equals("Outline")) {
             OutlineUtils.outlineESP(event, color);
         }
@@ -80,7 +80,7 @@ public class PlayerESP extends Module
         if (!(event.entity instanceof EntityOtherPlayerMP) || !this.mode.getSelected().equals("Chams") || !this.isToggled()) {
             return;
         }
-        final Color color = RenderUtils.applyOpacity(KyroClient.clickGui.getColor(event.entity.getEntityId()), (int)this.opacity.getValue());
+        final Color color = RenderUtils.applyOpacity(KyroClient.themeManager.getSecondaryColor(event.entity.getEntityId()), (int)this.opacity.getValue());
         RenderUtils.enableChams();
         MobRenderUtils.setColor(color);
         this.lastRendered = (EntityPlayer)event.entity;

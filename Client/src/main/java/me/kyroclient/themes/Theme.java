@@ -27,4 +27,8 @@ public class Theme {
     {
         return secondary;
     }
+    public Color getSecondary(int index)
+    {
+        return secondary;
+    }
 }

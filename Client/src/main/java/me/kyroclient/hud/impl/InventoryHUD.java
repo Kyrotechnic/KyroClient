@@ -88,7 +88,7 @@ public class InventoryHUD extends DraggableComponent
             RenderUtils.drawOutlinedRoundedRect(x, y, width, height, radius, linewidth, Color.white.getRGB());
         }
         else {
-            RenderUtils.drawGradientOutlinedRoundedRect(x, y, width, height, radius, linewidth, KyroClient.clickGui.getColor(0).getRGB(), KyroClient.clickGui.getColor(3).getRGB(), KyroClient.clickGui.getColor(6).getRGB(), KyroClient.clickGui.getColor(9).getRGB());
+            RenderUtils.drawGradientOutlinedRoundedRect(x, y, width, height, radius, linewidth, KyroClient.themeManager.getSecondaryColor().getRGB(), KyroClient.themeManager.getSecondaryColor(3).getRGB(), KyroClient.themeManager.getSecondaryColor(6).getRGB(), KyroClient.themeManager.getSecondaryColor(9).getRGB());
         }
     }
 
