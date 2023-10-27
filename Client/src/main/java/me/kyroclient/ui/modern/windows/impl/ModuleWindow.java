@@ -173,6 +173,7 @@ public class ModuleWindow extends Window {
         selectedString = null;
         selectedNumber = null;
         changeBind = null;
+        KyroClient.configManager.saveConfig();
     }
 
     @Override
@@ -232,16 +233,6 @@ public class ModuleWindow extends Window {
 
     @Override
     public void keyTyped(char typedChar, int keyCode) {
-        KyroClient.configManager.saveConfig();
-        /*if (changeBind != null && keyCode == 1)
-        {
-
-        }
-        if (changeBind != null)
-        {
-            changeBind.setKeycode(keyCode);
-            changeBind = null;
-        }*/
         if (keyCode == 1 || keyCode == KyroClient.clickGui.getKeycode())
         {
             if (changeBind != null)
@@ -273,6 +264,8 @@ public class ModuleWindow extends Window {
                 selectedString.setValue(this.selectedString.getValue().substring(0, Math.max(0, this.selectedString.getValue().length() - 1)));
             }
         }
+
+        KyroClient.configManager.saveConfig();
     }
 
     static {

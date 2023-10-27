@@ -78,7 +78,7 @@ public class Gui extends Module {
         if (!this.arrayList.isEnabled()) {
             return 0.0f;
         }
-        final List<Module> list = (List<Module>)KyroClient.moduleManager.getModules().stream().filter(module ->  (module.isToggled() || module.toggledTime.getTimePassed() <= 250L)).sorted(Comparator.comparingDouble(module -> Fonts.getPrimary().getStringWidth(module.getName()))).collect(Collectors.toList());
+        final List<Module> list = KyroClient.moduleManager.getModules().stream().filter(module ->  (module.isToggled() || module.toggledTime.getTimePassed() <= 250L)).sorted(Comparator.comparingDouble(module -> Fonts.getPrimary().getStringWidth(module.getName()))).collect(Collectors.toList());
         float y = 3.0f;
         for (final Module module2 : list) {
             y += (Fonts.getPrimary().getHeight() + 5.0f) * Math.max(Math.min(module2.isToggled() ? (module2.toggledTime.getTimePassed() / 250.0f) : ((250.0f - module2.toggledTime.getTimePassed()) / 250.0f), 1.0f), 0.0f);
@@ -118,7 +118,7 @@ public class Gui extends Module {
                         RenderUtils.drawRect(resolution.getScaledWidth() - 1 - width, y, (float)(resolution.getScaledWidth() - 1), y + height, new Color(19, 19, 19, 70).getRGB());
                     }
                     Fonts.getPrimary().drawSmoothCenteredString(moduleName, resolution.getScaledWidth() - 1 - width / 2.0f + 0.4f, y + height / 2.0f - Fonts.getPrimary().getHeight() / 2.0f + 0.5f, new Color(20, 20, 20).getRGB());
-                    Fonts.getPrimary().drawSmoothCenteredString(moduleName, resolution.getScaledWidth() - 1 - width / 2.0f, y + height / 2.0f - Fonts.getPrimary().getHeight() / 2.0f, this.getColor(x).getRGB(), this.getColor(x - 1).getRGB());
+                    Fonts.getPrimary().drawSmoothCenteredString(moduleName, resolution.getScaledWidth() - 1 - width / 2.0f, y + height / 2.0f - Fonts.getPrimary().getHeight() / 2.0f, KyroClient.themeManager.getSecondaryColor(x).getRGB(), KyroClient.themeManager.getSecondaryColor(x - 1).getRGB());
                     y += (Fonts.getPrimary().getHeight() + 5) * Math.max(Math.min(module2.isToggled() ? (module2.toggledTime.getTimePassed() / 250.0f) : ((250.0f - module2.toggledTime.getTimePassed()) / 250.0f), 1.0f), 0.0f);
                     GL11.glPopMatrix();
                 }
@@ -135,7 +135,7 @@ public class Gui extends Module {
                     for (final Module module3 : list) {
                         --x;
                         final float height = (Fonts.getPrimary().getHeight() + 5.0f) * Math.max(Math.min(module3.isToggled() ? (module3.toggledTime.getTimePassed() / 250.0f) : ((250.0f - module3.toggledTime.getTimePassed()) / 250.0f), 1.0f), 0.0f);
-                        addVertex((float)(resolution.getScaledWidth() - 1), y, (float)resolution.getScaledWidth(), y + height, this.getColor(x - 1).getRGB(), this.getColor(x).getRGB());
+                        addVertex((float)(resolution.getScaledWidth() - 1), y, (float)resolution.getScaledWidth(), y + height, KyroClient.themeManager.getSecondaryColor(x - 1).getRGB(), KyroClient.themeManager.getSecondaryColor(x).getRGB());
                         y += height;
                     }
                     tessellator.draw();
@@ -191,7 +191,7 @@ public class Gui extends Module {
     }
 
     public Color getColor() {
-        return this.getColor(0);
+        return KyroClient.themeManager.getSecondaryColor(0);
     }
     @Override
     public void assign()

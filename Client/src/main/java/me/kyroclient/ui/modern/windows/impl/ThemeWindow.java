@@ -27,6 +27,7 @@ public class ThemeWindow
         modeSetting.mouseClicked(mouseX, mouseY, mouseButton);
 
         KyroClient.themeManager.setTheme(KyroClient.clickGui.colorMode.getSelected());
+        KyroClient.configManager.saveConfig();
     }
 
     @Override

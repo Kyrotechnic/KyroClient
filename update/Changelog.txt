@@ -2,6 +2,7 @@
 (10/27/2023)
 [*] Fixed binding again
 [*] Fixed escape
+[*] Fixed even more random crap
 
 (10/27/2023)
 [*] Fixed Binding not working
