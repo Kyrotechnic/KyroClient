@@ -1,4 +1,4 @@
-0.4-b49
+0.4-b50
 (10/27/2023) 0.4-b47
 [*] Fixed binding again
 [*] Fixed escape

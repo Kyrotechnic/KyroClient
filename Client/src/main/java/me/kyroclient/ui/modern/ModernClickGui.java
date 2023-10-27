@@ -104,6 +104,12 @@ public class ModernClickGui extends GuiScreen {
     public void keyTyped(char typedChar, int keyCode) {
         selectedWindow.keyTyped(typedChar, keyCode);
         if (keyCode == 1) {
+            if (selectedWindow instanceof ModuleWindow && ModuleWindow.changeBind != null)
+            {
+                ModuleWindow.changeBind.setKeycode(0);
+                ModuleWindow.changeBind = null;
+                return;
+            }
             if (selectedWindow instanceof ModuleWindow && settingsOpened)
             {
                 if (ModuleWindow.selectedString != null)

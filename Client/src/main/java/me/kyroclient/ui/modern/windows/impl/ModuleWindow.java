@@ -235,7 +235,7 @@ public class ModuleWindow extends Window {
 
     @Override
     public void keyTyped(char typedChar, int keyCode) {
-        if (keyCode == 1 || keyCode == KyroClient.clickGui.getKeycode())
+        if (keyCode == KyroClient.clickGui.getKeycode())
         {
             if (changeBind != null)
             {
