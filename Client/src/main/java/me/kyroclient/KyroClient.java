@@ -103,8 +103,6 @@ public class KyroClient {
 
         gameStarted = System.currentTimeMillis();
 
-        clickGui.setToggled(false);
-
         new Thread(KyroClient::threadTask).start();
     }
 

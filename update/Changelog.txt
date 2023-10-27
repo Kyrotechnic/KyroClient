@@ -1,8 +1,10 @@
-0.4-b57
+0.4-b58
 (10/27/2023) 0.4-b57
 [+] Flight
 [*] Fake lag now works!
 [*] Fix bind rendering
+[*] Fix game crash
+
 (10/27/2023) 0.4-b47
 [*] Fixed binding again
 [*] Fixed escape
