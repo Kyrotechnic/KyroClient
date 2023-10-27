@@ -1,10 +1,11 @@
-0.4-b43
-(10/27/2023)
+0.4-b47
+(10/27/2023) 0.4-b47
 [*] Fixed binding again
 [*] Fixed escape
+[*] Fixed Home Window scrolling
 [*] Fixed even more random crap
 
-(10/27/2023)
+(10/27/2023) v0.4-b41
 [*] Fixed Binding not working
 [*] Fixed Themes not changing
 
