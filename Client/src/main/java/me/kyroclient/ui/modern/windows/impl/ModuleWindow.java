@@ -57,11 +57,11 @@ public class ModuleWindow extends Window {
                 }
                 if (changeBind == module)
                 {
-                    Fonts.getPrimary().drawString("[...]", ModernClickGui.getX() + (double)ModernClickGui.getWidth() - 40, ModernClickGui.getY() + (double)offset + this.scrollAnimation.getValue() + 8.0, Color.WHITE.getRGB());
+                    Fonts.getPrimary().drawString("[...]", ModernClickGui.getX() + (double)ModernClickGui.getWidth() - 35, ModernClickGui.getY() + (double)offset + this.scrollAnimation.getValue() + 7.0, Color.WHITE.getRGB());
                 }
-                else
+                else if (module.getKeycode() != 0)
                 {
-                    Fonts.getPrimary().drawString("[" + (char) module.getKeycode() + "]", ModernClickGui.getX() + (double)ModernClickGui.getWidth() - 40, ModernClickGui.getY() + (double)offset + this.scrollAnimation.getValue() + 8.0, Color.WHITE.getRGB());
+                    Fonts.getPrimary().drawString("[" + (char) module.getKeycode() + "]", ModernClickGui.getX() + (double)ModernClickGui.getWidth() - 35, ModernClickGui.getY() + (double)offset + this.scrollAnimation.getValue() + 7.0, Color.WHITE.getRGB());
                 }
                 offset += 25;
             }
@@ -236,6 +236,7 @@ public class ModuleWindow extends Window {
         if (changeBind != null)
         {
             changeBind.setKeycode(keyCode);
+            changeBind = null;
         }
         if (selectedModule == null) return;
         if (selectedString == null) return;

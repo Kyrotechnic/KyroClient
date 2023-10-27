@@ -1,4 +1,8 @@
-0.4-b37
+0.4-b41
+(10/27/2023)
+[*] Fixed Binding not working
+[*] Fixed Themes not changing
+
 (10/27/2023) v0.4-b37
 [+] New GUI
 [+] Theme Manager

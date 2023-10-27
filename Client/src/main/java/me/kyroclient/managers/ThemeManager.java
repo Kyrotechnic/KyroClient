@@ -17,6 +17,15 @@ public class ThemeManager {
         this.activeTheme = theme;
     }
 
+    public void setTheme(String theme)
+    {
+        for (Theme theme1 : themes)
+        {
+            if (theme1.name == theme)
+                activeTheme = theme1;
+        }
+    }
+
     public boolean is(String name)
     {
         return name == activeTheme.name;
