@@ -181,12 +181,16 @@ public class ModuleWindow extends Window {
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
         int offset = 30;
-        changeBind = null;
         if (selectedModule == null) {
             for (Module module : this.modulesInCategory) {
                 if (this.isHovered(mouseX, mouseY, ModernClickGui.getX() + 95.0, ModernClickGui.getY() + (double) offset + this.scrollAnimation.getValue(), ModernClickGui.getWidth() - 100.0f, 20.0)) {
                     switch (mouseButton) {
                         case 0: {
+                            if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
+                            {
+                                changeBind = module;
+                                return;
+                            }
                             module.toggle();
                             break;
                         }
@@ -215,6 +219,8 @@ public class ModuleWindow extends Window {
                 comp.mouseClicked(mouseX, mouseY, mouseButton);
             }
         }
+
+        changeBind = null;
     }
 
     @Override

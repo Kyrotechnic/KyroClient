@@ -23,7 +23,7 @@ import java.util.List;
 public class BlockFricker extends Module {
     public NumberSetting range = new NumberSetting("Range", 5, 3, 6.5, 0.1);
     public BooleanSetting swingHand = new BooleanSetting("Swing Hand", false);
-    public NumberSetting perTick = new NumberSetting("Per Tick", 2, 1, 4, 1);
+    public NumberSetting perTick = new NumberSetting("Per Tick", 2, 1, 10, 1);
     public BooleanSetting rotate = new BooleanSetting("Rotate", false);
     public BooleanSetting prioritize = new BooleanSetting("Prioritize Closest", true);
     public BooleanSetting finalClick = new BooleanSetting("Sends stop break", true);
@@ -55,20 +55,32 @@ public class BlockFricker extends Module {
 
     private BlockPos[] getCanidates(int range)
     {
-        int baseX = (int) Math.min(KyroClient.mc.thePlayer.posX - range, KyroClient.mc.thePlayer.posX + range);
-        int baseY = (int) Math.min(KyroClient.mc.thePlayer.posY - range, KyroClient.mc.thePlayer.posY + range);
-        int baseZ = (int) Math.min(KyroClient.mc.thePlayer.posZ - range, KyroClient.mc.thePlayer.posZ + range);
-
-        int maxX = (int) Math.max(KyroClient.mc.thePlayer.posX - range, KyroClient.mc.thePlayer.posX + range);
-        int maxY = (int) Math.max(KyroClient.mc.thePlayer.posY - range, KyroClient.mc.thePlayer.posY + range);
-        int maxZ = (int) Math.max(KyroClient.mc.thePlayer.posZ - range, KyroClient.mc.thePlayer.posZ + range);
-
         List<BlockPos> blockz = new ArrayList<>();
 
-        for (int y = baseY; y <= maxY; y++) {
+        /*for (int y = baseY; y <= maxY; y++) {
             for (int x = baseX; x <= maxX; x++) {
                 for (int z = baseZ; z <= maxZ; z++) {
 
+                    BlockPos pos = new BlockPos(x, y, z);
+                    IBlockState blockState = KyroClient.mc.theWorld.getBlockState(pos);
+                    Block block = blockState.getBlock();
+
+                    if (toBreak(block, blockState))
+                        blockz.add(pos);
+                }
+            }
+        }*/
+
+        int playerX = (int) KyroClient.mc.thePlayer.posX;
+        int playerY = (int) KyroClient.mc.thePlayer.posY;
+        int playerZ = (int) KyroClient.mc.thePlayer.posZ;
+
+        for (int x = playerX - range; x <= playerX + range; x++)
+        {
+            for (int z = playerZ - range; z <= playerZ + range; z++)
+            {
+                for (int y = Math.max(0, playerY - range); y <= playerY + range; y++)
+                {
                     BlockPos pos = new BlockPos(x, y, z);
                     IBlockState blockState = KyroClient.mc.theWorld.getBlockState(pos);
                     Block block = blockState.getBlock();
