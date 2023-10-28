@@ -1,4 +1,4 @@
-package me.kyroclient.modules.world;
+package me.kyroclient.modules.player;
 
 import me.kyroclient.KyroClient;
 import me.kyroclient.modules.Module;
@@ -30,7 +30,7 @@ public class MiningNuker extends Module {
     public ModeSetting type = new ModeSetting("Blocks", "Mithril", "Gold", "Diamond");
     public MiningNuker()
     {
-        super("Nuker", Category.WORLD);
+        super("Mining Nuker", Category.PLAYER);
 
         addSettings(type, range, perTick, swingHand, rotate, prioritize, finalClick);
     }
