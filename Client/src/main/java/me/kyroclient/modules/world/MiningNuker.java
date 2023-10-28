@@ -1,6 +1,5 @@
 package me.kyroclient.modules.world;
 
-import com.sun.javafx.geom.Vec3d;
 import me.kyroclient.KyroClient;
 import me.kyroclient.modules.Module;
 import me.kyroclient.settings.BooleanSetting;
@@ -8,8 +7,6 @@ import me.kyroclient.settings.ModeSetting;
 import me.kyroclient.settings.NumberSetting;
 import me.kyroclient.util.PlayerUtil;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.network.play.client.C07PacketPlayerDigging;
@@ -23,7 +20,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class Nuker extends Module {
+public class MiningNuker extends Module {
     public NumberSetting range = new NumberSetting("Range", 5, 3, 6.5, 0.1);
     public BooleanSetting swingHand = new BooleanSetting("Swing Hand", false);
     public NumberSetting perTick = new NumberSetting("Per Tick", 2, 1, 4, 1);
@@ -31,11 +28,11 @@ public class Nuker extends Module {
     public BooleanSetting prioritize = new BooleanSetting("Prioritize Closest", true);
     public BooleanSetting finalClick = new BooleanSetting("Sends stop break", true);
     public ModeSetting type = new ModeSetting("Blocks", "Mithril", "Gold", "Diamond");
-    public Nuker()
+    public MiningNuker()
     {
         super("Nuker", Category.WORLD);
 
-        addSettings(range, perTick, swingHand, rotate, prioritize, finalClick);
+        addSettings(type, range, perTick, swingHand, rotate, prioritize, finalClick);
     }
 
     @SubscribeEvent
