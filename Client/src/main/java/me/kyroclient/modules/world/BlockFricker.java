@@ -86,6 +86,7 @@ public class BlockFricker extends Module {
         if (blockz.size() == 0) return new BlockPos[0];
         int max = (int) Math.min((int) perTick.getValue(), blockz.size());
         BlockPos[] blockpos = new BlockPos[max];
+        if (max == 0) return new BlockPos[0];
         for (int i = 0; i < max; i++)
         {
             blockpos[i] = blockz.get(i);
