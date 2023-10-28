@@ -84,9 +84,9 @@ public class BlockFricker extends Module {
         blockz.sort(Comparator.comparingDouble(c -> KyroClient.mc.thePlayer.getDistanceSqToCenter(c)));
         Collections.reverse(blockz);
         if (blockz.size() == 0) return new BlockPos[0];
-        int max = (int) Math.min((int) perTick.getValue(), blockz.size()-1);
+        int max = (int) Math.min((int) perTick.getValue(), blockz.size());
         BlockPos[] blockpos = new BlockPos[max];
-        for (int i = 0; i < (int) perTick.getValue(); i++)
+        for (int i = 0; i < max; i++)
         {
             blockpos[i] = blockz.get(i);
         }
