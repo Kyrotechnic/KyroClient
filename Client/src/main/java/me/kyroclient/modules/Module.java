@@ -174,7 +174,8 @@ public class Module {
         PLAYER("Player"),
         RENDER("Render"),
         COMBAT("Combat"),
-        MISC("Misc");
+        MISC("Misc"),
+        WORLD("World");
 
         public String name;
 

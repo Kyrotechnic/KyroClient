@@ -4,7 +4,6 @@ import io.netty.channel.ChannelHandlerContext;
 import me.kyroclient.events.JoinGameEvent;
 import me.kyroclient.events.PacketReceivedEvent;
 import me.kyroclient.events.PacketSentEvent;
-import me.kyroclient.util.LagPacket;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S01PacketJoinGame;
@@ -23,19 +22,6 @@ public abstract class MixinNetworkManager {
     @Inject(method = "sendPacket(Lnet/minecraft/network/Packet;)V", cancellable = true, at = @At("HEAD"))
     public void sendPacket(Packet packet, CallbackInfo ci)
     {
-        if (fakePacket)
-        {
-            fakePacket = false;
-            return;
-        }
-        else if (packet instanceof LagPacket)
-        {
-            packet = ((LagPacket) packet).packet;
-            fakePacket = true;
-            sendPacket(packet);
-            ci.cancel();
-            return;
-        }
         if (MinecraftForge.EVENT_BUS.post(new PacketSentEvent(packet)))
         {
             ci.cancel();
