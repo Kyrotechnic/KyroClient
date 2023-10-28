@@ -3,6 +3,7 @@ package me.kyroclient.managers;
 import me.kyroclient.modules.Module;
 import org.reflections.Reflections;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -26,7 +27,12 @@ public class ModuleManager {
                 Module module = clazz.getDeclaredConstructor().newInstance();
                 modules.add(module);
                 module.assign();
-            } catch (Exception ex)
+            }
+                catch (InvocationTargetException e)
+            {
+                e.getTargetException().printStackTrace();
+            }
+            catch (Exception ex)
             {
                 ex.printStackTrace();
             }

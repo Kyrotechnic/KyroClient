@@ -1,4 +1,4 @@
-package me.kyroclient.modules.player;
+package me.kyroclient.modules.world;
 
 import me.kyroclient.KyroClient;
 import me.kyroclient.modules.Module;
@@ -20,17 +20,17 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class MiningNuker extends Module {
+public class BlockFricker extends Module {
     public NumberSetting range = new NumberSetting("Range", 5, 3, 6.5, 0.1);
     public BooleanSetting swingHand = new BooleanSetting("Swing Hand", false);
     public NumberSetting perTick = new NumberSetting("Per Tick", 2, 1, 4, 1);
     public BooleanSetting rotate = new BooleanSetting("Rotate", false);
     public BooleanSetting prioritize = new BooleanSetting("Prioritize Closest", true);
     public BooleanSetting finalClick = new BooleanSetting("Sends stop break", true);
-    public ModeSetting type = new ModeSetting("Blocks", "Mithril", "Gold", "Diamond");
-    public MiningNuker()
+    public ModeSetting type = new ModeSetting("Blocks", "Mithril", "Mithril", "Gold", "Diamond");
+    public BlockFricker()
     {
-        super("Mining Nuker", Category.PLAYER);
+        super("Block Fricker", Category.WORLD);
 
         addSettings(type, range, perTick, swingHand, rotate, prioritize, finalClick);
     }
