@@ -55,11 +55,11 @@ public class BlockFricker extends Module {
 
     private BlockPos[] getCanidates(int range)
     {
-        int baseX = (int) Math.min(KyroClient.mc.thePlayer.posX - range, KyroClient.mc.thePlayer.posX - range + range);
+        int baseX = (int) Math.min(KyroClient.mc.thePlayer.posX - range, KyroClient.mc.thePlayer.posX + range);
         int baseY = (int) Math.min(KyroClient.mc.thePlayer.posY - range, KyroClient.mc.thePlayer.posY + range);
         int baseZ = (int) Math.min(KyroClient.mc.thePlayer.posZ - range, KyroClient.mc.thePlayer.posZ + range);
 
-        int maxX = (int) Math.max(KyroClient.mc.thePlayer.posX - range, KyroClient.mc.thePlayer.posX - range + range);
+        int maxX = (int) Math.max(KyroClient.mc.thePlayer.posX - range, KyroClient.mc.thePlayer.posX + range);
         int maxY = (int) Math.max(KyroClient.mc.thePlayer.posY - range, KyroClient.mc.thePlayer.posY + range);
         int maxZ = (int) Math.max(KyroClient.mc.thePlayer.posZ - range, KyroClient.mc.thePlayer.posZ + range);
 
@@ -79,9 +79,13 @@ public class BlockFricker extends Module {
             }
         }
 
+        if (blockz.isEmpty()) return new BlockPos[0];
+
         blockz.sort(Comparator.comparingDouble(c -> KyroClient.mc.thePlayer.getDistanceSqToCenter(c)));
         Collections.reverse(blockz);
-        BlockPos[] blockpos = new BlockPos[(int) perTick.getValue()];
+        if (blockz.size() == 0) return new BlockPos[0];
+        int max = (int) Math.min((int) perTick.getValue(), blockz.size()-1);
+        BlockPos[] blockpos = new BlockPos[max];
         for (int i = 0; i < (int) perTick.getValue(); i++)
         {
             blockpos[i] = blockz.get(i);
