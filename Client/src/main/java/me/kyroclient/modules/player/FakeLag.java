@@ -19,6 +19,8 @@ public class FakeLag extends Module {
     public FakeLag()
     {
         super("Fake Lag", Category.PLAYER);
+
+        addSettings(delay);
     }
 
     @Override

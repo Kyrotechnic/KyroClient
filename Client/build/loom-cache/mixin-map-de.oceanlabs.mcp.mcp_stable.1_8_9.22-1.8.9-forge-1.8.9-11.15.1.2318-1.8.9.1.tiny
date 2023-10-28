@@ -210,6 +210,7 @@ METHOD	me/kyroclient/mixins/gui/MixinGuiScreen	(III)V	mouseReleased	func_146286_
 METHOD	me/kyroclient/mixins/gui/MixinGuiScreen	(IIF)V	drawScreen	func_73863_a
 METHOD	me/kyroclient/mixins/MixinFontRenderer	(Ljava/lang/String;Z)V	renderStringAtPos	func_78255_a
 METHOD	me/kyroclient/mixins/MixinFontRenderer	(Ljava/lang/String;)I	getStringWidth	func_78256_a
+METHOD	me/kyroclient/mixins/MixinNetworkManager	(Lnet/minecraft/network/Packet;)V	sendPacket	func_179290_a
 METHOD	me/kyroclient/mixins/render/MixinItemRenderer	(FF)V	rotateArroundXAndY	func_178101_a
 METHOD	me/kyroclient/mixins/render/MixinItemRenderer	(Lnet/minecraft/client/entity/AbstractClientPlayer;)V	setLightMapFromPlayer	func_178109_a
 METHOD	me/kyroclient/mixins/render/MixinItemRenderer	(Lnet/minecraft/client/entity/EntityPlayerSP;F)V	rotateWithPlayerRotations	func_178110_a

@@ -32,7 +32,7 @@ public class LagPacket implements Packet {
 
     @Override
     public void writePacketData(PacketBuffer buf) throws IOException {
-        packet.writePacketData(buf);
+        throw new IOException("Not a real packet i thnik!");
     }
 
     @Override
