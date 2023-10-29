@@ -249,6 +249,10 @@ public class ModuleWindow extends Window {
                 changeBind = null;
             }
         }
+        else if (keyCode == Keyboard.KEY_LSHIFT)
+        {
+            if (changeBind != null) return;
+        }
 
         if (changeBind != null && keyCode != 1)
         {

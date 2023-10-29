@@ -12,6 +12,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.network.play.client.C07PacketPlayerDigging;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Vec3;
+import net.minecraft.util.Vec3i;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
@@ -57,38 +59,15 @@ public class BlockFricker extends Module {
     {
         List<BlockPos> blockz = new ArrayList<>();
 
-        /*for (int y = baseY; y <= maxY; y++) {
-            for (int x = baseX; x <= maxX; x++) {
-                for (int z = baseZ; z <= maxZ; z++) {
+        Vec3 playerVec = KyroClient.mc.thePlayer.getPositionVector();
+        BlockPos playerPos = KyroClient.mc.thePlayer.getPosition();
+        Vec3i vec3i = new Vec3i(range, range, range);
 
-                    BlockPos pos = new BlockPos(x, y, z);
-                    IBlockState blockState = KyroClient.mc.theWorld.getBlockState(pos);
-                    Block block = blockState.getBlock();
-
-                    if (toBreak(block, blockState))
-                        blockz.add(pos);
-                }
-            }
-        }*/
-
-        int playerX = (int) KyroClient.mc.thePlayer.posX;
-        int playerY = (int) KyroClient.mc.thePlayer.posY;
-        int playerZ = (int) KyroClient.mc.thePlayer.posZ;
-
-        for (int x = playerX - range; x <= playerX + range; x++)
+        for (BlockPos pos : BlockPos.getAllInBox(playerPos.add(vec3i), playerPos.subtract(vec3i)))
         {
-            for (int z = playerZ - range; z <= playerZ + range; z++)
-            {
-                for (int y = Math.max(0, playerY - range); y <= playerY + range; y++)
-                {
-                    BlockPos pos = new BlockPos(x, y, z);
-                    IBlockState blockState = KyroClient.mc.theWorld.getBlockState(pos);
-                    Block block = blockState.getBlock();
-
-                    if (toBreak(block, blockState))
-                        blockz.add(pos);
-                }
-            }
+            IBlockState state = KyroClient.mc.theWorld.getBlockState(pos);
+            if (toBreak(state.getBlock(), state))
+                blockz.add(pos);
         }
 
         if (blockz.isEmpty()) return new BlockPos[0];
