@@ -5,7 +5,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 
 public class PacketUtils {
-    public static void sendPacketNoEvent(Packet packet)
+    public static void sendPacket(Packet packet)
     {
         KyroClient.mc.getNetHandler().getNetworkManager().sendPacket(packet);
     }

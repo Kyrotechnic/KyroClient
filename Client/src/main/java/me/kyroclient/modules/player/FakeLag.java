@@ -51,7 +51,7 @@ public class FakeLag extends Module {
     {
         for (Packet packet : packets)
         {
-            PacketUtils.sendPacketNoEvent(packet);
+            PacketUtils.sendPacket(packet);
         }
     }
 }

@@ -1496,7 +1496,7 @@ public class RenderUtils
     }
 
     public static void renderLivingLabel(final Entity entityIn, final String str, final double x, final double y, final double z, final int maxDistance) {
-        final double d0 = entityIn.getDistanceToEntity(KyroClient.mc.thePlayer);
+        final double d0 = entityIn.getDistanceSqToEntity(KyroClient.mc.thePlayer);
         if (d0 <= maxDistance * maxDistance) {
             final FontRenderer fontrenderer = KyroClient.mc.getRenderManager().getFontRenderer();
             final float f = 1.6f;

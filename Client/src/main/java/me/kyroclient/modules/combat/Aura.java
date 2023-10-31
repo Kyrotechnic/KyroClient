@@ -418,7 +418,7 @@ public class Aura extends Module {
     }
 
     private void startBlocking() {
-        PacketUtils.sendPacketNoEvent((Packet<?>)new C08PacketPlayerBlockPlacement(KyroClient.mc.thePlayer.getHeldItem()));
+        PacketUtils.sendPacket((Packet<?>)new C08PacketPlayerBlockPlacement(KyroClient.mc.thePlayer.getHeldItem()));
         this.isBlocking = true;
     }
 

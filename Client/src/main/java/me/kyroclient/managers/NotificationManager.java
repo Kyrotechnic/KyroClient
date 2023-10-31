@@ -6,6 +6,7 @@ import me.kyroclient.util.font.Fonts;
 import me.kyroclient.util.render.RenderUtils;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.opengl.GL11;
 
@@ -16,7 +17,7 @@ public class NotificationManager {
     public static final ArrayList<Notification> notifications = new ArrayList<>();
     public NotificationManager()
     {
-
+        MinecraftForge.EVENT_BUS.register(this);
     }
 
     private void render()

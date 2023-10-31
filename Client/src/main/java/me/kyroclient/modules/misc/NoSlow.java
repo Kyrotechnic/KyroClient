@@ -50,7 +50,7 @@ public class NoSlow extends Module {
                 KyroClient.mc.thePlayer.sendQueue.addToSendQueue((Packet)new C0BPacketEntityAction(KyroClient.mc.thePlayer, C0BPacketEntityAction.Action.START_SPRINTING));
                 this.blockDelay.reset();
             }
-            PacketUtils.sendPacketNoEvent(new C09PacketHeldItemChange(KyroClient.mc.thePlayer.inventory.currentItem));
+            PacketUtils.sendPacket(new C09PacketHeldItemChange(KyroClient.mc.thePlayer.inventory.currentItem));
         }
     }
 

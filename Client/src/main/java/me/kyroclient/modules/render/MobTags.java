@@ -32,7 +32,7 @@ public class MobTags extends Module {
             if (!(entity instanceof EntityPlayer) && !(entity instanceof EntityArmorStand))
             {
                 Vec3 interpolated = EntityUtils.getInterpolatedPos(entity, event.partialTicks);
-                RenderUtils.renderLivingLabel(entity, entity.getDisplayName().getFormattedText(), interpolated.xCoord, interpolated.yCoord, interpolated.zCoord, 100);
+                RenderUtils.renderStarredNametag(entity, entity.getDisplayName().getFormattedText(), interpolated.xCoord, interpolated.yCoord, interpolated.zCoord, 100);
             }
         }
     }
