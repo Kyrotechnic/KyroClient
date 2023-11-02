@@ -29,7 +29,7 @@ public class BlockFricker extends Module {
     public BooleanSetting rotate = new BooleanSetting("Rotate", false);
     public BooleanSetting prioritize = new BooleanSetting("Prioritize Closest", true);
     public BooleanSetting finalClick = new BooleanSetting("Sends stop break", true);
-    public ModeSetting type = new ModeSetting("Blocks", "Mithril", "Mithril", "Gold", "Diamond");
+    public ModeSetting type = new ModeSetting("Blocks", "Mithril", "Mithril", "Gold", "Diamond", "Mycelium", "Red Sand", "Quartz", "Netherrack");
     public BlockFricker()
     {
         super("Block Fricker", Category.WORLD);
@@ -102,6 +102,16 @@ public class BlockFricker extends Module {
                 return (block == Blocks.gold_block);
             case "Diamond":
                 return (block == Blocks.diamond_block);
+            case "Mycelium":
+                return (block == Blocks.mycelium);
+            case "Red Sand":
+                int meta = block.getMetaFromState(blockState);
+
+                return (block == Blocks.sand && meta == 1);
+            case "Quartz":
+                return (block == Blocks.quartz_ore);
+            case "Netherrack":
+                return (block == Blocks.netherrack);
             default:
                 return false;
         }

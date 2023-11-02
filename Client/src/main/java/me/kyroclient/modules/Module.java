@@ -175,6 +175,7 @@ public class Module {
         RENDER("Render"),
         COMBAT("Combat"),
         MISC("Misc"),
+        DIANA("Diana"),
         WORLD("World");
 
         public String name;

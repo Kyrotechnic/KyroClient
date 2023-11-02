@@ -15,7 +15,8 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class Boner extends Module {
     public NumberSetting tickDelay = new NumberSetting("Tick Delay", 3, 1, 5, 1);
-    public BooleanSetting swap = new BooleanSetting("Sword Swap After Throws", false);
+    public BooleanSetting swap = new BooleanSetting("Sword Swap", false);
+    public BooleanSetting disable = new BooleanSetting("Disable", false);
     public NumberSetting slot = new NumberSetting("Slot To Swap", 6, 1, 9, 1, aBoolean -> !swap.isEnabled());
     int ticks = 0;
     public Boner()
@@ -25,7 +26,8 @@ public class Boner extends Module {
         addSettings(
                 tickDelay,
                 slot,
-                swap
+                swap,
+                disable
         );
     }
 
@@ -39,6 +41,7 @@ public class Boner extends Module {
     public void onDisable()
     {
         ticks = 0;
+        PacketUtils.sendPacket(new C09PacketHeldItemChange(KyroClient.mc.thePlayer.inventory.currentItem));
     }
 
     @SubscribeEvent
@@ -69,9 +72,17 @@ public class Boner extends Module {
 
             ItemStack item = KyroClient.mc.thePlayer.inventory.mainInventory[i];
 
-            if (item.getItem() != Items.bone) continue;
+            if (item == null || item.getItem() != Items.bone) continue;
 
             flag = true;
+            slotToSwap = i;
+        }
+
+        if (slotToSwap < 0 || slotToSwap > 8)
+        {
+            if (disable.isEnabled())
+                setToggled(false);
+            return;
         }
 
         if (flag)
@@ -81,8 +92,9 @@ public class Boner extends Module {
         }
         else
         {
-            KyroClient.mc.thePlayer.inventory.currentItem = slotToSwap;
-            setToggled(false);
+            KyroClient.mc.thePlayer.inventory.currentItem = slotToSwap - 1;
+            if (disable.isEnabled())
+                setToggled(false);
         }
     }
 }
