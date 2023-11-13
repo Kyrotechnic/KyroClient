@@ -69,7 +69,7 @@ val exportLib: Configuration by configurations.creating {
 }
 
 dependencies {
-    compileOnly("org.reflections:reflections:0.10.2")
+    shadowImpl("org.reflections:reflections:0.10.2")
     minecraft("com.mojang:minecraft:1.8.9")
     mappings("de.oceanlabs.mcp:mcp_stable:22-1.8.9")
     forge("net.minecraftforge:forge:1.8.9-11.15.1.2318-1.8.9")
@@ -77,7 +77,6 @@ dependencies {
     api(libs.bundles.asm)
 
     compileOnly(libs.lombok)
-    compileOnly(files("lib/SkyHanni.jar"))
     annotationProcessor(libs.lombok)
 
     compileOnly(libs.mixin)

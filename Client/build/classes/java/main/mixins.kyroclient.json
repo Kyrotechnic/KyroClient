@@ -18,6 +18,7 @@
     "gui.MixinGuiScreen",
     "gui.MixinGuiContainer",
     "gui.MixinGuiChat",
+    "gui.MixinGuiDisconnected",
     "render.MixinItemRenderer",
     "render.MixinRender",
     "render.MixinRenderCaveSpider",
@@ -26,13 +27,13 @@
     "render.MixinRenderWither",
     "render.MixinEntityRenderer",
     "settings.GameSettings",
+    "minecraftforge.MixinEventBus",
     "MinecraftAccessor",
     "MixinFMLHandshakeMessage",
     "MixinFontRenderer",
     "MixinMinecraft",
     "MixinNetHandlerPlayClient",
     "MixinNetworkManager",
-    "PlayerSPAccessor",
-    "skyhanni.MixinJacobStatSummary"
+    "PlayerSPAccessor"
   ]
 }

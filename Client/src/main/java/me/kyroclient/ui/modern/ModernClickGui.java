@@ -45,6 +45,7 @@ public class ModernClickGui extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         int categoryOffset = 25;
         GLUtil.startScale((float)(this.getX() + (this.getX() + (double)this.getWidth())) / 2.0f, (float)(this.getY() + (this.getY() + (double)this.getHeight())) / 2.0f, 1.0f);
+        RenderUtils.drawBorderedRoundedRect((float) getX() - 5, (float) getY() - 5, getWidth() + 10, getHeight() + 10, 6, 2 , KyroClient.themeManager.getPrimaryColor().getRGB(), KyroClient.themeManager.getSecondaryColor().getRGB());
         RenderUtils.drawBorderedRoundedRect((float)this.getX(), (float)this.getY(), 85.0f, this.getHeight(), 3.0f, 2.0f, KyroClient.themeManager.getPrimaryColor().getRGB(), KyroClient.themeManager.getSecondaryColor().getRGB());
         RenderUtils.drawBorderedRoundedRect((float)(this.getX() + 90.0), (float)this.getY(), this.getWidth() - 90.0f, 20.0f, 3.0f, 2.0f, KyroClient.themeManager.getPrimaryColor().getRGB(), KyroClient.themeManager.getSecondaryColor().getRGB());
         RenderUtils.drawBorderedRoundedRect((float)(this.getX() + 90.0), (float)(this.getY() + 25.0), this.getWidth() - 90.0f, this.getHeight() - 25.0f, 3.0f, 2.0f, KyroClient.themeManager.getPrimaryColor().getRGB(), KyroClient.themeManager.getSecondaryColor().getRGB());

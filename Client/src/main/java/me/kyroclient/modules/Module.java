@@ -176,7 +176,8 @@ public class Module {
         COMBAT("Combat"),
         MISC("Misc"),
         DIANA("Diana"),
-        WORLD("World");
+        MINING("Mining"),
+        CLIENT("Client");
 
         public String name;
 

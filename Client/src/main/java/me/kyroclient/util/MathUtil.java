@@ -40,6 +40,11 @@ public class MathUtil
         return min + (max - min) * MathUtil.rand.nextFloat();
     }
 
+    public static int getRandomInRange(int bound)
+    {
+        return MathUtil.rand.nextInt(bound);
+    }
+
     public static double clamp(final double num, double max, double min) {
         if (max < min) {
             final double temp = max;

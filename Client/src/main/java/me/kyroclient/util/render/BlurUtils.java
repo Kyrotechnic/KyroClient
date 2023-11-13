@@ -34,10 +34,10 @@ public class BlurUtils
     private static Framebuffer blurOutputHorz;
 
     public static void registerListener() {
-        if (!BlurUtils.registered) {
+        /*if (!BlurUtils.registered) {
             BlurUtils.registered = true;
             MinecraftForge.EVENT_BUS.register((Object)new BlurUtils());
-        }
+        }*/
     }
 
     public static void processBlurs() {

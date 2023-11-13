@@ -2,11 +2,15 @@ package me.kyroclient;
 
 
 import lombok.SneakyThrows;
+import me.kyroclient.forge.ForgeRegister;
+import me.kyroclient.forge.ForgeSpoofer;
 import me.kyroclient.managers.*;
 import me.kyroclient.modules.Module;
+import me.kyroclient.modules.client.Tickless;
 import me.kyroclient.modules.combat.*;
 import me.kyroclient.modules.garden.CropNuker;
 import me.kyroclient.modules.garden.FarmingMacro;
+import me.kyroclient.modules.mining.MiningQOL;
 import me.kyroclient.modules.misc.Delays;
 import me.kyroclient.modules.misc.GuiMove;
 import me.kyroclient.modules.misc.Modless;
@@ -20,9 +24,8 @@ import me.kyroclient.notifications.Notification;
 import me.kyroclient.util.font.Fonts;
 import me.kyroclient.util.render.BlurUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Mixins;
 
 import java.awt.*;
 import java.util.List;
@@ -32,7 +35,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-@Mod(modid = KyroClient.MOD_ID, version = "indev", clientSideOnly = true)
 public class KyroClient {
     //Vars
     public static final String MOD_ID = "dankers";
@@ -46,6 +48,7 @@ public class KyroClient {
     public static boolean isDev = true;
     public static Color iconColor = new Color(237, 107, 0);
     public static long gameStarted;
+    public static boolean banned = false;
 
     //Module Dependencies
     public static Gui clickGui;
@@ -72,18 +75,43 @@ public class KyroClient {
     public static InventoryDisplay inventoryDisplay;
     public static LoreDisplay loreDisplay;
     public static FarmingMacro macro;
+    public static MiningQOL miningQol;
+    public static Tickless tickless;
 
 
     //Methods
-    @Mod.EventHandler
-    public void startForge(FMLInitializationEvent event)
+
+    /*
+    Time to finally make it spoof being any random mod on boot!
+     */
+    public static List<ForgeRegister> registerEvents()
     {
-        for (Module module : moduleManager.getModules())
+        /*for (Module module : moduleManager.getModules())
         {
             MinecraftForge.EVENT_BUS.register(module);
+        }*/
+
+        ForgeSpoofer.update();
+        List<ForgeRegister> registers = new ArrayList<>();
+
+        for (Module module : moduleManager.getModules())
+        {
+            List<ForgeRegister> register = ForgeSpoofer.register(module, true);
+            if (register.isEmpty()) continue;
+            registers.addAll(register);
         }
 
+        registers.add(ForgeSpoofer.register(notificationManager = new NotificationManager(), true).get(0));
+        registers.add(ForgeSpoofer.register(new BlurUtils(), true).get(0));
+
         Fonts.bootstrap();
+
+        return registers;
+    }
+
+    public static void mixin()
+    {
+        Mixins.addConfiguration("mixins.kyroclient.json");
     }
 
     public static void init()
@@ -93,13 +121,10 @@ public class KyroClient {
         moduleManager = new ModuleManager("me.kyroclient.modules");
         moduleManager.initReflection();
 
-        notificationManager = new NotificationManager();
         configManager = new ConfigManager();
         themeManager = new ThemeManager();
 
         CommandManager.init();
-
-        BlurUtils.registerListener();
 
         gameStarted = System.currentTimeMillis();
 

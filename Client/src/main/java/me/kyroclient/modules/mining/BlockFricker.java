@@ -1,4 +1,4 @@
-package me.kyroclient.modules.world;
+package me.kyroclient.modules.mining;
 
 import me.kyroclient.KyroClient;
 import me.kyroclient.modules.Module;
@@ -32,7 +32,7 @@ public class BlockFricker extends Module {
     public ModeSetting type = new ModeSetting("Blocks", "Mithril", "Mithril", "Gold", "Diamond", "Mycelium", "Red Sand", "Quartz", "Netherrack");
     public BlockFricker()
     {
-        super("Block Fricker", Category.WORLD);
+        super("Block Fricker", Category.MINING);
 
         addSettings(type, range, perTick, swingHand, rotate, prioritize, finalClick);
     }

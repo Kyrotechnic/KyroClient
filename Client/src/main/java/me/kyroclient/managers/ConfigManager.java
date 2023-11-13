@@ -100,6 +100,7 @@ public class ConfigManager
             module.onSave();
             final List<ConfigSetting> settings = new ArrayList<ConfigSetting>();
             for (final Setting setting : module.settings) {
+                if (setting == null) continue;
                 final ConfigSetting cfgSetting = new ConfigSetting(null, null);
                 cfgSetting.name = setting.name;
                 if (setting instanceof BooleanSetting) {

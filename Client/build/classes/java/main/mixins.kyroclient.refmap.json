@@ -31,6 +31,13 @@
       "rightClickMouse": "Lnet/minecraft/client/Minecraft;func_147121_ag()V",
       "displayGuiScreen": "Lnet/minecraft/client/Minecraft;func_147108_a(Lnet/minecraft/client/gui/GuiScreen;)V"
     },
+    "me/kyroclient/mixins/MixinPlayerController": {
+      "Lnet/minecraft/client/multiplayer/WorldClient;sendBlockBreakProgress(ILnet/minecraft/util/BlockPos;I)V": "Lnet/minecraft/client/multiplayer/WorldClient;func_175715_c(ILnet/minecraft/util/BlockPos;I)V",
+      "onPlayerDamageBlock": "Lnet/minecraft/client/multiplayer/PlayerControllerMP;func_180512_c(Lnet/minecraft/util/BlockPos;Lnet/minecraft/util/EnumFacing;)Z",
+      "Lnet/minecraft/item/ItemStack;areItemStackTagsEqual(Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemStack;)Z": "Lnet/minecraft/item/ItemStack;func_77970_a(Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemStack;)Z",
+      "Lnet/minecraft/block/Block;getPlayerRelativeBlockHardness(Lnet/minecraft/entity/player/EntityPlayer;Lnet/minecraft/world/World;Lnet/minecraft/util/BlockPos;)F": "Lnet/minecraft/block/Block;func_180647_a(Lnet/minecraft/entity/player/EntityPlayer;Lnet/minecraft/world/World;Lnet/minecraft/util/BlockPos;)F",
+      "isHittingPosition": "Lnet/minecraft/client/multiplayer/PlayerControllerMP;func_178893_a(Lnet/minecraft/util/BlockPos;)Z"
+    },
     "me/kyroclient/mixins/render/MixinRenderPlayer": {
       "preRenderCallback(Lnet/minecraft/client/entity/AbstractClientPlayer;F)V": "Lnet/minecraft/client/renderer/entity/RenderPlayer;func_77041_b(Lnet/minecraft/client/entity/AbstractClientPlayer;F)V"
     },
@@ -39,6 +46,10 @@
     },
     "me/kyroclient/mixins/blocks/MixinChunk": {
       "setBlockState": "Lnet/minecraft/world/chunk/Chunk;func_177436_a(Lnet/minecraft/util/BlockPos;Lnet/minecraft/block/state/IBlockState;)Lnet/minecraft/block/state/IBlockState;"
+    },
+    "me/kyroclient/mixins/gui/MixinGuiDisconnected": {
+      "actionPerformed": "Lnet/minecraft/client/gui/GuiDisconnected;func_146284_a(Lnet/minecraft/client/gui/GuiButton;)V",
+      "initGui": "Lnet/minecraft/client/gui/GuiDisconnected;func_73866_w_()V"
     },
     "me/kyroclient/mixins/gui/MixinGuiButton": {
       "drawButton": "Lnet/minecraft/client/gui/GuiButton;func_146112_a(Lnet/minecraft/client/Minecraft;II)V"
@@ -129,6 +140,13 @@
         "rightClickMouse": "Lnet/minecraft/client/Minecraft;func_147121_ag()V",
         "displayGuiScreen": "Lnet/minecraft/client/Minecraft;func_147108_a(Lnet/minecraft/client/gui/GuiScreen;)V"
       },
+      "me/kyroclient/mixins/MixinPlayerController": {
+        "Lnet/minecraft/client/multiplayer/WorldClient;sendBlockBreakProgress(ILnet/minecraft/util/BlockPos;I)V": "Lnet/minecraft/client/multiplayer/WorldClient;func_175715_c(ILnet/minecraft/util/BlockPos;I)V",
+        "onPlayerDamageBlock": "Lnet/minecraft/client/multiplayer/PlayerControllerMP;func_180512_c(Lnet/minecraft/util/BlockPos;Lnet/minecraft/util/EnumFacing;)Z",
+        "Lnet/minecraft/item/ItemStack;areItemStackTagsEqual(Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemStack;)Z": "Lnet/minecraft/item/ItemStack;func_77970_a(Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemStack;)Z",
+        "Lnet/minecraft/block/Block;getPlayerRelativeBlockHardness(Lnet/minecraft/entity/player/EntityPlayer;Lnet/minecraft/world/World;Lnet/minecraft/util/BlockPos;)F": "Lnet/minecraft/block/Block;func_180647_a(Lnet/minecraft/entity/player/EntityPlayer;Lnet/minecraft/world/World;Lnet/minecraft/util/BlockPos;)F",
+        "isHittingPosition": "Lnet/minecraft/client/multiplayer/PlayerControllerMP;func_178893_a(Lnet/minecraft/util/BlockPos;)Z"
+      },
       "me/kyroclient/mixins/render/MixinRenderPlayer": {
         "preRenderCallback(Lnet/minecraft/client/entity/AbstractClientPlayer;F)V": "Lnet/minecraft/client/renderer/entity/RenderPlayer;func_77041_b(Lnet/minecraft/client/entity/AbstractClientPlayer;F)V"
       },
@@ -137,6 +155,10 @@
       },
       "me/kyroclient/mixins/blocks/MixinChunk": {
         "setBlockState": "Lnet/minecraft/world/chunk/Chunk;func_177436_a(Lnet/minecraft/util/BlockPos;Lnet/minecraft/block/state/IBlockState;)Lnet/minecraft/block/state/IBlockState;"
+      },
+      "me/kyroclient/mixins/gui/MixinGuiDisconnected": {
+        "actionPerformed": "Lnet/minecraft/client/gui/GuiDisconnected;func_146284_a(Lnet/minecraft/client/gui/GuiButton;)V",
+        "initGui": "Lnet/minecraft/client/gui/GuiDisconnected;func_73866_w_()V"
       },
       "me/kyroclient/mixins/gui/MixinGuiButton": {
         "drawButton": "Lnet/minecraft/client/gui/GuiButton;func_146112_a(Lnet/minecraft/client/Minecraft;II)V"

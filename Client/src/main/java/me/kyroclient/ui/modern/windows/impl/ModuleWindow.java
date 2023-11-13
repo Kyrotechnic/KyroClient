@@ -70,7 +70,7 @@ public class ModuleWindow extends Window {
         } else if (selectedModule != null) {
             Fonts.getPrimary().drawString(selectedModule.getName(), ModernClickGui.getX() + 95.0, 30.0, Color.WHITE.getRGB());
 
-            for (Comp comp : updateComps()) {
+            for (Comp comp : updateComps(selectedModule.getSettings())) {
                 comp.drawScreen(mouseX, mouseY, partialTicks);
             }
         }
@@ -117,11 +117,11 @@ public class ModuleWindow extends Window {
         StencilUtils.disableStencilBuffer();
     }
 
-    public List<Comp> updateComps() {
+    public static List<Comp> updateComps(List<Setting> settings) {
         List<Comp> comps = new ArrayList<>();
         int settingOffset = 30 + (int) settingsAnimation.getValue();
         boolean lastBool = false;
-        for (Setting s : selectedModule.getSettings()) {
+        for (Setting s : settings) {
             if (s.isHidden()) continue;
             if (!(s instanceof BooleanSetting) && lastBool) {
                 lastBool = false;
@@ -164,7 +164,7 @@ public class ModuleWindow extends Window {
         return comps;
     }
 
-    public int settingsHeight;
+    public static int settingsHeight;
     public void close()
     {
         selectedModule = null;
@@ -214,7 +214,7 @@ public class ModuleWindow extends Window {
         }
         else
         {
-            for (Comp comp : updateComps())
+            for (Comp comp : updateComps(selectedModule.getSettings()))
             {
                 comp.mouseClicked(mouseX, mouseY, mouseButton);
             }
@@ -228,7 +228,7 @@ public class ModuleWindow extends Window {
         KyroClient.configManager.saveConfig();
         if (selectedModule == null) return;
 
-        for (Comp comp : updateComps())
+        for (Comp comp : updateComps(selectedModule.getSettings()))
         {
             comp.mouseReleased(mouseX, mouseY, mouseButton);
         }

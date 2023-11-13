@@ -3,6 +3,7 @@ package me.kyroclient.util;
 import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.item.ItemSkull;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;
 
@@ -27,6 +28,38 @@ public class SkyblockUtils {
         }
 
         return false;
+    }
+
+    public static String getSkyblockItemID(ItemStack item) {
+        if (item == null) {
+            return null;
+        }
+
+        NBTTagCompound extraAttributes = getExtraAttributes(item);
+        if (extraAttributes == null) {
+            return null;
+        }
+
+        if (!extraAttributes.hasKey("id", SkyblockUtils.NBT_STRING)) {
+            return null;
+        }
+
+        return extraAttributes.getString("id");
+    }
+
+    public static final int NBT_INTEGER = 3;
+    public static final int NBT_STRING = 8;
+    public static final int NBT_LIST = 9;
+
+    public static NBTTagCompound getExtraAttributes(ItemStack item) {
+        if (item == null) {
+            throw new NullPointerException("The item cannot be null!");
+        }
+        if (!item.hasTagCompound()) {
+            return null;
+        }
+
+        return item.getSubCompound("ExtraAttributes", false);
     }
 
     public static boolean isTerminal(final String name) {

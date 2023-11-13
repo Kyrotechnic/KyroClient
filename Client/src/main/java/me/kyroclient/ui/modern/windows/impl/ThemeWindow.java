@@ -2,8 +2,13 @@ package me.kyroclient.ui.modern.windows.impl;
 
 import me.kyroclient.KyroClient;
 import me.kyroclient.managers.ThemeManager;
+import me.kyroclient.settings.Setting;
+import me.kyroclient.ui.modern.comps.Comp;
 import me.kyroclient.ui.modern.comps.CompModeSetting;
 import me.kyroclient.ui.modern.windows.Window;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ThemeWindow
         extends Window {

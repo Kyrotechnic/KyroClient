@@ -89,6 +89,7 @@ FIELD	me/kyroclient/mixins/gui/MixinGuiButton	I	width	field_146120_f
 FIELD	me/kyroclient/mixins/gui/MixinGuiButton	Z	enabled	field_146124_l
 FIELD	me/kyroclient/mixins/gui/MixinGuiButton	Ljava/lang/String;	displayString	field_146126_j
 FIELD	me/kyroclient/mixins/gui/MixinGuiContainer	Lnet/minecraft/inventory/Container;	inventorySlots	field_147002_h
+FIELD	me/kyroclient/mixins/gui/MixinGuiDisconnected	Lnet/minecraft/util/IChatComponent;	message	field_146304_f
 FIELD	me/kyroclient/mixins/gui/MixinGuiScreen	Lnet/minecraft/client/Minecraft;	mc	field_146297_k
 FIELD	me/kyroclient/mixins/gui/MixinGuiScreen	I	height	field_146295_m
 FIELD	me/kyroclient/mixins/gui/MixinGuiScreen	I	width	field_146294_l
@@ -106,6 +107,10 @@ FIELD	me/kyroclient/mixins/MixinNetHandlerPlayClient	Lnet/minecraft/client/Minec
 FIELD	me/kyroclient/mixins/MixinNetHandlerPlayClient	Lnet/minecraft/client/multiplayer/WorldClient;	clientWorldController	field_147300_g
 FIELD	me/kyroclient/mixins/MixinNetHandlerPlayClient	Z	doneLoadingTerrain	field_147309_h
 FIELD	me/kyroclient/mixins/MixinNetHandlerPlayClient	Lnet/minecraft/network/NetworkManager;	netManager	field_147302_e
+FIELD	me/kyroclient/mixins/MixinPlayerController	I	blockHitDelay	field_78781_i
+FIELD	me/kyroclient/mixins/MixinPlayerController	F	stepSoundTickCounter	field_78780_h
+FIELD	me/kyroclient/mixins/MixinPlayerController	F	curBlockDamageMP	field_78770_f
+FIELD	me/kyroclient/mixins/MixinPlayerController	Lnet/minecraft/client/Minecraft;	mc	field_78776_a
 FIELD	me/kyroclient/mixins/render/MixinEntityRenderer	F	thirdPersonDistanceTemp	field_78491_C
 FIELD	me/kyroclient/mixins/render/MixinEntityRenderer	F	thirdPersonDistance	field_78490_B
 FIELD	me/kyroclient/mixins/render/MixinItemRenderer	F	prevEquippedProgress	field_78451_d

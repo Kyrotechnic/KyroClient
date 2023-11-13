@@ -17,7 +17,7 @@ public class NotificationManager {
     public static final ArrayList<Notification> notifications = new ArrayList<>();
     public NotificationManager()
     {
-        MinecraftForge.EVENT_BUS.register(this);
+
     }
 
     private void render()
