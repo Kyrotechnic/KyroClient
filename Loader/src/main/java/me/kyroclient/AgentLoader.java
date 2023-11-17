@@ -8,9 +8,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.instrument.Instrumentation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.jar.JarFile;
 
@@ -21,7 +25,7 @@ public class AgentLoader {
     public static final String LOCALE_VERSION = System.getenv("APPDATA") + "\\.minecraft\\config\\KyroClient\\Version.txt";
     public static boolean needUpdate = false;
 
-    public static void premain(String agentArgs, Instrumentation instrumentation) throws IOException {
+    public static void premain(String agentArgs, Instrumentation instrumentation) throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         AgentLoader.downloadUpdate();
 
         JarFile file = new JarFile(new File(MOD_LOCATION));
@@ -31,12 +35,12 @@ public class AgentLoader {
 
         System.out.println("Added to class loader!");
 
-
+        String test = "net/minecraftforge/fml/relauncher/CoreModManager";
 
         instrumentation.addTransformer(new SafeTransformer() {
             @Override
             public byte[] transform(ClassLoader loader, String className, byte[] originalClass) {
-                if (className == "net/minecraftforge/fml/relauncher/ModListHelper")
+                if (className.contains("CoreModManager"))
                     loadMod();
 
                 return originalClass;
@@ -44,18 +48,28 @@ public class AgentLoader {
         });
     }
 
+    public static boolean loaded = false;
+
     public static void loadMod()
     {
+        if (loaded) return;
         try {
+            Class clasy = Class.forName("net.minecraft.launchwrapper.Launch");
+            Map<String, Object> map = (Map<String, Object>) clasy.getDeclaredField("blackboard").get(null);
+            List<String> tweaks = (List<String>) map.get("TweakClasses");
+            tweaks.add("me.kyroclient.tweaker.Tweaker");
+
+            System.out.println("YAY!");
+
             Class clasz = Class.forName("net.minecraftforge.fml.relauncher.ModListHelper");
 
             Field field = clasz.getDeclaredField("additionalMods");
             Map<String, File> mods = (Map<String, File>) field.get(null);
             mods.put("kyroclient", new File(MOD_LOCATION));
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
-
+        loaded = true;
         System.out.println("Loaded mod!");
     }
 
