@@ -2,6 +2,7 @@ package me.kyroclient;
 
 
 import lombok.SneakyThrows;
+import me.kyroclient.events.PacketSentEvent;
 import me.kyroclient.forge.ForgeRegister;
 import me.kyroclient.forge.ForgeSpoofer;
 import me.kyroclient.managers.*;
@@ -15,19 +16,22 @@ import me.kyroclient.modules.misc.Delays;
 import me.kyroclient.modules.misc.GuiMove;
 import me.kyroclient.modules.misc.Modless;
 import me.kyroclient.modules.misc.NoSlow;
-import me.kyroclient.modules.player.FastPlace;
-import me.kyroclient.modules.player.NickHider;
-import me.kyroclient.modules.player.Speed;
-import me.kyroclient.modules.player.Velocity;
+import me.kyroclient.modules.player.*;
 import me.kyroclient.modules.render.*;
 import me.kyroclient.notifications.Notification;
 import me.kyroclient.util.font.Fonts;
 import me.kyroclient.util.render.BlurUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.command.CommandHandler;
+import net.minecraft.network.play.client.C01PacketChatMessage;
+import net.minecraft.util.ChatComponentText;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mixins;
 
+import javax.net.ssl.*;
 import java.awt.*;
+import java.security.SecureRandom;
 import java.util.List;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -44,6 +48,7 @@ public class KyroClient {
     public static NotificationManager notificationManager;
     public static ConfigManager configManager;
     public static ThemeManager themeManager;
+    public static FriendManager friendManager;
     public static Minecraft mc;
     public static boolean isDev = true;
     public static Color iconColor = new Color(237, 107, 0);
@@ -77,6 +82,8 @@ public class KyroClient {
     public static FarmingMacro macro;
     public static MiningQOL miningQol;
     public static Tickless tickless;
+    public static TeleportExploit teleportExploit;
+    public static Hud hud;
 
 
     //Methods
@@ -103,17 +110,12 @@ public class KyroClient {
 
         registers.add(ForgeSpoofer.register(notificationManager = new NotificationManager(), true).get(0));
         registers.add(ForgeSpoofer.register(new BlurUtils(), true).get(0));
+        registers.add(ForgeSpoofer.register(new KyroClient(), true).get(0));
 
         Fonts.bootstrap();
 
         return registers;
     }
-
-    public static void mixin()
-    {
-        Mixins.addConfiguration("mixins.kyroclient.json");
-    }
-
     public static void init()
     {
         mc = Minecraft.getMinecraft();
@@ -123,12 +125,52 @@ public class KyroClient {
 
         configManager = new ConfigManager();
         themeManager = new ThemeManager();
+        friendManager = new FriendManager();
+
+        friendManager.init();
 
         CommandManager.init();
 
         gameStarted = System.currentTimeMillis();
 
+        //fixCertificate();
+
         new Thread(KyroClient::threadTask).start();
+    }
+
+    @SneakyThrows
+    public static void fixCertificate()
+    {
+        SSLContext sc = SSLContext.getInstance("SSL");
+        sc.init(null, new TrustManager[]{new TrustAnyTrustManager()}, new SecureRandom());
+        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+        HostnameVerifier allHostsValid = new HostnameVerifier() {
+            public boolean verify(String hostname, SSLSession session) {
+                return true;
+            }
+        };
+        HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+    }
+
+    @SubscribeEvent
+    public void sendPacket(PacketSentEvent event)
+    {
+        if (event.packet instanceof C01PacketChatMessage)
+        {
+            C01PacketChatMessage message = (C01PacketChatMessage) event.packet;
+
+            String str = message.getMessage();
+
+            if (CommandManager.handle(str))
+            {
+                event.setCanceled(true);
+            }
+        }
+    }
+
+    public static void sendMessage(String message)
+    {
+        KyroClient.mc.thePlayer.addChatMessage(new ChatComponentText(message));
     }
 
     @SneakyThrows

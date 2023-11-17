@@ -1,102 +1,75 @@
 package me.kyroclient;
 
-import me.kyroclient.transformer.SafeTransformer;
+import lombok.SneakyThrows;
 
-import java.io.*;
+import javax.xml.transform.Transformer;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.instrument.Instrumentation;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.reflect.Field;
 import java.net.URL;
-import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.security.ProtectionDomain;
-import java.util.UUID;
+import java.util.Map;
 import java.util.jar.JarFile;
-import java.util.zip.ZipEntry;
 
 public class AgentLoader {
-    public static void premain(String agentArgs, Instrumentation inst)
-    {
-        dir = downloadUpdate();
+    public static final String VERSION_LINK = "https://github.com/Kyrotechnic/KyroClient/raw/main/update/Latest.txt";
+    public static final String VERSION_DOWNLOAD = "https://raw.githubusercontent.com/Kyrotechnic/KyroClient/main/update/KyroClient.jar";
+    public static final String MOD_LOCATION = System.getenv("APPDATA") + "\\.minecraft\\test.jar";
+    public static final String LOCALE_VERSION = System.getenv("APPDATA") + "\\.minecraft\\config\\KyroClient\\Version.txt";
+    public static boolean needUpdate = false;
 
-        JarFile jarFile;
+    public static void premain(String agentArgs, Instrumentation instrumentation) throws IOException {
+        AgentLoader.downloadUpdate();
 
-        try {
-            jarFile = new JarFile(new File(dir));
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            return;
-        }
+        JarFile file = new JarFile(new File(MOD_LOCATION));
 
-        inst.appendToSystemClassLoaderSearch(jarFile);
-        inst.appendToBootstrapClassLoaderSearch(jarFile);
+        instrumentation.appendToBootstrapClassLoaderSearch(file);
+        instrumentation.appendToSystemClassLoaderSearch(file);
 
-        File file = new File(dir);
-        URLClassLoader loader = (URLClassLoader) ClassLoader.getSystemClassLoader();
-
-        try {
-            Method method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
-            method.setAccessible(true);
-            method.invoke(loader, file.toURI().toURL());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        System.out.println("Added to class loader!");
 
 
-        inst.addTransformer(new SafeTransformer() {
+
+        instrumentation.addTransformer(new SafeTransformer() {
             @Override
             public byte[] transform(ClassLoader loader, String className, byte[] originalClass) {
-                if (className.startsWith("net/minecraft/client/"))
-                {
-                    inst.removeTransformer(this);
+                if (className == "net/minecraftforge/fml/relauncher/ModListHelper")
+                    loadMod();
 
-                    try {
-                        loader.loadClass("me.kyroclient.KyroClientLoader")
-                                .getDeclaredMethod("start", Instrumentation.class)
-                                .invoke(null, inst);
-                    } catch (Exception ex)
-                    {
-                        ex.printStackTrace();
-                    }
-                }
-
-                return null;
+                return originalClass;
             }
         });
     }
 
-    public static final String VERSION_LINK = "https://github.com/Kyrotechnic/KyroClient/raw/main/update/Latest.txt";
-    public static final String VERSION_DOWNLOAD = "https://raw.githubusercontent.com/Kyrotechnic/KyroClient/main/update/KyroClient.jar";
-    public static final String MOD_LOCATION = System.getenv("APPDATA") + "\\.minecraft\\mods\\KyroClient.jar";
-    public static final String LOCALE_VERSION = System.getenv("APPDATA") + "\\.minecraft\\config\\KyroClient\\test.jar";
-    public static boolean needUpdate = false;
-    public static String dir = LOCALE_VERSION;
-    public static Exception exception = null;
-
-    public static String downloadUpdate()
+    public static void loadMod()
     {
-        try
-        {
-            dir = LOCALE_VERSION;
+        try {
+            Class clasz = Class.forName("net.minecraftforge.fml.relauncher.ModListHelper");
 
+            Field field = clasz.getDeclaredField("additionalMods");
+            Map<String, File> mods = (Map<String, File>) field.get(null);
+            mods.put("kyroclient", new File(MOD_LOCATION));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println("Loaded mod!");
+    }
+
+    public static void downloadUpdate() {
+        try {
             URL downloadUrl = new URL(VERSION_DOWNLOAD);
-            File file = new File(dir);
-
-            try (InputStream in = downloadUrl.openStream())
-            {
+            File file = new File(MOD_LOCATION);
+            try (InputStream in = downloadUrl.openStream();){
                 Files.copy(in, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
             }
+            File file2 = new File(LOCALE_VERSION);
         }
-        catch (Exception e)
-        {
-            exception =  e;
+        catch (Exception e) {
             e.printStackTrace();
-            dir = null;
         }
-
-        return dir = LOCALE_VERSION;
     }
 }

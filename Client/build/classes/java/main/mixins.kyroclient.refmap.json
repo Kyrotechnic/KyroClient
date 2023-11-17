@@ -55,6 +55,7 @@
       "drawButton": "Lnet/minecraft/client/gui/GuiButton;func_146112_a(Lnet/minecraft/client/Minecraft;II)V"
     },
     "me/kyroclient/mixins/gui/MixinGuiIngame": {
+      "renderTooltip": "Lnet/minecraft/client/gui/GuiIngame;func_180479_a(Lnet/minecraft/client/gui/ScaledResolution;F)V",
       "renderScoreboard": "Lnet/minecraft/client/gui/GuiIngame;func_180475_a(Lnet/minecraft/scoreboard/ScoreObjective;Lnet/minecraft/client/gui/ScaledResolution;)V"
     },
     "me/kyroclient/mixins/entity/PlayerSPMixin": {
@@ -164,6 +165,7 @@
         "drawButton": "Lnet/minecraft/client/gui/GuiButton;func_146112_a(Lnet/minecraft/client/Minecraft;II)V"
       },
       "me/kyroclient/mixins/gui/MixinGuiIngame": {
+        "renderTooltip": "Lnet/minecraft/client/gui/GuiIngame;func_180479_a(Lnet/minecraft/client/gui/ScaledResolution;F)V",
         "renderScoreboard": "Lnet/minecraft/client/gui/GuiIngame;func_180475_a(Lnet/minecraft/scoreboard/ScoreObjective;Lnet/minecraft/client/gui/ScaledResolution;)V"
       },
       "me/kyroclient/mixins/entity/PlayerSPMixin": {

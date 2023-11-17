@@ -27,24 +27,39 @@ public class CommandManager {
             }
         }
     }
-    public static boolean handle(String msg) throws Exception {
+    public static void printHelp()
+    {
+        for (Command command : commands)
+        {
+            KyroClient.sendMessage("§b" + command.getName() + "§7: " + command.getDescription());
+        }
+    }
+    public static boolean handle(String msg) {
         if (!msg.startsWith(".")) return false;
 
         String[] array = msg.split(" ");
-        String baseCommand = array[0].replace(".", "");
+        String baseCommand = array[0].substring(1);
 
         for (Command command : commands)
         {
             for (String str : command.getNames())
             {
-                if (str == baseCommand)
-                {
-                    command.execute(array);
+                if (("." + str).equals(array[0])) {
+                    try {
+                        command.execute(array);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                     return true;
                 }
             }
         }
 
-        return false;
+        KyroClient.sendMessage(baseCommand);
+
+        printHelp();
+
+        return true;
     }
 }

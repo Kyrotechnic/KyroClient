@@ -4,7 +4,10 @@
 
 package me.kyroclient.mixins.entity;
 
+import me.kyroclient.KyroClient;
+import me.kyroclient.events.MoveFlyingEvent;
 import net.minecraft.entity.*;
+import net.minecraftforge.common.MinecraftForge;
 import org.spongepowered.asm.mixin.*;
 import java.util.*;
 import net.minecraft.world.*;
@@ -101,8 +104,11 @@ public abstract class EntityMixin
     @Shadow
     public abstract AxisAlignedBB getEntityBoundingBox();
     
-    @Shadow
-    public abstract void moveFlying(final float p0, final float p1, final float p2);
+    /**
+     * @author
+     * @reason
+     */
+    public abstract void moveFlying(float strafe, float forward, float friction);
     
     @Shadow
     public abstract UUID getUniqueID();

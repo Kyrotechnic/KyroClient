@@ -32,13 +32,6 @@ public class FakeLag extends Module {
     public void packet(PacketSentEvent event)
     {
         if (!isToggled()) return;
-
-        if (!(event.packet instanceof C00PacketKeepAlive) && !(event.packet instanceof C0FPacketConfirmTransaction))
-        {
-            event.setCanceled(true);
-
-            packets.add(event.packet);
-        }
     }
 
     public void send()

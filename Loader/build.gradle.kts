@@ -30,13 +30,6 @@ dependencies {
     shadowImpl("org.reflections:reflections:0.10.2")
 
     compileOnly("org.projectlombok:lombok:1.18.16")
-
-    shadowImpl("org.spongepowered:mixin:0.8.5")
-    shadowImpl("org.ow2.asm:asm:9.4")
-    shadowImpl("org.ow2.asm:asm-tree:9.4")
-    shadowImpl("commons-io:commons-io:2.11.0")
-    shadowImpl("com.google.code.gson:gson:2.8.9")
-    shadowImpl("com.google.guava:guava:31.1-jre")
 }
 
 tasks.withType(Jar::class) {

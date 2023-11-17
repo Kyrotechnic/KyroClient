@@ -4,6 +4,12 @@
 
 package me.kyroclient.mixins.entity;
 
+import me.kyroclient.KyroClient;
+import me.kyroclient.modules.combat.Aura;
+import me.kyroclient.util.MovementUtils;
+import me.kyroclient.util.RotationUtils;
+import net.minecraft.stats.StatList;
+import net.minecraftforge.common.ForgeHooks;
 import org.spongepowered.asm.mixin.*;
 import net.minecraft.potion.*;
 import net.minecraft.entity.ai.attributes.*;
@@ -56,8 +62,7 @@ public abstract class EntityLivingBaseMixin extends EntityMixin
     
     @Shadow
     public abstract PotionEffect getActivePotionEffect(final Potion p0);
-    
-    @Shadow
+
     protected abstract void jump();
     
     @Shadow

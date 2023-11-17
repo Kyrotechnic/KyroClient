@@ -190,7 +190,11 @@ public abstract class PlayerSPMixin extends AbstractClientPlayerMixin
         }
         MinecraftForge.EVENT_BUS.post((Event)new MotionUpdateEvent.Post(event));
     }
-    
+
+    /**
+     * @author
+     * @reason
+     */
     public void jump() {
         this.motionY = this.getJumpUpwardsMotion();
         if (this.isPotionActive(Potion.jump.id)) {
@@ -211,7 +215,11 @@ public abstract class PlayerSPMixin extends AbstractClientPlayerMixin
             this.addExhaustion(0.2f);
         }
     }
-    
+
+    /**
+     * @author
+     * @reason
+     */
     public void moveFlying(float strafe, float forward, float friction) {
         final MoveFlyingEvent event = new MoveFlyingEvent(forward, strafe, friction, this.rotationYaw);
         if (MinecraftForge.EVENT_BUS.post(event)) {

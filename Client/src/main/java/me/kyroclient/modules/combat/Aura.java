@@ -75,6 +75,7 @@ public class Aura extends Module {
     public NumberSetting minCps;
     public NumberSetting smoothing;
     public NumberSetting switchDelay;
+    public ModeSetting when = new ModeSetting("When Attack", "Pre", "Pre", "Post");
     public static List<String> names;
     private boolean wasDown;
     private boolean isBlocking;
@@ -185,7 +186,7 @@ public class Aura extends Module {
         this.lastAttack = new MilliTimer();
         this.switchDelayTimer = new MilliTimer();
         this.blockDelay = new MilliTimer();
-        this.addSettings(this.mode, this.switchDelay, this.range, this.rotationRange, this.minCps, this.maxCps, this.sorting, this.rotationMode, this.smoothing, this.maxRotation, this.minRotation, this.fov, this.blockMode, this.players, this.mobs, this.invisibles, this.teams, this.rotationSwing, this.movementFix, this.namesOnly, this.namesonlyMode, this.middleClick, this.attackOnly, this.walls, this.toggleInGui, this.toggleOnLoad, this.onlySword, this.shovelSwap);
+        this.addSettings(this.mode, this.switchDelay, this.range, this.rotationRange, this.minCps, this.maxCps, this.sorting, this.rotationMode, this.smoothing, this.maxRotation, this.minRotation, this.fov, this.blockMode, this.players, this.mobs, this.invisibles, this.teams, this.rotationSwing, this.movementFix, this.namesOnly, this.namesonlyMode, this.middleClick, this.attackOnly, this.walls, this.toggleInGui, this.toggleOnLoad, this.onlySword, this.shovelSwap, when);
     }
 
     @Override
@@ -236,6 +237,7 @@ public class Aura extends Module {
             target = null;
             return;
         }
+
         Aura.target = this.getTarget();
         if (this.attackOnly.isEnabled() && !KyroClient.mc.gameSettings.keyBindAttack.isKeyDown()) {
             return;
@@ -270,6 +272,60 @@ public class Aura extends Module {
                 }
             }
         }
+
+        if (when.is("Post")) return;
+
+        if (this.attackOnly.isEnabled() && !KyroClient.mc.gameSettings.keyBindAttack.isKeyDown()) {
+            this.attacks = 0;
+            return;
+        }
+        if (Aura.target != null && KyroClient.mc.thePlayer.getDistanceToEntity((Entity)Aura.target) < Math.max(this.rotationRange.getValue(), this.range.getValue()) && this.attacks > 0) {
+            final String selected = this.blockMode.getSelected();
+            switch (selected) {
+                case "None":
+                case "Fake": {}
+                case "Vanilla": {
+                    this.stopBlocking();
+                    break;
+                }
+            }
+            while (this.attacks > 0) {
+                KyroClient.mc.thePlayer.swingItem();
+                if (KyroClient.mc.thePlayer.getDistanceToEntity((Entity)Aura.target) < this.range.getValue() && (RotationUtils.getRotationDifference(RotationUtils.getRotations(Aura.target), RotationUtils.getLastReportedRotation()) < 15.0 || this.rotationMode.is("None") || KyroClient.speed.isToggled())) {
+                    KyroClient.mc.playerController.attackEntity((EntityPlayer)KyroClient.mc.thePlayer, (Entity)Aura.target);
+                    if (this.switchDelayTimer.hasTimePassed((long)this.switchDelay.getValue())) {
+                        ++this.targetIndex;
+                        this.switchDelayTimer.reset();
+                    }
+                }
+                --this.attacks;
+            }
+            if (KyroClient.mc.thePlayer.getHeldItem() != null && KyroClient.mc.thePlayer.getHeldItem().getItem() instanceof ItemSword) {
+                final String selected2 = this.blockMode.getSelected();
+                switch (selected2) {
+                    case "Vanilla": {
+                        if (!this.isBlocking) {
+                            this.startBlocking();
+                            break;
+                        }
+                        break;
+                    }
+                    case "Hypixel": {
+                        if (this.blockDelay.hasTimePassed(250L)) {
+                            this.startBlocking();
+                            KyroClient.mc.thePlayer.sendQueue.addToSendQueue((Packet)new C0BPacketEntityAction((Entity)KyroClient.mc.thePlayer, C0BPacketEntityAction.Action.STOP_SPRINTING));
+                            KyroClient.mc.thePlayer.sendQueue.addToSendQueue((Packet)new C0BPacketEntityAction((Entity)KyroClient.mc.thePlayer, C0BPacketEntityAction.Action.START_SPRINTING));
+                            this.blockDelay.reset();
+                            break;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        else {
+            this.attacks = 0;
+        }
     }
 
     @SubscribeEvent
@@ -290,6 +346,8 @@ public class Aura extends Module {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onMovePost(final MotionUpdateEvent.Post event) {
+        if (!isToggled()) return;
+        if (when.is("Pre")) return;
         if (this.attackOnly.isEnabled() && !KyroClient.mc.gameSettings.keyBindAttack.isKeyDown()) {
             this.attacks = 0;
             return;

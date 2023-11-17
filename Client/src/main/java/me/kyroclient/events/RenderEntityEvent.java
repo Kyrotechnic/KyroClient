@@ -3,6 +3,7 @@ package me.kyroclient.events;
 import net.minecraftforge.fml.common.eventhandler.*;
 import net.minecraft.entity.*;
 
+@Cancelable
 public class RenderEntityEvent extends Event
 {
     public EntityLivingBase entity;
