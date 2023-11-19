@@ -17,3 +17,10 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
+tasks.withType(Jar::class)
+{
+    manifest.attributes.run {
+        this["Main-Class"] = "org.example.Main"
+    }
+}
