@@ -46,7 +46,7 @@ public class Main {
             System.out.println("Installing " + str);
         }
 
-        install("https://raw.githubusercontent.com/Kyrotechnic/KyroClient/main/update/";)
+        install("https://raw.githubusercontent.com/Kyrotechnic/KyroClient/main/update/loader.jar", new File(APPDATA + "\\libraries\\me\\kyroclient\\kyroclient\\release\\kyroclient-release.jar"));
     }
 
     public static boolean install(String url, File install)
