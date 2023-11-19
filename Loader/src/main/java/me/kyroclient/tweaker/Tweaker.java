@@ -16,7 +16,8 @@ import java.util.List;
 public class Tweaker implements ITweaker {
     public Tweaker()
     {
-
+        AgentLoader.downloadUpdate();
+        while (!AgentLoader.downloaded);
     }
 
     private static Method ADDURL;
@@ -29,8 +30,6 @@ public class Tweaker implements ITweaker {
 
     @Override
     public void injectIntoClassLoader(LaunchClassLoader classLoader) {
-        AgentLoader.downloadUpdate();
-
         try {
             if (ADDURL == null)
             {

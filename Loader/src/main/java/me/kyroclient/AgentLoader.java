@@ -46,6 +46,10 @@ public class AgentLoader {
         }
         catch (Exception e) {
             e.printStackTrace();
+            System.out.println("Defo error");
         }
+
+        downloaded = true;
+        System.out.println("Error? idk lol");
     }
 }
