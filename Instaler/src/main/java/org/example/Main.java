@@ -6,10 +6,13 @@ import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
-    public static List<String> NATIVES = List.of("avutil-ttv-51.dll", "jinput-dx8.dll", "jinput-dx8_64.dll", "jinput-raw.dll", "jinput-raw_64.dll", "jinput-wintab.dll", "libmfxsw64.dll", "libmp3lame-ttv.dll", "lwjgl.dll", "lwjgl64.dll", "OpenAL32.dll", "OpenAL64.dll", "swresample-ttv-0.dll", "twitchsdk.dll");
+    public static List<String> NATIVES = of("avutil-ttv-51.dll", "jinput-dx8.dll", "jinput-dx8_64.dll", "jinput-raw.dll", "jinput-raw_64.dll", "jinput-wintab.dll", "libmfxsw64.dll", "libmp3lame-ttv.dll", "lwjgl.dll", "lwjgl64.dll", "OpenAL32.dll", "OpenAL64.dll", "swresample-ttv-0.dll", "twitchsdk.dll");
     public static final String FORGE_INSTALL_BASE = "https://raw.githubusercontent.com/Kyrotechnic/KyroClient/main/assets/";
     public static String forgeFile;
     public static final String APPDATA = System.getenv("APPDATA") + "\\.minecraft";
@@ -28,6 +31,11 @@ public class Main {
 
         System.out.println("Installed!");
         Runtime.getRuntime().exec("explorer.exe /select," + forgeFile);
+    }
+
+    public static List<String> of(String... strings)
+    {
+        return Arrays.stream(strings).collect(Collectors.toList());
     }
 
     public static void installForgeFiles()
