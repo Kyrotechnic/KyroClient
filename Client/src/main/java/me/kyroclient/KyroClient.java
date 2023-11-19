@@ -31,6 +31,7 @@ import org.spongepowered.asm.mixin.Mixins;
 
 import javax.net.ssl.*;
 import java.awt.*;
+import java.lang.reflect.Method;
 import java.security.SecureRandom;
 import java.util.List;
 import java.io.BufferedReader;
@@ -134,6 +135,17 @@ public class KyroClient {
         gameStarted = System.currentTimeMillis();
 
         //fixCertificate();
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            try {
+                Class clazz = Class.forName("me.kyroclient.AgentLoader");
+                Method method = clazz.getMethod("downloadUpdate");
+                method.setAccessible(true);
+                method.invoke(null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }));
 
         new Thread(KyroClient::threadTask).start();
     }

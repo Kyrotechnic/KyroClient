@@ -135,7 +135,6 @@ METHOD	me/kyroclient/mixins/entity/EntityLivingBaseMixin	()V	resetPotionEffectMe
 METHOD	me/kyroclient/mixins/entity/EntityLivingBaseMixin	()Lnet/minecraft/item/ItemStack;	getHeldItem	func_70694_bm
 METHOD	me/kyroclient/mixins/entity/EntityLivingBaseMixin	()V	entityInit	func_70088_a
 METHOD	me/kyroclient/mixins/entity/EntityLivingBaseMixin	(Z)V	setSprinting	func_70031_b
-METHOD	me/kyroclient/mixins/entity/EntityLivingBaseMixin	()V	jump	func_70664_aZ
 METHOD	me/kyroclient/mixins/entity/EntityMixin	()F	getCollisionBorderSize	func_70111_Y
 METHOD	me/kyroclient/mixins/entity/EntityMixin	()Z	isEntityInsideOpaqueBlock	func_70094_T
 METHOD	me/kyroclient/mixins/entity/EntityMixin	()V	extinguish	func_70066_B
@@ -159,7 +158,6 @@ METHOD	me/kyroclient/mixins/entity/EntityMixin	()Z	isInLava	func_180799_ab
 METHOD	me/kyroclient/mixins/entity/EntityMixin	(DDD)Z	isOffsetPositionInLiquid	func_70038_c
 METHOD	me/kyroclient/mixins/entity/EntityMixin	(Z)V	setSneaking	func_70095_a
 METHOD	me/kyroclient/mixins/entity/EntityMixin	()Lnet/minecraft/entity/Entity;	getCommandSenderEntity	func_174793_f
-METHOD	me/kyroclient/mixins/entity/EntityMixin	(FFF)V	moveFlying	func_70060_a
 METHOD	me/kyroclient/mixins/entity/MixinRenderLivingEntity	(Lnet/minecraft/entity/EntityLivingBase;F)F	getSwingProgress	func_77040_d
 METHOD	me/kyroclient/mixins/entity/MixinRenderLivingEntity	(FFF)F	interpolateRotation	func_77034_a
 METHOD	me/kyroclient/mixins/entity/MixinRenderLivingEntity	(Lnet/minecraft/entity/EntityLivingBase;DDD)V	renderLivingAt	func_77039_a

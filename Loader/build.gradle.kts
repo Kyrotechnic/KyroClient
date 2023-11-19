@@ -29,7 +29,10 @@ val exportLib: Configuration by configurations.creating {
 dependencies {
     shadowImpl("org.reflections:reflections:0.10.2")
 
+    compileOnly("net.minecraft:launchwrapper:1.11")
+
     compileOnly("org.projectlombok:lombok:1.18.16")
+    compileOnly("org.spongepowered:mixin:0.8.5")
 }
 
 tasks.withType(Jar::class) {
