@@ -1,6 +1,7 @@
 package org.example;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
@@ -11,11 +12,13 @@ public class Main {
     public static List<String> NATIVES = List.of("avutil-ttv-51.dll", "jinput-dx8.dll", "jinput-dx8_64.dll", "jinput-raw.dll", "jinput-raw_64.dll", "jinput-wintab.dll", "libmfxsw64.dll", "libmp3lame-ttv.dll", "lwjgl.dll", "lwjgl64.dll", "OpenAL32.dll", "OpenAL64.dll", "swresample-ttv-0.dll", "twitchsdk.dll");
     public static final String FORGE_INSTALL_BASE = "https://raw.githubusercontent.com/Kyrotechnic/KyroClient/main/assets/";
     public static String forgeFile;
-    public static final String APPDATA = System.getenv("APPDATA");
-    public static void main(String[] args) {
+    public static final String APPDATA = System.getenv("APPDATA") + "\\.minecraft";
+    public static void main(String[] args) throws IOException {
         System.out.println("Installing KyroClient forge edition");
 
         File forgeFile = new File(Main.forgeFile = (APPDATA + "\\versions\\k_1.8.9-forge\\"));
+
+        System.out.println("Destination is " + forgeFile);
 
         if (!forgeFile.exists())
         {
@@ -24,6 +27,7 @@ public class Main {
         }
 
         System.out.println("Installed!");
+        Runtime.getRuntime().exec("explorer.exe /select," + forgeFile);
     }
 
     public static void installForgeFiles()
@@ -33,14 +37,16 @@ public class Main {
         install(FORGE_INSTALL_BASE + "k_1.8.9-forge.json", new File(forgeFile + "k_1.8.9-forge.json"));
         System.out.println("Installing Forge.json");
 
-        String assets = forgeFile + "assets/";
+        String assets = forgeFile + "natives/";
         new File(assets).mkdirs();
 
         for (String str : NATIVES)
         {
-            install(FORGE_INSTALL_BASE + "assets/" + str, new File(assets + str));
+            install(FORGE_INSTALL_BASE + "natives/" + str, new File(assets + str));
             System.out.println("Installing " + str);
         }
+
+        install("https://raw.githubusercontent.com/Kyrotechnic/KyroClient/main/update/";)
     }
 
     public static boolean install(String url, File install)
