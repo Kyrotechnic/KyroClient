@@ -11,6 +11,7 @@ import me.kyroclient.util.render.RenderUtils;
 import java.awt.*;
 
 public class CompStringSetting extends Comp {
+    public static boolean in = false;
     public StringSetting stringSetting;
     public CompStringSetting(double x, double y, StringSetting stringSetting)
     {
@@ -38,6 +39,7 @@ public class CompStringSetting extends Comp {
             if (mouseButton == 0 && ModernClickGui.selectedWindow instanceof ModuleWindow)
             {
                 ModuleWindow.selectedString = stringSetting;
+                in = true;
             }
         }
         else

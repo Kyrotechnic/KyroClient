@@ -216,6 +216,11 @@ public class ModuleWindow extends Window {
         {
             for (Comp comp : updateComps(selectedModule.getSettings()))
             {
+                if (CompStringSetting.in)
+                {
+                    CompStringSetting.in = false;
+                    break;
+                }
                 comp.mouseClicked(mouseX, mouseY, mouseButton);
             }
         }
