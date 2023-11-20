@@ -41,7 +41,7 @@ public class FakeLag extends Module {
     {
         if (!isToggled()) return;
 
-        if (TypeUtils.isnof(event.packet, C0FPacketConfirmTransaction.class))
+        if (TypeUtils.isof(event.packet, C0FPacketConfirmTransaction.class))
         {
             return;
         }
