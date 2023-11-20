@@ -23,6 +23,7 @@ public class Proxy extends Module {
                 proxyType,
                 address,
                 user,
+                port,
                 pass
         );
     }
