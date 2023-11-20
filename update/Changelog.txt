@@ -1,4 +1,17 @@
-0.4-b203
+0.5-b3
+(11/20/2023) 0.5-b3
+[+] v0.5 release!
+[+] Changed GUI a bit
+[+] Tickless
+[+] Added Mining QOL
+[+] Added Anti Ban
+[+] Added EasyMC
+[+] Added Teleport Exploit
+[+] Added Hug (wip)
+[*] Fixed Fake Lag
+[*] Added Post and Pre event
+[*] choice for aura hit
+
 (11/13/2023) 0.4-b532
 [+] Forge Spoofer
 [+] So much idk

@@ -85,6 +85,7 @@ public class KyroClient {
     public static Tickless tickless;
     public static TeleportExploit teleportExploit;
     public static Hud hud;
+    public static FakeLag fakeLag;
 
 
     //Methods
