@@ -25,7 +25,7 @@ public class FakeLag extends Module {
     {
         super("Fake Lag", Category.PLAYER);
 
-        addSettings(delay);
+        addSettings(delay, onlyKeepAlive);
     }
 
     @Override
