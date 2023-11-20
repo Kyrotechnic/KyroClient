@@ -12,10 +12,7 @@ import me.kyroclient.modules.combat.*;
 import me.kyroclient.modules.garden.CropNuker;
 import me.kyroclient.modules.garden.FarmingMacro;
 import me.kyroclient.modules.mining.MiningQOL;
-import me.kyroclient.modules.misc.Delays;
-import me.kyroclient.modules.misc.GuiMove;
-import me.kyroclient.modules.misc.Modless;
-import me.kyroclient.modules.misc.NoSlow;
+import me.kyroclient.modules.misc.*;
 import me.kyroclient.modules.player.*;
 import me.kyroclient.modules.render.*;
 import me.kyroclient.notifications.Notification;
@@ -86,6 +83,7 @@ public class KyroClient {
     public static TeleportExploit teleportExploit;
     public static Hud hud;
     public static FakeLag fakeLag;
+    public static Proxy proxy;
 
 
     //Methods
@@ -132,6 +130,8 @@ public class KyroClient {
         friendManager.init();
 
         CommandManager.init();
+
+        KyroClient.proxy.setToggled(false);
 
         gameStarted = System.currentTimeMillis();
 

@@ -69,6 +69,7 @@
     },
     "me/kyroclient/mixins/MixinNetworkManager": {
       "sendPacket(Lnet/minecraft/network/Packet;)V": "Lnet/minecraft/network/NetworkManager;func_179290_a(Lnet/minecraft/network/Packet;)V",
+      "createNetworkManagerAndConnect": "Lnet/minecraft/network/NetworkManager;func_181124_a(Ljava/net/InetAddress;IZ)Lnet/minecraft/network/NetworkManager;",
       "channelRead0": "Lnet/minecraft/network/NetworkManager;channelRead0(Lio/netty/channel/ChannelHandlerContext;Lnet/minecraft/network/Packet;)V"
     },
     "me/kyroclient/mixins/gui/MixinGuiChat": {
@@ -179,6 +180,7 @@
       },
       "me/kyroclient/mixins/MixinNetworkManager": {
         "sendPacket(Lnet/minecraft/network/Packet;)V": "Lnet/minecraft/network/NetworkManager;func_179290_a(Lnet/minecraft/network/Packet;)V",
+        "createNetworkManagerAndConnect": "Lnet/minecraft/network/NetworkManager;func_181124_a(Ljava/net/InetAddress;IZ)Lnet/minecraft/network/NetworkManager;",
         "channelRead0": "Lnet/minecraft/network/NetworkManager;channelRead0(Lio/netty/channel/ChannelHandlerContext;Lnet/minecraft/network/Packet;)V"
       },
       "me/kyroclient/mixins/gui/MixinGuiChat": {

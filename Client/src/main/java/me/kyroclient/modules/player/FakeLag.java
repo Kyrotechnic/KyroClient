@@ -34,6 +34,8 @@ public class FakeLag extends Module {
         packets.clear();
         flush = false;
         timer.reset();
+
+        setToggled(false);
     }
 
     @SubscribeEvent
