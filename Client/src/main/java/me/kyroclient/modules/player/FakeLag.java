@@ -52,6 +52,7 @@ public class FakeLag extends Module {
         }
 
         packets.add(event.packet);
+        event.setCanceled(true);
 
         if (timer.hasTimePassed((long) delay.getValue()))
         {
