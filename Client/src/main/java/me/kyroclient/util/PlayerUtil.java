@@ -18,6 +18,10 @@ public class PlayerUtil {
         KyroClient.mc.thePlayer.swingItem();
     }
     public static Method clickMouse;
+    public static boolean onHypixel()
+    {
+        return KyroClient.mc.getCurrentServerData().serverIP.endsWith("hypixel.net");
+    }
     public static void click()
     {
         if (clickMouse != null)
