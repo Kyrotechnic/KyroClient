@@ -40,6 +40,8 @@ public class ForgeSpoofer {
             REGISTER_METHOD = null;
         }
 
+        REGISTER_METHOD.setAccessible(true);
+
         for (Method method : object.getClass().getMethods())
         {
             try
