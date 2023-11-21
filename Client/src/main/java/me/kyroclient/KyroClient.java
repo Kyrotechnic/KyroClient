@@ -3,6 +3,7 @@ package me.kyroclient;
 
 import lombok.SneakyThrows;
 import me.kyroclient.events.PacketSentEvent;
+import me.kyroclient.forge.ForgeRegister;
 import me.kyroclient.forge.ForgeSpoofer;
 import me.kyroclient.managers.*;
 import me.kyroclient.modules.Module;
@@ -44,7 +45,6 @@ public class KyroClient {
     public static ConfigManager configManager;
     public static ThemeManager themeManager;
     public static FriendManager friendManager;
-    public static EventManager eventManager;
     public static Minecraft mc;
     public static boolean isDev = true;
     public static Color iconColor = new Color(237, 107, 0);
@@ -90,25 +90,30 @@ public class KyroClient {
     /*
     Time to finally make it spoof being any random mod on boot!
      */
-    public static void registerEvents()
+    public static List<ForgeRegister> registerEvents()
     {
         /*for (Module module : moduleManager.getModules())
         {
             MinecraftForge.EVENT_BUS.register(module);
         }*/
 
-        ForgeSpoofer.register(eventManager);
+        ForgeSpoofer.update();
+        List<ForgeRegister> registers = new ArrayList<>();
 
         for (Module module : moduleManager.getModules())
         {
-            eventManager.subscribe(module);
+            List<ForgeRegister> register = ForgeSpoofer.register(module, true);
+            if (register.isEmpty()) continue;
+            registers.addAll(register);
         }
 
-        eventManager.subscribe(notificationManager = new NotificationManager());
-        eventManager.subscribe(new BlurUtils());
-        eventManager.subscribe(new KyroClient());
+        registers.add(ForgeSpoofer.register(notificationManager = new NotificationManager(), true).get(0));
+        registers.add(ForgeSpoofer.register(new BlurUtils(), true).get(0));
+        registers.add(ForgeSpoofer.register(new KyroClient(), true).get(0));
 
         Fonts.bootstrap();
+
+        return registers;
     }
     public static void init()
     {
@@ -120,7 +125,6 @@ public class KyroClient {
         configManager = new ConfigManager();
         themeManager = new ThemeManager();
         friendManager = new FriendManager();
-        eventManager = new EventManager();
 
         friendManager.init();
 

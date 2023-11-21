@@ -125,7 +125,7 @@ public abstract class PlayerSPMixin extends AbstractClientPlayerMixin
     @Overwrite
     public void onUpdateWalkingPlayer() {
         final MotionUpdateEvent event = (MotionUpdateEvent)new MotionUpdateEvent.Pre(this.posX, this.getEntityBoundingBox().minY, this.posZ, this.rotationYaw, this.rotationPitch, this.onGround, this.isSprinting(), this.isSneaking());
-        if (KyroClient.eventManager.post((Event)event)) {
+        if (MinecraftForge.EVENT_BUS.post((Event)event)) {
             return;
         }
         final boolean flag = event.sprinting;
@@ -188,7 +188,7 @@ public abstract class PlayerSPMixin extends AbstractClientPlayerMixin
                 this.lastReportedPitch = event.pitch;
             }
         }
-        KyroClient.eventManager.post((Event)new MotionUpdateEvent.Post(event));
+        MinecraftForge.EVENT_BUS.post((Event)new MotionUpdateEvent.Post(event));
     }
 
     /**
@@ -222,7 +222,7 @@ public abstract class PlayerSPMixin extends AbstractClientPlayerMixin
      */
     public void moveFlying(float strafe, float forward, float friction) {
         final MoveFlyingEvent event = new MoveFlyingEvent(forward, strafe, friction, this.rotationYaw);
-        if (KyroClient.eventManager.post(event)) {
+        if (MinecraftForge.EVENT_BUS.post(event)) {
             return;
         }
         strafe = event.getStrafe();
@@ -392,14 +392,14 @@ public abstract class PlayerSPMixin extends AbstractClientPlayerMixin
     
     @Inject(method = { "onUpdate" }, at = { @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/EntityPlayerSP;isRiding()Z") }, cancellable = true)
     private void onUpdate(final CallbackInfo ci) {
-        if (KyroClient.eventManager.post((Event)new PlayerUpdateEvent())) {
+        if (MinecraftForge.EVENT_BUS.post((Event)new PlayerUpdateEvent())) {
             ci.cancel();
         }
     }
     
     public void moveEntityWithHeading(final float strafe, final float forward) {
         final MoveHeadingEvent event = new MoveHeadingEvent(this.onGround);
-        if (KyroClient.eventManager.post(event)) {
+        if (MinecraftForge.EVENT_BUS.post(event)) {
             return;
         }
         final double d0 = this.posX;
@@ -421,7 +421,7 @@ public abstract class PlayerSPMixin extends AbstractClientPlayerMixin
     
     public void moveEntity(double x, double y, double z) {
         final MoveEvent event = new MoveEvent(x, y, z);
-        if (KyroClient.eventManager.post((Event)event)) {
+        if (MinecraftForge.EVENT_BUS.post((Event)event)) {
             return;
         }
         x = event.getX();
@@ -520,7 +520,7 @@ public abstract class PlayerSPMixin extends AbstractClientPlayerMixin
                 final AxisAlignedBB axisalignedbb5 = this.getEntityBoundingBox();
                 this.setEntityBoundingBox(axisalignedbb);
                 final StepEvent.Pre stepEvent = new StepEvent.Pre((double)this.stepHeight);
-                KyroClient.eventManager.post((Event)stepEvent);
+                MinecraftForge.EVENT_BUS.post((Event)stepEvent);
                 y = stepEvent.getHeight();
                 final List<AxisAlignedBB> list2 = (List<AxisAlignedBB>)this.worldObj.getCollidingBoundingBoxes(this.getCommandSenderEntity(), this.getEntityBoundingBox().addCoord(d4, y, d6));
                 AxisAlignedBB axisalignedbb6 = this.getEntityBoundingBox();
@@ -581,7 +581,7 @@ public abstract class PlayerSPMixin extends AbstractClientPlayerMixin
                     this.setEntityBoundingBox(axisalignedbb5);
                 }
                 else {
-                    KyroClient.eventManager.post((Event)new StepEvent.Post(1.0 + y));
+                    MinecraftForge.EVENT_BUS.post((Event)new StepEvent.Post(1.0 + y));
                 }
             }
             this.worldObj.theProfiler.endSection();

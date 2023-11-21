@@ -31,7 +31,7 @@ public abstract class MixinBlock
     @Overwrite
     public void addCollisionBoxesToList(final World worldIn, final BlockPos pos, final IBlockState state, final AxisAlignedBB mask, final List<AxisAlignedBB> list, final Entity collidingEntity) {
         final BlockBoundsEvent event = new BlockBoundsEvent(state.getBlock(), this.getCollisionBoundingBox(worldIn, pos, state), pos, collidingEntity);
-        if (KyroClient.eventManager.post(event)) {
+        if (MinecraftForge.EVENT_BUS.post(event)) {
             return;
         }
         if (event.aabb != null && mask.intersectsWith(event.aabb)) {

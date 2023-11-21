@@ -33,7 +33,7 @@ public abstract class MixinGuiContainer extends MixinGuiScreen {
             Fonts.getSecondary().drawSmoothCenteredStringWithShadow("In terminal!", res.getScaledWidth() / 2, res.getScaledHeight() / 2, KyroClient.themeManager.getSecondaryColor().getRGB());
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-            KyroClient.eventManager.post((Event)new GuiScreenEvent.BackgroundDrawnEvent((GuiScreen) KyroClient.mc.currentScreen));
+            MinecraftForge.EVENT_BUS.post((Event)new GuiScreenEvent.BackgroundDrawnEvent((GuiScreen) KyroClient.mc.currentScreen));
             ci.cancel();
         }
     }

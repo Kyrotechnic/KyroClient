@@ -26,22 +26,11 @@ public class ForgeSpoofer {
         register(object, true);
     }
 
-    public static Method REGISTER_METHOD;
-
-    public static void register(Object object, boolean randomContainer)
+    public static List<ForgeRegister> register(Object object, boolean randomContainer)
     {
         ModContainer container = getRandomContainer(containers);
 
-        try
-        {
-            REGISTER_METHOD = EventBus.class.getDeclaredMethod("register", Class.class, Object.class, Method.class, ModContainer.class);
-        }
-        catch (Exception e)
-        {
-            REGISTER_METHOD = null;
-        }
-
-        REGISTER_METHOD.setAccessible(true);
+        List<ForgeRegister> registers = new ArrayList<>();
 
         for (Method method : object.getClass().getMethods())
         {
@@ -67,7 +56,7 @@ public class ForgeSpoofer {
                         throw new IllegalArgumentException("Method " + method + " has @SubscribeEvent annotation, but takes a argument that is not an Event " + event);
                     }
 
-                    registerForge(new ForgeRegister(event, object, method, container));
+                    registers.add(new ForgeRegister(event, object, method, container));
                 }
 
             }
@@ -76,46 +65,12 @@ public class ForgeSpoofer {
                 e.printStackTrace();
             }
         }
+
+        return registers;
     }
 
-    public static ModContainer getRandomContainer(List<ModContainer> container)
+    public static ModContainer getRandomContainer(List<ModContainer> containers)
     {
-        update();
-
         return containers.get(MathUtil.getRandomInRange(containers.size()));
-    }
-
-
-    public static void registerForge(ForgeRegister register)
-    {
-        try
-        {
-            Constructor<?> ctr = register.clazz.getConstructor();
-            ctr.setAccessible(true);
-            Event event = (Event)ctr.newInstance();
-
-            //Field bid = EventBus.class.getField("busID");
-            //bid.setAccessible(true);
-            int busID = 1;
-
-            ASMEventHandler listener = new ASMEventHandler(register.target, register.method, register.modContainer);
-            event.getListenerList().register(busID, listener.getPriority(), listener);
-
-            Field field = EventBus.class.getField("listeners");
-            field.setAccessible(true);
-            ConcurrentHashMap<Object, ArrayList<IEventListener>> listeners = (ConcurrentHashMap<Object, ArrayList<IEventListener>>) field.get(MinecraftForge.EVENT_BUS);
-
-            ArrayList<IEventListener> others = listeners.get(register.target);
-            if (others == null)
-            {
-                others = new ArrayList<IEventListener>();
-                listeners.put(register.target, others);
-            }
-            others.add(listener);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
     }
 }

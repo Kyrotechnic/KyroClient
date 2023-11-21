@@ -74,14 +74,14 @@ public abstract class MixinRenderLivingEntity extends MixinRender
 
     @Redirect(method = { "doRender(Lnet/minecraft/entity/EntityLivingBase;DDDFF)V" }, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/RendererLivingEntity;renderModel(Lnet/minecraft/entity/EntityLivingBase;FFFFFF)V", ordinal = 1))
     private <T extends EntityLivingBase> void onDoRender(final RendererLivingEntity instance, final T entitylivingbaseIn, final float p_77036_2_, final float p_77036_3_, final float p_77036_4_, final float p_77036_5_, final float p_77036_6_, final float p_77036_7_) {
-        if (!KyroClient.eventManager.post(new RenderEntityEvent((EntityLivingBase)entitylivingbaseIn, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_))) {
+        if (!MinecraftForge.EVENT_BUS.post(new RenderEntityEvent((EntityLivingBase)entitylivingbaseIn, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_))) {
             this.renderModel(entitylivingbaseIn, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, p_77036_7_);
         }
     }
 
     @Inject(method = { "renderLayers" }, at = { @At("RETURN") }, cancellable = true)
     protected void renderLayersPost(final EntityLivingBase entitylivingbaseIn, final float p_177093_2_, final float p_177093_3_, final float partialTicks, final float p_177093_5_, final float p_177093_6_, final float p_177093_7_, final float p_177093_8_, final CallbackInfo ci) {
-        if (KyroClient.eventManager.post(new RenderLayersEvent(entitylivingbaseIn, p_177093_2_, p_177093_3_, p_177093_5_, p_177093_6_, p_177093_7_, p_177093_8_, this.mainModel))) {
+        if (MinecraftForge.EVENT_BUS.post(new RenderLayersEvent(entitylivingbaseIn, p_177093_2_, p_177093_3_, p_177093_5_, p_177093_6_, p_177093_7_, p_177093_8_, this.mainModel))) {
             ci.cancel();
         }
     }

@@ -1,6 +1,7 @@
 package me.kyroclient.mixins.minecraftforge;
 
 import me.kyroclient.KyroClient;
+import me.kyroclient.forge.ForgeRegister;
 import me.kyroclient.forge.ForgeSpoofer;
 import me.kyroclient.modules.Module;
 import net.minecraftforge.fml.common.ModContainer;
@@ -20,13 +21,20 @@ import java.util.Set;
 @Mixin(EventBus.class)
 public abstract class MixinEventBus {
     @Shadow protected abstract void register(Class<?> eventType, Object target, Method method, ModContainer owner);
+
     public boolean hasRegistered = false;
     @Inject(method = "register(Ljava/lang/Object;)V", at = @At("TAIL"), cancellable = false, remap = false)
-    public void register(Object object, CallbackInfo ci) throws NoSuchMethodException {
+    public void register(Object object, CallbackInfo ci)
+    {
         if (hasRegistered) return;
+
+        List<ForgeRegister> register = KyroClient.registerEvents();
 
         hasRegistered = true;
 
-        KyroClient.registerEvents();
+        for (ForgeRegister reg : register)
+        {
+            register(reg.clazz, reg.target, reg.method, reg.modContainer);
+        }
     }
 }

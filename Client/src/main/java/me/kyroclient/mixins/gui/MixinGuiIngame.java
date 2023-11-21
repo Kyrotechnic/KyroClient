@@ -24,7 +24,7 @@ public abstract class MixinGuiIngame {
 
     @Inject(method = { "renderScoreboard" }, at = { @At("HEAD") }, cancellable = true)
     public void renderScoreboard(final ScoreObjective s, final ScaledResolution score, final CallbackInfo ci) {
-        if (KyroClient.eventManager.post(new ScoreboardRenderEvent(s, score))) {
+        if (MinecraftForge.EVENT_BUS.post(new ScoreboardRenderEvent(s, score))) {
             ci.cancel();
         }
     }

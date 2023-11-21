@@ -16,7 +16,7 @@ public class MixinChunk
 {
     @Inject(method = { "setBlockState" }, at = { @At("HEAD") }, cancellable = true)
     private void onBlockChange(final BlockPos pos, final IBlockState state, final CallbackInfoReturnable<IBlockState> cir) {
-        if (KyroClient.eventManager.post(new BlockChangeEvent(pos, state))) {
+        if (MinecraftForge.EVENT_BUS.post(new BlockChangeEvent(pos, state))) {
             cir.setReturnValue(state);
         }
     }
