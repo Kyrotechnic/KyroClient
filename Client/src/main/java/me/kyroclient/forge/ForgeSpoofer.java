@@ -82,8 +82,10 @@ public class ForgeSpoofer {
         }
     }
 
-    public static ModContainer getRandomContainer(List<ModContainer> containers)
+    public static ModContainer getRandomContainer(List<ModContainer> container)
     {
+        update();
+
         return containers.get(MathUtil.getRandomInRange(containers.size()));
     }
 
