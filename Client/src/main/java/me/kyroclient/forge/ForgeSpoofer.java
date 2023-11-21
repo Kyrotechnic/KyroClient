@@ -5,14 +5,15 @@ import me.kyroclient.util.MathUtil;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
-import net.minecraftforge.fml.common.eventhandler.Event;
-import net.minecraftforge.fml.common.eventhandler.EventBus;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.eventhandler.*;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ForgeSpoofer {
     public static List<ModContainer> containers = new ArrayList<>();
@@ -66,12 +67,7 @@ public class ForgeSpoofer {
                         throw new IllegalArgumentException("Method " + method + " has @SubscribeEvent annotation, but takes a argument that is not an Event " + event);
                     }
 
-                    try {
-                        REGISTER_METHOD.invoke(MinecraftForge.EVENT_BUS, event, object, method, container);
-                    } catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
+                    registerForge(new ForgeRegister(event, object, method, container));
                 }
 
             }
@@ -89,4 +85,37 @@ public class ForgeSpoofer {
         return containers.get(MathUtil.getRandomInRange(containers.size()));
     }
 
+
+    public static void registerForge(ForgeRegister register)
+    {
+        try
+        {
+            Constructor<?> ctr = register.clazz.getConstructor();
+            ctr.setAccessible(true);
+            Event event = (Event)ctr.newInstance();
+
+            Field bid = EventBus.class.getField("busID");
+            bid.setAccessible(true);
+            int busID = (int) bid.get(MinecraftForge.EVENT_BUS);
+
+            ASMEventHandler listener = new ASMEventHandler(register.target, register.method, register.modContainer);
+            event.getListenerList().register(busID, listener.getPriority(), listener);
+
+            Field field = EventBus.class.getField("listeners");
+            field.setAccessible(true);
+            ConcurrentHashMap<Object, ArrayList<IEventListener>> listeners = (ConcurrentHashMap<Object, ArrayList<IEventListener>>) field.get(MinecraftForge.EVENT_BUS);
+
+            ArrayList<IEventListener> others = listeners.get(register.target);
+            if (others == null)
+            {
+                others = new ArrayList<IEventListener>();
+                listeners.put(register.target, others);
+            }
+            others.add(listener);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 }

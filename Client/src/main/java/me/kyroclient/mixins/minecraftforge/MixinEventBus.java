@@ -25,6 +25,8 @@ public abstract class MixinEventBus {
     public void register(Object object, CallbackInfo ci) throws NoSuchMethodException {
         if (hasRegistered) return;
 
+        hasRegistered = true;
+
         KyroClient.registerEvents();
 
         Object obj = KyroClient.eventManager;
@@ -33,11 +35,11 @@ public abstract class MixinEventBus {
 
         Set<Class<? extends Event>> moduleClasses = reflections.getSubTypesOf(Event.class);
 
-        Method method = obj.getClass().getMethod("handler", Event.class);
+        Method method = obj.getClass().getDeclaredMethod("handler", Event.class);
 
         for (Class<? extends Event> eventClass : moduleClasses)
         {
-            register(eventClass, obj, method, ForgeSpoofer.getRandomContainer(ForgeSpoofer.containers));
+            register(eventClass.getClass(), obj, method, ForgeSpoofer.getRandomContainer(ForgeSpoofer.containers));
         }
     }
 }
