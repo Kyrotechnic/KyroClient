@@ -67,7 +67,7 @@ public class ForgeSpoofer {
                     }
 
                     try {
-                        REGISTER_METHOD.invoke(event, object, method, container);
+                        REGISTER_METHOD.invoke(MinecraftForge.EVENT_BUS, event, object, method, container);
                     } catch (Exception e)
                     {
                         e.printStackTrace();
