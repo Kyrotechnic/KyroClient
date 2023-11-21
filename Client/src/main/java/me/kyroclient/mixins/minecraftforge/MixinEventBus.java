@@ -28,18 +28,5 @@ public abstract class MixinEventBus {
         hasRegistered = true;
 
         KyroClient.registerEvents();
-
-        Object obj = KyroClient.eventManager;
-
-        Reflections reflections = new Reflections("net.minecraftforge");
-
-        Set<Class<? extends Event>> moduleClasses = reflections.getSubTypesOf(Event.class);
-
-        Method method = obj.getClass().getDeclaredMethod("handler", Event.class);
-
-        for (Class<? extends Event> eventClass : moduleClasses)
-        {
-            register(eventClass.getClass(), obj, method, ForgeSpoofer.getRandomContainer(ForgeSpoofer.containers));
-        }
     }
 }

@@ -97,6 +97,8 @@ public class KyroClient {
             MinecraftForge.EVENT_BUS.register(module);
         }*/
 
+        ForgeSpoofer.register(eventManager);
+
         for (Module module : moduleManager.getModules())
         {
             eventManager.subscribe(module);
