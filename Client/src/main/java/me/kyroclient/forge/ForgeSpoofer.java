@@ -31,16 +31,13 @@ public class ForgeSpoofer {
     {
         ModContainer container = getRandomContainer(containers);
 
-        if (REGISTER_METHOD == null)
+        try
         {
-            try
-            {
-                REGISTER_METHOD = EventBus.class.getMethod("register", Class.class, Object.class, Method.class, ModContainer.class);
-            }
-            catch (Exception e)
-            {
-                REGISTER_METHOD = null;
-            }
+            REGISTER_METHOD = EventBus.class.getDeclaredMethod("register", Class.class, Object.class, Method.class, ModContainer.class);
+        }
+        catch (Exception e)
+        {
+            REGISTER_METHOD = null;
         }
 
         for (Method method : object.getClass().getMethods())
