@@ -1,5 +1,6 @@
 package me.kyroclient.mixins.blocks;
 
+import me.kyroclient.KyroClient;
 import me.kyroclient.events.BlockChangeEvent;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockPos;
@@ -15,7 +16,7 @@ public class MixinChunk
 {
     @Inject(method = { "setBlockState" }, at = { @At("HEAD") }, cancellable = true)
     private void onBlockChange(final BlockPos pos, final IBlockState state, final CallbackInfoReturnable<IBlockState> cir) {
-        if (MinecraftForge.EVENT_BUS.post(new BlockChangeEvent(pos, state))) {
+        if (KyroClient.eventManager.post(new BlockChangeEvent(pos, state))) {
             cir.setReturnValue(state);
         }
     }

@@ -67,7 +67,7 @@ public abstract class MixinNetworkManager {
     {
         if (FakeLag.isFlushing()) return;
 
-        if (MinecraftForge.EVENT_BUS.post(new PacketSentEvent(packet)))
+        if (KyroClient.eventManager.post(new PacketSentEvent(packet)))
         {
             ci.cancel();
         }
@@ -76,23 +76,23 @@ public abstract class MixinNetworkManager {
     @Inject(method = "sendPacket(Lnet/minecraft/network/Packet;)V", cancellable = true, at = @At("RETURN"))
     public void sendPacketPost(Packet packet, CallbackInfo ci)
     {
-        if (MinecraftForge.EVENT_BUS.post(new PacketSentEvent.Post(packet)))
+        if (KyroClient.eventManager.post(new PacketSentEvent.Post(packet)))
             ci.cancel();
     }
 
     @Inject(method = { "channelRead0" }, at = { @At("HEAD") }, cancellable = true)
     private void onChannelReadHead(final ChannelHandlerContext context, final Packet<?> packet, final CallbackInfo callbackInfo) {
         if (packet instanceof S01PacketJoinGame) {
-            MinecraftForge.EVENT_BUS.post(new JoinGameEvent());
+            KyroClient.eventManager.post(new JoinGameEvent());
         }
-        if (MinecraftForge.EVENT_BUS.post(new PacketReceivedEvent(packet))) {
+        if (KyroClient.eventManager.post(new PacketReceivedEvent(packet))) {
             callbackInfo.cancel();
         }
     }
 
     @Inject(method = { "channelRead0" }, at = { @At("RETURN") }, cancellable = true)
     private void onPost(final ChannelHandlerContext context, final Packet<?> packet, final CallbackInfo callbackInfo) {
-        if (MinecraftForge.EVENT_BUS.post(new PacketReceivedEvent.Post(packet))) {
+        if (KyroClient.eventManager.post(new PacketReceivedEvent.Post(packet))) {
             callbackInfo.cancel();
         }
     }

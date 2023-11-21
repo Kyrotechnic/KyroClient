@@ -1,5 +1,6 @@
 package me.kyroclient.mixins.gui;
 
+import me.kyroclient.KyroClient;
 import me.kyroclient.events.GuiChatEvent;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraftforge.common.MinecraftForge;
@@ -14,32 +15,32 @@ public abstract class MixinGuiChat extends MixinGuiScreen
 {
     @Inject(method = { "drawScreen" }, at = { @At("RETURN") })
     public void drawScreen(final int mouseX, final int mouseY, final float partialTicks, final CallbackInfo ci) {
-        if (MinecraftForge.EVENT_BUS.post((Event)new GuiChatEvent.DrawChatEvent(mouseX, mouseY))) {
+        if (KyroClient.eventManager.post((Event)new GuiChatEvent.DrawChatEvent(mouseX, mouseY))) {
             ci.cancel();
         }
     }
 
     @Inject(method = { "keyTyped" }, at = { @At("RETURN") })
     public void keyTyped(final char typedChar, final int keyCode, final CallbackInfo ci) {
-        if (MinecraftForge.EVENT_BUS.post((Event)new GuiChatEvent.KeyTyped(keyCode, typedChar))) {
+        if (KyroClient.eventManager.post((Event)new GuiChatEvent.KeyTyped(keyCode, typedChar))) {
             ci.cancel();
         }
     }
 
     @Inject(method = { "mouseClicked" }, at = { @At("RETURN") })
     public void mouseClicked(final int mouseX, final int mouseY, final int mouseButton, final CallbackInfo ci) {
-        if (MinecraftForge.EVENT_BUS.post((Event)new GuiChatEvent.MouseClicked(mouseX, mouseY, mouseButton))) {
+        if (KyroClient.eventManager.post((Event)new GuiChatEvent.MouseClicked(mouseX, mouseY, mouseButton))) {
             ci.cancel();
         }
     }
 
     @Override
     protected void mouseReleased(final int mouseX, final int mouseY, final int state) {
-        MinecraftForge.EVENT_BUS.post((Event)new GuiChatEvent.MouseReleased(mouseX, mouseY, state));
+        KyroClient.eventManager.post((Event)new GuiChatEvent.MouseReleased(mouseX, mouseY, state));
     }
 
     @Inject(method = { "onGuiClosed" }, at = { @At("RETURN") })
     public void onGuiClosed(final CallbackInfo ci) {
-        MinecraftForge.EVENT_BUS.post((Event)new GuiChatEvent.Closed());
+        KyroClient.eventManager.post((Event)new GuiChatEvent.Closed());
     }
 }

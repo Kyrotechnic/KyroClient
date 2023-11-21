@@ -63,7 +63,7 @@ public class MixinMinecraft {
         final int k = (Keyboard.getEventKey() == 0) ? (Keyboard.getEventCharacter() + '\u0100') : Keyboard.getEventKey();
         final char aChar = Keyboard.getEventCharacter();
         if (Keyboard.getEventKeyState()) {
-            if (MinecraftForge.EVENT_BUS.post(new KeyboardEvent(k, aChar))) {
+            if (KyroClient.eventManager.post(new KeyboardEvent(k, aChar))) {
                 return;
             }
             if (KyroClient.mc.currentScreen == null) {
@@ -98,7 +98,7 @@ public class MixinMinecraft {
 
     @Inject(method = { "displayGuiScreen" }, at = { @At("RETURN") })
     public void onGuiOpen(final GuiScreen i, final CallbackInfo ci) {
-        MinecraftForge.EVENT_BUS.post(new PostGuiOpenEvent(i));
+        KyroClient.eventManager.post(new PostGuiOpenEvent(i));
     }
 
 
@@ -106,7 +106,7 @@ public class MixinMinecraft {
     @Inject(method = "clickMouse", at = @At("HEAD"), cancellable = true)
     public void clickMouse(CallbackInfo ci)
     {
-        if (MinecraftForge.EVENT_BUS.post(new LeftClickEvent()))
+        if (KyroClient.eventManager.post(new LeftClickEvent()))
         {
             ci.cancel();
         }
@@ -131,7 +131,7 @@ public class MixinMinecraft {
     @Inject(method = "rightClickMouse", at = @At("HEAD"), cancellable = true)
     public void rightClick(CallbackInfo ci)
     {
-        if (MinecraftForge.EVENT_BUS.post(new RightClickEvent()))
+        if (KyroClient.eventManager.post(new RightClickEvent()))
         {
             ci.cancel();
         }

@@ -44,6 +44,7 @@ public class KyroClient {
     public static ConfigManager configManager;
     public static ThemeManager themeManager;
     public static FriendManager friendManager;
+    public static EventManager eventManager;
     public static Minecraft mc;
     public static boolean isDev = true;
     public static Color iconColor = new Color(237, 107, 0);
@@ -96,16 +97,14 @@ public class KyroClient {
             MinecraftForge.EVENT_BUS.register(module);
         }*/
 
-        ForgeSpoofer.update();
-
         for (Module module : moduleManager.getModules())
         {
-            ForgeSpoofer.register(module);
+            eventManager.subscribe(module);
         }
 
-        ForgeSpoofer.register(notificationManager = new NotificationManager());
-        ForgeSpoofer.register(new BlurUtils());
-        ForgeSpoofer.register(new KyroClient());
+        eventManager.subscribe(notificationManager = new NotificationManager());
+        eventManager.subscribe(new BlurUtils());
+        eventManager.subscribe(new KyroClient());
 
         Fonts.bootstrap();
     }
@@ -119,6 +118,7 @@ public class KyroClient {
         configManager = new ConfigManager();
         themeManager = new ThemeManager();
         friendManager = new FriendManager();
+        eventManager = new EventManager();
 
         friendManager.init();
 
