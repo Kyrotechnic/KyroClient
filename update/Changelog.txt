@@ -1,4 +1,7 @@
-0.5-b3
+0.5-b21
+(11/21/2023) 0.5-b21
+[*] Misc patches and fixes
+
 (11/20/2023) 0.5-b3
 [+] v0.5 release!
 [+] Changed GUI a bit

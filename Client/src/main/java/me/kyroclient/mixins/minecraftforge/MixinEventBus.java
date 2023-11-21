@@ -1,8 +1,6 @@
 package me.kyroclient.mixins.minecraftforge;
 
 import me.kyroclient.KyroClient;
-import me.kyroclient.forge.ForgeRegister;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.fml.common.eventhandler.EventBus;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,13 +22,6 @@ public abstract class MixinEventBus {
     {
         if (hasRegistered) return;
 
-        List<ForgeRegister> register = KyroClient.registerEvents();
-
-        hasRegistered = true;
-
-        for (ForgeRegister reg : register)
-        {
-            register(reg.clazz, reg.target, reg.method, reg.modContainer);
-        }
+        KyroClient.registerEvents();
     }
 }

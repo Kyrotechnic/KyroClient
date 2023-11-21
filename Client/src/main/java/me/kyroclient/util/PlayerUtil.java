@@ -8,6 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.scoreboard.ScoreObjective;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class PlayerUtil {
@@ -16,16 +17,26 @@ public class PlayerUtil {
     {
         KyroClient.mc.thePlayer.swingItem();
     }
-
+    public static Method clickMouse;
     public static void click()
     {
-        try {
-            Method clickMouse;
+        if (clickMouse != null)
+        {
             try {
-                clickMouse = Minecraft.class.getDeclaredMethod("clickMouse", (Class<?>[])new Class[0]);
+                clickMouse.invoke(KyroClient.mc);
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+
+            return;
+        }
+        try {
+            try {
+                clickMouse = Minecraft.class.getDeclaredMethod("clickMouse");
             }
             catch (NoSuchMethodException e2) {
-                clickMouse = Minecraft.class.getDeclaredMethod("clickMouse", (Class<?>[])new Class[0]);
+                e2.printStackTrace();
             }
             clickMouse.setAccessible(true);
             clickMouse.invoke(Minecraft.getMinecraft(), new Object[0]);

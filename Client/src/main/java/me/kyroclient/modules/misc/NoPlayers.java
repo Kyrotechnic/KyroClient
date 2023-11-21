@@ -8,6 +8,7 @@ import me.kyroclient.modules.combat.AntiBot;
 import me.kyroclient.settings.BooleanSetting;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.play.server.S0CPacketSpawnPlayer;
+import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
@@ -25,13 +26,13 @@ public class NoPlayers extends Module {
     }
 
     @SubscribeEvent
-    public void tick(RenderEntityEvent event)
+    public void tick(RenderPlayerEvent event)
     {
         if (!isToggled() || KyroClient.mc.thePlayer == null || KyroClient.mc.theWorld == null)
         {
-            if (event.entity != KyroClient.mc.thePlayer && event.entity instanceof EntityPlayer)
+            if (event.entityPlayer != KyroClient.mc.thePlayer && event.entityPlayer instanceof EntityPlayer)
             {
-                if (!KyroClient.friendManager.has(event.entity.getDisplayName().getUnformattedText()) || !AntiBot.isValidEntity(event.entity))
+                if (!KyroClient.friendManager.has(event.entity.getDisplayName().getUnformattedText()) && AntiBot.isValidEntity(event.entity))
                     event.setCanceled(true);
             }
         }

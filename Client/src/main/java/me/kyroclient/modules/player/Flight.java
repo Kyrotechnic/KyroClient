@@ -31,6 +31,16 @@ public class Flight extends Module {
     public Flight()
     {
         super("Flight", Category.PLAYER);
+
+        addSettings(
+                mode,
+                speed,
+                time,
+                timerSpeed,
+                autoDisable,
+                autoDisableHypixel,
+                timerBoost
+        );
     }
 
     @SubscribeEvent

@@ -6,8 +6,10 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.common.eventhandler.EventBus;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +25,23 @@ public class ForgeSpoofer {
         register(object, true);
     }
 
-    public static List<ForgeRegister> register(Object object, boolean randomContainer)
+    public static Method REGISTER_METHOD;
+
+    public static void register(Object object, boolean randomContainer)
     {
         ModContainer container = getRandomContainer(containers);
 
-        List<ForgeRegister> registers = new ArrayList<>();
+        if (REGISTER_METHOD == null)
+        {
+            try
+            {
+                REGISTER_METHOD = EventBus.class.getMethod("register", Class.class, Object.class, Method.class, ModContainer.class);
+            }
+            catch (Exception e)
+            {
+                REGISTER_METHOD = null;
+            }
+        }
 
         for (Method method : object.getClass().getMethods())
         {
@@ -53,7 +67,12 @@ public class ForgeSpoofer {
                         throw new IllegalArgumentException("Method " + method + " has @SubscribeEvent annotation, but takes a argument that is not an Event " + event);
                     }
 
-                    registers.add(new ForgeRegister(event, object, method, container));
+                    try {
+                        REGISTER_METHOD.invoke(event, object, method, container);
+                    } catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
                 }
 
             }
@@ -62,8 +81,6 @@ public class ForgeSpoofer {
                 e.printStackTrace();
             }
         }
-
-        return registers;
     }
 
     public static ModContainer getRandomContainer(List<ModContainer> containers)

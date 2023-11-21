@@ -8,6 +8,7 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -70,9 +71,10 @@ public class NotificationManager {
     }
 
     @SubscribeEvent
-    public void renderOverlay(RenderGameOverlayEvent e)
+    public void renderOverlay(TickEvent.RenderTickEvent e)
     {
-        render();
+        if (e.phase == TickEvent.Phase.END)
+            render();
     }
 
     public void showNotification(final String description, final int time, Notification.NotificationType type)

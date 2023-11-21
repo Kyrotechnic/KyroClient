@@ -3,10 +3,10 @@ package me.kyroclient;
 
 import lombok.SneakyThrows;
 import me.kyroclient.events.PacketSentEvent;
-import me.kyroclient.forge.ForgeRegister;
 import me.kyroclient.forge.ForgeSpoofer;
 import me.kyroclient.managers.*;
 import me.kyroclient.modules.Module;
+import me.kyroclient.modules.client.CustomBrand;
 import me.kyroclient.modules.client.Tickless;
 import me.kyroclient.modules.combat.*;
 import me.kyroclient.modules.garden.CropNuker;
@@ -19,12 +19,9 @@ import me.kyroclient.notifications.Notification;
 import me.kyroclient.util.font.Fonts;
 import me.kyroclient.util.render.BlurUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.command.CommandHandler;
 import net.minecraft.network.play.client.C01PacketChatMessage;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Mixins;
 
 import javax.net.ssl.*;
 import java.awt.*;
@@ -84,6 +81,7 @@ public class KyroClient {
     public static Hud hud;
     public static FakeLag fakeLag;
     public static Proxy proxy;
+    public static CustomBrand customBrand;
 
 
     //Methods
@@ -91,7 +89,7 @@ public class KyroClient {
     /*
     Time to finally make it spoof being any random mod on boot!
      */
-    public static List<ForgeRegister> registerEvents()
+    public static void registerEvents()
     {
         /*for (Module module : moduleManager.getModules())
         {
@@ -99,22 +97,17 @@ public class KyroClient {
         }*/
 
         ForgeSpoofer.update();
-        List<ForgeRegister> registers = new ArrayList<>();
 
         for (Module module : moduleManager.getModules())
         {
-            List<ForgeRegister> register = ForgeSpoofer.register(module, true);
-            if (register.isEmpty()) continue;
-            registers.addAll(register);
+            ForgeSpoofer.register(module);
         }
 
-        registers.add(ForgeSpoofer.register(notificationManager = new NotificationManager(), true).get(0));
-        registers.add(ForgeSpoofer.register(new BlurUtils(), true).get(0));
-        registers.add(ForgeSpoofer.register(new KyroClient(), true).get(0));
+        ForgeSpoofer.register(notificationManager = new NotificationManager());
+        ForgeSpoofer.register(new BlurUtils());
+        ForgeSpoofer.register(new KyroClient());
 
         Fonts.bootstrap();
-
-        return registers;
     }
     public static void init()
     {
@@ -138,6 +131,7 @@ public class KyroClient {
         //fixCertificate();
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            friendManager.save();
             try {
                 Class clazz = Class.forName("me.kyroclient.AgentLoader");
                 Method method = clazz.getMethod("downloadUpdate");

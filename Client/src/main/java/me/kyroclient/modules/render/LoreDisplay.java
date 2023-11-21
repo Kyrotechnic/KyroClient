@@ -86,6 +86,8 @@ public class LoreDisplay extends Module {
 
     public void render(double x, double y)
     {
+        itemLoreDisplay.drawScreen();
+
         ItemStack item = KyroClient.mc.thePlayer.getHeldItem();
         if (item == null)
         {

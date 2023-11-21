@@ -17,6 +17,9 @@ public class WindowManager {
             if (category == Module.Category.CLIENT) continue;
             this.windows.add(new ModuleWindow(category));
         }
+
+        windows.add(new ModuleWindow(Module.Category.CLIENT));
+
         this.windows.add(new ThemeWindow());
     }
 
