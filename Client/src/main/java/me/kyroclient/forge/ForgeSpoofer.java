@@ -94,9 +94,9 @@ public class ForgeSpoofer {
             ctr.setAccessible(true);
             Event event = (Event)ctr.newInstance();
 
-            Field bid = EventBus.class.getField("busID");
-            bid.setAccessible(true);
-            int busID = (int) bid.get(MinecraftForge.EVENT_BUS);
+            //Field bid = EventBus.class.getField("busID");
+            //bid.setAccessible(true);
+            int busID = 1;
 
             ASMEventHandler listener = new ASMEventHandler(register.target, register.method, register.modContainer);
             event.getListenerList().register(busID, listener.getPriority(), listener);
