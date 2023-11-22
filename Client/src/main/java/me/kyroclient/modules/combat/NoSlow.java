@@ -1,4 +1,4 @@
-package me.kyroclient.modules.misc;
+package me.kyroclient.modules.combat;
 
 import me.kyroclient.KyroClient;
 import me.kyroclient.events.MotionUpdateEvent;

@@ -1,5 +1,8 @@
 0.5-b21
 (11/21/2023) 0.5-b21
+[+] Lore Display
+[+] Ban Info
+[+] Random crap ig lol
 [*] Misc patches and fixes
 
 (11/20/2023) 0.5-b3

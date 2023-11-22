@@ -97,7 +97,7 @@ public class Fonts
     }
 
     public static void bootstrap() {
-        Fonts.tenacity = new MinecraftFontRenderer(getFont("tenacity.ttf", 19), true, false);
+        Fonts.tenacity = new MinecraftFontRenderer(getFont("new_font.ttf", 19), true, false);
         Fonts.tenacityBold = new MinecraftFontRenderer(getFont("tenacity-bold.ttf", 19), true, false);
         Fonts.icon = new MinecraftFontRenderer(getFont("icon.ttf", 20), true, false);
     }

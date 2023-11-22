@@ -2,8 +2,8 @@ package me.kyroclient.hud;
 
 public class DraggableComponent extends Component
 {
-    private double startX;
-    private double startY;
+    public double startX;
+    public double startY;
     private boolean dragging;
 
     public boolean isDragging() {

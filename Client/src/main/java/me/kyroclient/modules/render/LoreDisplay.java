@@ -132,7 +132,7 @@ public class LoreDisplay extends Module {
 
         itemLoreDisplay.setSize(longest, height);
 
-        RenderUtils.drawBorderedRoundedRect((float) itemLoreDisplay.getX(), (float) itemLoreDisplay.getY(), (float) longest + 5, height + 1, 5, 2, new Color(103, 103, 103, (int) opacity.getValue()).getRGB(), KyroClient.themeManager.getSecondaryColor().getRGB());
+        RenderUtils.drawBorderedRoundedRect((float) itemLoreDisplay.getX(), (float) itemLoreDisplay.getY(), (float) longest + 5, height, 5, 2, new Color(103, 103, 103, (int) opacity.getValue()).getRGB(), KyroClient.themeManager.getSecondaryColor().getRGB());
         int yy = 2;
         for (String str : lore)
         {
