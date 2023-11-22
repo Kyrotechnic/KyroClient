@@ -69,7 +69,7 @@ public class LoreDisplay extends Module {
         if (!this.isToggled()) {
             return;
         }
-        final DraggableComponent component = itemLoreDisplay;
+        final ItemLoreDisplay component = itemLoreDisplay;
         if (event instanceof GuiChatEvent.MouseClicked) {
             if (component.isHovered(event.mouseX, event.mouseY)) {
                 component.startDragging();
@@ -125,7 +125,7 @@ public class LoreDisplay extends Module {
 
         int height = (lore.size()*10)+4;
         if (customFont.isEnabled())
-            height = (lore.size()*Fonts.getPrimary().getHeight())+4;
+            height = (lore.size()*(Fonts.getPrimary().getHeight()+2))+4;
 
         GlStateManager.pushMatrix();
         GlStateManager.scale(scale.getValue(), scale.getValue(), scale.getValue());

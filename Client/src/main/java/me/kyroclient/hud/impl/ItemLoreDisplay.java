@@ -23,4 +23,9 @@ public class ItemLoreDisplay extends DraggableComponent {
         }
         return null;
     }
+
+    @Override
+    public boolean isHovered(final int mouseX, final int mouseY) {
+        return mouseX > this.getX() && mouseX < this.getX() + this.width && mouseY > this.getY() && mouseY < this.getY() + this.height;
+    }
 }
