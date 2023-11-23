@@ -4,6 +4,7 @@
 
 package me.kyroclient.mixins.entity;
 
+import com.mojang.authlib.GameProfile;
 import me.kyroclient.KyroClient;
 import org.spongepowered.asm.mixin.*;
 import net.minecraft.entity.player.*;
@@ -12,6 +13,8 @@ import net.minecraft.stats.*;
 import net.minecraft.entity.*;
 import net.minecraft.item.*;
 import net.minecraft.util.*;
+
+import java.util.UUID;
 
 @Mixin({ EntityPlayer.class })
 public abstract class PlayerMixin extends EntityLivingBaseMixin
@@ -109,6 +112,8 @@ public abstract class PlayerMixin extends EntityLivingBaseMixin
     public abstract EntityPlayer.EnumStatus trySleep(final BlockPos p0);
 
     @Shadow public abstract String getName();
+
+    @Shadow public abstract UUID getUUID(GameProfile profile);
 
     public float getCollisionBorderSize() {
         return KyroClient.hitBoxes.isToggled() ? ((float)KyroClient.hitBoxes.expand.getValue()) : 0.1f;

@@ -23,7 +23,7 @@ public abstract class AbstractClientPlayerMixin extends PlayerMixin
     
     @Inject(method = { "getLocationCape" }, at = { @At("RETURN") }, cancellable = true)
     public void getLocationCape(final CallbackInfoReturnable<ResourceLocation> cir) {
-        final ResourceLocation minecons = getCape(this.getName());
+        final ResourceLocation minecons = getCape(this.getUniqueID().toString());
         if (minecons != null) {
             cir.setReturnValue(minecons);
         }

@@ -26,7 +26,7 @@ public class CapeBearer {
     public void loadCape(String link)
     {
         try {
-            capeLocation = KyroClient.mc.getTextureManager().getDynamicTextureLocation("kyro_" + username, new DynamicTexture(ImageIO.read(new URL(link))));
+            capeLocation = KyroClient.mc.getTextureManager().getDynamicTextureLocation("kyro" + username, new DynamicTexture(ImageIO.read(new URL(link))));
         } catch (IOException e) {
             capeLocation = null;
             e.printStackTrace();

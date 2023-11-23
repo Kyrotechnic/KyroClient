@@ -1,12 +1,12 @@
 [
     {
         "username": "Kyrotechnics",
-        "accounts": ["NotlmRy", "Lunchin", "Keryalop", "plsvoid"],
+        "accounts": ["5fcecb27-f689-420a-acbd-a6f2e3462cc3", "1fe9fbdf-8495-4389-b10f-78b9e111a285", "76543db3-e993-4b2f-acb1-d964d6844a21", "8d26e87a-2176-49b8-b5d8-2e80be620f52"],
         "cape": "https://raw.githubusercontent.com/Kyrotechnic/KyroClient/main/assets/capes/KyroCape.png"
     },
     {
         "username": "Ryman",
-        "accounts": ["lmRy"],
+        "accounts": ["66490733-d99d-438d-b414-e3849778f7dd"],
         "cape": "https://raw.githubusercontent.com/Kyrotechnic/KyroClient/main/assets/capes/RymanCape.png"
     }
 ]
