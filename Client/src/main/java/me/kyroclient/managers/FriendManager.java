@@ -26,7 +26,7 @@ public class FriendManager {
     {
         for (String str : friends)
         {
-            if (str.toLowerCase().contains(name.toLowerCase()))
+            if (str.toLowerCase() == (name.toLowerCase()))
                 return true;
         }
 

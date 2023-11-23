@@ -1,4 +1,11 @@
-0.5-b103
+0.5-b197
+(11/23/2023)
+[+] Cape Manager
+[*] Capes
+[*] Fix No Debuff
+[*] Fix Player Visibility
+[*] Fix No Players
+
 (11/22/2023) 0.5-b103
 [+] Memory Fix
 [+] No Falling Blocks

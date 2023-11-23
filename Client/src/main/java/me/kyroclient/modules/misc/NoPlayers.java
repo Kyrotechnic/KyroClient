@@ -28,13 +28,11 @@ public class NoPlayers extends Module {
     @SubscribeEvent
     public void tick(RenderPlayerEvent.Pre event)
     {
-        if (!isToggled() || KyroClient.mc.thePlayer == null || KyroClient.mc.theWorld == null)
+        if (!isToggled() || KyroClient.mc.thePlayer == null || KyroClient.mc.theWorld == null) return;
+        if (event.entityPlayer != KyroClient.mc.thePlayer && event.entityPlayer instanceof EntityPlayer)
         {
-            if (event.entityPlayer != KyroClient.mc.thePlayer && event.entityPlayer instanceof EntityPlayer)
-            {
-                if (!KyroClient.friendManager.has(event.entity.getDisplayName().getUnformattedText()) && AntiBot.isValidEntity(event.entity))
-                    event.setCanceled(true);
-            }
+            if (AntiBot.isValidEntity(event.entity) && !KyroClient.friendManager.has(event.entity.getName()))
+                event.setCanceled(true);
         }
     }
 }

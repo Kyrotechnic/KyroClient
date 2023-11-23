@@ -4,21 +4,28 @@
 
 package me.kyroclient.mixins.entity;
 
+import me.kyroclient.KyroClient;
+import net.minecraft.util.ResourceLocation;
 import org.spongepowered.asm.mixin.*;
 import net.minecraft.client.entity.*;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin({ AbstractClientPlayer.class })
 public abstract class AbstractClientPlayerMixin extends PlayerMixin
 {
-    /*private static ResourceLocation getCape(final String uuid) {
-        return OringoClient.capes.get(DigestUtils.sha256Hex(uuid));
+    private static ResourceLocation getCape(final String uuid) {
+        if (KyroClient.capeManager.capeList.containsKey(uuid))
+            return KyroClient.capeManager.capeList.get(uuid).getCapeLocation();
+        return null;
     }
     
     @Inject(method = { "getLocationCape" }, at = { @At("RETURN") }, cancellable = true)
     public void getLocationCape(final CallbackInfoReturnable<ResourceLocation> cir) {
-        final ResourceLocation minecons = getCape(((AbstractClientPlayer)this).getUniqueID().toString());
+        final ResourceLocation minecons = getCape(this.getName());
         if (minecons != null) {
-            cir.setReturnValue((Object)minecons);
+            cir.setReturnValue(minecons);
         }
-    }*/
+    }
 }

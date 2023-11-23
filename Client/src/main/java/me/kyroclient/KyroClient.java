@@ -49,6 +49,7 @@ public class KyroClient {
     public static ConfigManager configManager;
     public static ThemeManager themeManager;
     public static FriendManager friendManager;
+    public static CapeManager capeManager;
     public static Minecraft mc;
     public static boolean isDev = true;
     public static Color iconColor = new Color(237, 107, 0);
@@ -197,6 +198,9 @@ public class KyroClient {
     @SneakyThrows
     public static void threadTask()
     {
+        capeManager = new CapeManager();
+        capeManager.init();
+
         URL url2 = new URL("https://raw.githubusercontent.com/Kyrotechnic/KyroClient/main/update/Changelog.txt");
 
         List<String> changelog = new ArrayList<String>();

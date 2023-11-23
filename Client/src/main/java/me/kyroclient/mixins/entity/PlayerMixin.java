@@ -107,7 +107,9 @@ public abstract class PlayerMixin extends EntityLivingBaseMixin
     
     @Shadow
     public abstract EntityPlayer.EnumStatus trySleep(final BlockPos p0);
-    
+
+    @Shadow public abstract String getName();
+
     public float getCollisionBorderSize() {
         return KyroClient.hitBoxes.isToggled() ? ((float)KyroClient.hitBoxes.expand.getValue()) : 0.1f;
     }

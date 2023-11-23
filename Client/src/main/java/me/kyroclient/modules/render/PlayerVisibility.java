@@ -2,6 +2,7 @@ package me.kyroclient.modules.render;
 
 import me.kyroclient.KyroClient;
 import me.kyroclient.modules.Module;
+import me.kyroclient.modules.combat.AntiBot;
 import me.kyroclient.settings.BooleanSetting;
 import me.kyroclient.settings.NumberSetting;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,11 +31,13 @@ public class PlayerVisibility extends Module {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void render(RenderPlayerEvent.Pre event)
     {
+        if (!isToggled()) return;
+
         EntityPlayer player = event.entityPlayer;
 
         if (player == KyroClient.mc.thePlayer) return;
 
-        if (player.getDistanceToEntity(KyroClient.mc.thePlayer) < renderRange.getValue())
+        if (AntiBot.isValidEntity(player) && player.getDistanceToEntity(KyroClient.mc.thePlayer) < renderRange.getValue())
         {
             event.setCanceled(true);
         }

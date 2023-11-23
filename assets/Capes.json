@@ -2,6 +2,11 @@
     {
         "username": "Kyrotechnics",
         "accounts": ["NotlmRy", "Lunchin", "Keryalop", "plsvoid"],
-        "cape": ""
+        "cape": "https://raw.githubusercontent.com/Kyrotechnic/KyroClient/main/assets/capes/KyroCape.png"
+    },
+    {
+        "username": "Ryman",
+        "accounts": ["lmRy"],
+        "cape": "https://raw.githubusercontent.com/Kyrotechnic/KyroClient/main/assets/capes/RymanCape.png"
     }
 ]
