@@ -122,6 +122,13 @@ public class KyroClient {
 
         Fonts.bootstrap();
 
+        capeManager = new CapeManager();
+        try {
+            capeManager.init();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return registers;
     }
     public static void init()
@@ -198,9 +205,6 @@ public class KyroClient {
     @SneakyThrows
     public static void threadTask()
     {
-        capeManager = new CapeManager();
-        capeManager.init();
-
         URL url2 = new URL("https://raw.githubusercontent.com/Kyrotechnic/KyroClient/main/update/Changelog.txt");
 
         List<String> changelog = new ArrayList<String>();
