@@ -3,6 +3,8 @@
   "package": "me.kyroclient.mixins",
   "refmap": "mixins.kyroclient.refmap.json",
   "mixins": [
+    "world.MixinWorldClient",
+    "world.MixinWorld",
     "blocks.MixinBlock",
     "blocks.MixinChunk",
     "blocks.MixinCropBlock",

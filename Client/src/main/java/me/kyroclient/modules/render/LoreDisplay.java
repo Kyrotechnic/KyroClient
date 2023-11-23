@@ -139,7 +139,7 @@ public class LoreDisplay extends Module {
             if (customFont.isEnabled())
             {
                 Fonts.getPrimary().drawStringWithShadow(str, itemLoreDisplay.getX() + 2, yy + itemLoreDisplay.getY(), Color.white.getRGB());
-                yy += Fonts.getPrimary().getHeight();
+                yy += Fonts.getPrimary().getHeight() + 2;
             }
             else
             {

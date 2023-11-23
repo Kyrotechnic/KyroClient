@@ -7,6 +7,7 @@ import me.kyroclient.forge.ForgeRegister;
 import me.kyroclient.forge.ForgeSpoofer;
 import me.kyroclient.managers.*;
 import me.kyroclient.modules.Module;
+import me.kyroclient.modules.client.Capes;
 import me.kyroclient.modules.client.CustomBrand;
 import me.kyroclient.modules.client.Tickless;
 import me.kyroclient.modules.combat.*;
@@ -17,12 +18,15 @@ import me.kyroclient.modules.misc.*;
 import me.kyroclient.modules.player.*;
 import me.kyroclient.modules.render.*;
 import me.kyroclient.notifications.Notification;
+import me.kyroclient.util.SkyblockUtils;
 import me.kyroclient.util.font.Fonts;
 import me.kyroclient.util.render.BlurUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.client.C01PacketChatMessage;
 import net.minecraft.util.ChatComponentText;
+import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import javax.net.ssl.*;
 import java.awt.*;
@@ -83,6 +87,10 @@ public class KyroClient {
     public static FakeLag fakeLag;
     public static Proxy proxy;
     public static CustomBrand customBrand;
+    public static NoFallingBlocks noFallingBlocks;
+    public static PlayerVisibility playerVisibility;
+    public static NoDebuff noDebuff;
+    public static Capes capes;
 
 
     //Methods
@@ -216,5 +224,14 @@ public class KyroClient {
                     notificationManager.showNotification(module.getName() + " has been " + (module.isToggled() ? "Enabled" : "Disabled"), 2000, Notification.NotificationType.INFO);
             }
         }
+    }
+
+    public static int ticks = 0;
+
+    @SubscribeEvent
+    public void joinWorld(TickEvent.ClientTickEvent event)
+    {
+        ticks++;
+        SkyblockUtils.tick(event);
     }
 }

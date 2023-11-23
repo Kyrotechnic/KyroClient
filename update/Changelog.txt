@@ -1,4 +1,16 @@
-0.5-b21
+0.5-b103
+(11/22/2023) 0.5-b103
+[+] Memory Fix
+[+] No Falling Blocks
+[+] Player Visibility
+[+] No Debuff
+[+] Cancel Block
+[+] Better Dialogue
+[+] Auto Close Chest
+[+] Capes (WIP)
+[+] Auto Harp (WIP)
+[*] No Players
+
 (11/21/2023) 0.5-b21
 [+] Lore Display
 [+] Ban Info

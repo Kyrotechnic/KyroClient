@@ -17,6 +17,9 @@ import net.minecraft.entity.*;
 import net.minecraft.block.*;
 import net.minecraft.util.*;
 import net.minecraft.item.*;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin({ EntityLivingBase.class })
 public abstract class EntityLivingBaseMixin extends EntityMixin
@@ -105,5 +108,12 @@ public abstract class EntityLivingBaseMixin extends EntityMixin
     
     public int getJumpTicks() {
         return this.jumpTicks;
+    }
+
+    @Inject(method = "isPotionActive(Lnet/minecraft/potion/Potion;)Z", at = @At("HEAD"), cancellable = true)
+    public void isPotionActive(Potion potion, CallbackInfoReturnable<Boolean> cir)
+    {
+        if (KyroClient.noDebuff.isToggled())
+            cir.setReturnValue(false);
     }
 }

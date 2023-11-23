@@ -96,6 +96,9 @@
       "preRenderCallback": "Lnet/minecraft/client/renderer/entity/RendererLivingEntity;func_77041_b(Lnet/minecraft/entity/EntityLivingBase;F)V",
       "Lnet/minecraft/client/renderer/entity/RendererLivingEntity;renderModel(Lnet/minecraft/entity/EntityLivingBase;FFFFFF)V": "Lnet/minecraft/client/renderer/entity/RendererLivingEntity;func_77036_a(Lnet/minecraft/entity/EntityLivingBase;FFFFFF)V"
     },
+    "me/kyroclient/mixins/entity/EntityLivingBaseMixin": {
+      "isPotionActive(Lnet/minecraft/potion/Potion;)Z": "Lnet/minecraft/entity/EntityLivingBase;func_70644_a(Lnet/minecraft/potion/Potion;)Z"
+    },
     "me/kyroclient/mixins/settings/GameSettings": {
       "loadOptions": "Lnet/minecraft/client/settings/GameSettings;func_74300_a()V"
     },
@@ -206,6 +209,9 @@
         "doRender(Lnet/minecraft/entity/EntityLivingBase;DDDFF)V": "Lnet/minecraft/client/renderer/entity/RendererLivingEntity;func_76986_a(Lnet/minecraft/entity/EntityLivingBase;DDDFF)V",
         "preRenderCallback": "Lnet/minecraft/client/renderer/entity/RendererLivingEntity;func_77041_b(Lnet/minecraft/entity/EntityLivingBase;F)V",
         "Lnet/minecraft/client/renderer/entity/RendererLivingEntity;renderModel(Lnet/minecraft/entity/EntityLivingBase;FFFFFF)V": "Lnet/minecraft/client/renderer/entity/RendererLivingEntity;func_77036_a(Lnet/minecraft/entity/EntityLivingBase;FFFFFF)V"
+      },
+      "me/kyroclient/mixins/entity/EntityLivingBaseMixin": {
+        "isPotionActive(Lnet/minecraft/potion/Potion;)Z": "Lnet/minecraft/entity/EntityLivingBase;func_70644_a(Lnet/minecraft/potion/Potion;)Z"
       },
       "me/kyroclient/mixins/settings/GameSettings": {
         "loadOptions": "Lnet/minecraft/client/settings/GameSettings;func_74300_a()V"

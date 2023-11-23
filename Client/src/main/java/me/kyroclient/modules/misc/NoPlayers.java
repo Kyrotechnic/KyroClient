@@ -26,7 +26,7 @@ public class NoPlayers extends Module {
     }
 
     @SubscribeEvent
-    public void tick(RenderPlayerEvent event)
+    public void tick(RenderPlayerEvent.Pre event)
     {
         if (!isToggled() || KyroClient.mc.thePlayer == null || KyroClient.mc.theWorld == null)
         {

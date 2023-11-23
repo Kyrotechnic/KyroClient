@@ -118,6 +118,11 @@ FIELD	me/kyroclient/mixins/render/MixinItemRenderer	F	equippedProgress	field_784
 FIELD	me/kyroclient/mixins/render/MixinItemRenderer	Lnet/minecraft/client/Minecraft;	mc	field_78455_a
 FIELD	me/kyroclient/mixins/render/MixinItemRenderer	Lnet/minecraft/item/ItemStack;	itemToRender	field_78453_b
 FIELD	me/kyroclient/mixins/settings/GameSettings	Z	pauseOnLostFocus	field_82881_y
+FIELD	me/kyroclient/mixins/world/MixinWorld	Ljava/util/List;	playerEntities	field_73010_i
+FIELD	me/kyroclient/mixins/world/MixinWorld	Ljava/util/List;	loadedEntityList	field_72996_f
+FIELD	me/kyroclient/mixins/world/MixinWorldClient	Lnet/minecraft/client/Minecraft;	mc	field_73037_M
+FIELD	me/kyroclient/mixins/world/MixinWorldClient	Ljava/util/Set;	entityList	field_73032_d
+FIELD	me/kyroclient/mixins/world/MixinWorldClient	Ljava/util/Set;	entitySpawnQueue	field_73036_L
 METHOD	me/kyroclient/mixins/blocks/MixinBlock	(FFFFFF)V	setBlockBounds	func_149676_a
 METHOD	me/kyroclient/mixins/blocks/MixinBlock	(Lnet/minecraft/world/World;Lnet/minecraft/util/BlockPos;Lnet/minecraft/block/state/IBlockState;)Lnet/minecraft/util/AxisAlignedBB;	getCollisionBoundingBox	func_180640_a
 METHOD	me/kyroclient/mixins/blocks/MixinBlock	(Lnet/minecraft/world/World;Lnet/minecraft/util/BlockPos;Lnet/minecraft/block/state/IBlockState;Lnet/minecraft/util/AxisAlignedBB;Ljava/util/List;Lnet/minecraft/entity/Entity;)V	addCollisionBoxesToList	func_180638_a
@@ -227,3 +232,9 @@ METHOD	me/kyroclient/mixins/render/MixinItemRenderer	(F)V	renderItemInFirstPerso
 METHOD	me/kyroclient/mixins/render/MixinItemRenderer	(FF)V	transformFirstPersonItem	func_178096_b
 METHOD	me/kyroclient/mixins/render/MixinItemRenderer	()V	doBlockTransformations	func_178103_d
 METHOD	me/kyroclient/mixins/render/MixinRender	(Lnet/minecraft/entity/Entity;DDDFF)V	doRender	func_76986_a
+METHOD	me/kyroclient/mixins/world/MixinWorld	(IIZ)Z	isChunkLoaded	func_175680_a
+METHOD	me/kyroclient/mixins/world/MixinWorld	()V	updateAllPlayersSleepingFlag	func_72854_c
+METHOD	me/kyroclient/mixins/world/MixinWorld	(II)Lnet/minecraft/world/chunk/Chunk;	getChunkFromChunkCoords	func_72964_e
+METHOD	me/kyroclient/mixins/world/MixinWorld	(Lnet/minecraft/entity/Entity;)V	onEntityAdded	func_72923_a
+METHOD	me/kyroclient/mixins/world/MixinWorld	(Lnet/minecraft/entity/Entity;)Z	spawnEntityInWorld	func_72838_d
+METHOD	me/kyroclient/mixins/world/MixinWorldClient	(Lnet/minecraft/entity/Entity;)Z	spawnEntityInWorld	func_72838_d
