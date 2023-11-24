@@ -13,7 +13,7 @@ public class Process {
 
     public void run()
     {
-        thread.run();
+        thread.start();
     }
 
     @SneakyThrows

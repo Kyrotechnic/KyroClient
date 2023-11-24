@@ -41,6 +41,6 @@ public class FriendCommand extends Command {
 
     public void printFriends()
     {
-        KyroClient.sendMessage("§aFriends: §c" + KyroClient.friendManager.friends.stream().collect(Collectors.joining("§9, §c")));
+        KyroClient.sendMessage("§aFriends: §c" + KyroClient.friendManager.playerUUID.values().stream().collect(Collectors.joining("§9, §c")));
     }
 }

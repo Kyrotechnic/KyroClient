@@ -31,7 +31,7 @@ public class NoPlayers extends Module {
         if (!isToggled() || KyroClient.mc.thePlayer == null || KyroClient.mc.theWorld == null) return;
         if (event.entityPlayer != KyroClient.mc.thePlayer && event.entityPlayer instanceof EntityPlayer)
         {
-            if (AntiBot.isValidEntity(event.entity) && !KyroClient.friendManager.has(event.entity.getName()))
+            if (AntiBot.isValidEntity(event.entity) && !KyroClient.friendManager.has(event.entityPlayer.getUniqueID()));
                 event.setCanceled(true);
         }
     }
