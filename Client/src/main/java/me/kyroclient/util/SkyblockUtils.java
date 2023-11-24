@@ -70,25 +70,29 @@ public class SkyblockUtils {
     public static Regex areaRegex = new Regex("^(?:Area|Dungeon): ([\\w ].+)\\$");
     public static void tick(TickEvent.ClientTickEvent event)
     {
-        if (!PlayerUtil.isOnSkyBlock() || KyroClient.mc.thePlayer == null || KyroClient.mc.theWorld == null || event.phase != TickEvent.Phase.START) return;
+        try {
+            if (!PlayerUtil.isOnSkyBlock() || KyroClient.mc.thePlayer == null || KyroClient.mc.theWorld == null || event.phase != TickEvent.Phase.START)
+                return;
 
-        if (ticks % 10 == 0)
-        {
-            List<NetworkPlayerInfo> info = fetchTabList();
+            if (ticks % 10 == 0) {
+                List<NetworkPlayerInfo> info = fetchTabList();
 
-            String areaString = null;
+                String areaString = null;
 
-            for (NetworkPlayerInfo playerInfo : info)
-            {
-                if (areaRegex.find(playerInfo.getDisplayName().getUnformattedText(), 0) != null)
-                {
-                    areaString = areaRegex.find(playerInfo.getDisplayName().getUnformattedText(), 0).getValue();
+                for (NetworkPlayerInfo playerInfo : info) {
+                    if (areaRegex.find(playerInfo.getDisplayName().getUnformattedText(), 0) != null) {
+                        areaString = areaRegex.find(playerInfo.getDisplayName().getUnformattedText(), 0).getValue();
+                    }
+
+                    currentArea = SkyblockArea.getArea(areaString);
                 }
-
-                currentArea = SkyblockArea.getArea(areaString);
             }
+            ticks++;
         }
-        ticks++;
+        catch (Exception ignored)
+        {
+
+        }
     }
 
     public static Ordering<NetworkPlayerInfo> playerInfoOrdering = new Ordering<NetworkPlayerInfo>() {

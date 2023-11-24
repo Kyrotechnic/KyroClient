@@ -19,7 +19,7 @@ public class CancelBlock extends Module {
     @SubscribeEvent
     public void click(PlayerInteractEvent event)
     {
-        if (!isToggled() || event.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK) return;
+        if (!isToggled() || event.action != PlayerInteractEvent.Action.RIGHT_CLICK_AIR) return;
 
         ItemStack item = KyroClient.mc.thePlayer.getHeldItem();
 

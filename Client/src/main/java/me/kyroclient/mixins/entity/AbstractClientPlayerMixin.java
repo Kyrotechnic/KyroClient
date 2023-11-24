@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin({ AbstractClientPlayer.class })
+@Mixin(value = { AbstractClientPlayer.class }, priority = 1)
 public abstract class AbstractClientPlayerMixin extends PlayerMixin
 {
     private static ResourceLocation getCape(final String uuid) {

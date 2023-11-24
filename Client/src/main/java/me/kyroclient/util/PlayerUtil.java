@@ -37,7 +37,7 @@ public class PlayerUtil {
         }
         try {
             try {
-                clickMouse = Minecraft.class.getDeclaredMethod("clickMouse");
+                clickMouse = Minecraft.class.getDeclaredMethod("func_147116_af");
             }
             catch (NoSuchMethodException e2) {
                 e2.printStackTrace();

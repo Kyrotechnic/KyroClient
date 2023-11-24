@@ -113,7 +113,7 @@ public abstract class EntityLivingBaseMixin extends EntityMixin
     @Inject(method = "isPotionActive(Lnet/minecraft/potion/Potion;)Z", at = @At("HEAD"), cancellable = true)
     public void isPotionActive(Potion potion, CallbackInfoReturnable<Boolean> cir)
     {
-        if (KyroClient.noDebuff.isToggled())
+        if (KyroClient.noDebuff.isToggled() && (potion.isBadEffect()))
             cir.setReturnValue(false);
     }
 }

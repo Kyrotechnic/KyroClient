@@ -196,6 +196,8 @@ METHOD	me/kyroclient/mixins/entity/PlayerMixin	(DDD)V	addMovementStat	func_71000
 METHOD	me/kyroclient/mixins/entity/PlayerMixin	()V	onUpdate	func_70071_h_
 METHOD	me/kyroclient/mixins/entity/PlayerMixin	()F	getAIMoveSpeed	func_70689_ay
 METHOD	me/kyroclient/mixins/entity/PlayerMixin	(Lnet/minecraft/util/BlockPos;)Lnet/minecraft/entity/player/EntityPlayer$EnumStatus;	trySleep	func_180469_a
+METHOD	me/kyroclient/mixins/entity/PlayerMixin	()Ljava/lang/String;	getName	func_70005_c_
+METHOD	me/kyroclient/mixins/entity/PlayerMixin	(Lcom/mojang/authlib/GameProfile;)Ljava/util/UUID;	getUUID	func_146094_a
 METHOD	me/kyroclient/mixins/entity/PlayerSPMixin	(Z)V	setSprinting	func_70031_b
 METHOD	me/kyroclient/mixins/entity/PlayerSPMixin	()Z	isSneaking	func_70093_af
 METHOD	me/kyroclient/mixins/entity/PlayerSPMixin	(Lnet/minecraft/entity/Entity;)V	onCriticalHit	func_71009_b
