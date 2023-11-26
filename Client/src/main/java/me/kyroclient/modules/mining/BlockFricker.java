@@ -29,7 +29,7 @@ public class BlockFricker extends Module {
     public BooleanSetting rotate = new BooleanSetting("Rotate", false);
     public BooleanSetting prioritize = new BooleanSetting("Prioritize Closest", true);
     public BooleanSetting finalClick = new BooleanSetting("Sends stop break", true);
-    public ModeSetting type = new ModeSetting("Blocks", "Mithril", "Mithril", "Gold", "Diamond", "Mycelium", "Red Sand", "Quartz", "Netherrack", "Custom");
+    public ModeSetting type = new ModeSetting("Blocks", "Mithril", "Mithril", "Gold", "Diamond", "Mycelium", "Red Sand", "Quartz", "Netherrack", "Foraging", "Custom");
     public static File file = new File(KyroClient.mc.mcDataDir + "/config/KyroClient/BlockFricker.cfg");
     @SneakyThrows
     public BlockFricker()
@@ -121,14 +121,18 @@ public class BlockFricker extends Module {
                 return (block == Blocks.quartz_ore);
             case "Netherrack":
                 return (block == Blocks.netherrack);
-            default:
+            case "Foraging":
+                return (block == Blocks.log || block == Blocks.log2);
+            case "Custom":
                 for (Block block1 : customBlocks)
                 {
-                    if (block1 == block)
+                    if (block1.getMaterial() == block.getMaterial())
                         return true;
                 }
                 return false;
         }
+
+        return false;
     }
 
     public static List<Block> customBlocks = new ArrayList<>();
