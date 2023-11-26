@@ -1,6 +1,7 @@
 package me.kyroclient.modules.combat;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
+import kotlin.text.Regex;
 import me.kyroclient.KyroClient;
 import me.kyroclient.events.MotionUpdateEvent;
 import me.kyroclient.events.MoveFlyingEvent;
@@ -39,10 +40,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.input.Mouse;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class Aura extends Module {
@@ -187,6 +187,14 @@ public class Aura extends Module {
         this.switchDelayTimer = new MilliTimer();
         this.blockDelay = new MilliTimer();
         this.addSettings(this.mode, this.switchDelay, this.range, this.rotationRange, this.minCps, this.maxCps, this.sorting, this.rotationMode, this.smoothing, this.maxRotation, this.minRotation, this.fov, this.blockMode, this.players, this.mobs, this.invisibles, this.teams, this.rotationSwing, this.movementFix, this.namesOnly, this.namesonlyMode, this.middleClick, this.attackOnly, this.walls, this.toggleInGui, this.toggleOnLoad, this.onlySword, this.shovelSwap, when);
+    }
+
+    public void addAll(String... strs)
+    {
+        for (String str : strs)
+        {
+            names.add(str);
+        }
     }
 
     @Override
@@ -457,10 +465,22 @@ public class Aura extends Module {
         }
         return null;
     }
-
+    public static Pattern pattern = Pattern.compile("\\[[0-9]+\\]");
     private boolean isValid(final EntityLivingBase entity) {
         if (entity == KyroClient.mc.thePlayer || !AntiBot.isValidEntity((Entity)entity) || (!this.invisibles.isEnabled() && entity.isInvisible()) || entity instanceof EntityArmorStand || (!KyroClient.mc.thePlayer.canEntityBeSeen((Entity)entity) && !this.walls.isEnabled()) || entity.getHealth() <= 0.0f || entity.getDistanceToEntity((Entity)KyroClient.mc.thePlayer) > ((Aura.target != null && Aura.target != entity) ? this.range.getValue() : Math.max(this.rotationRange.getValue(), this.range.getValue())) || RotationUtils.getRotationDifference(RotationUtils.getRotations(entity), RotationUtils.getPlayerRotation()) > this.fov.getValue()) {
             return false;
+        }
+        String name = ChatFormatting.stripFormatting(entity.getName());
+        if (name != null && PlayerUtil.isOnSkyBlock() && namesOnly.isEnabled())
+        {
+            Matcher matcher = pattern.matcher(entity.getName());
+
+            if (matcher.find())
+            {
+                return false;
+            }
+
+            return true;
         }
         if (this.namesOnly.isEnabled()) {
             final boolean flag = Aura.names.contains(ChatFormatting.stripFormatting(entity.getName()));
