@@ -2,6 +2,7 @@ package me.kyroclient.managers;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import lombok.SneakyThrows;
 import me.kyroclient.KyroClient;
 import me.kyroclient.util.PlayerAPI;
 import me.kyroclient.util.Process;
@@ -24,9 +25,15 @@ import java.util.stream.Collectors;
 public class FriendManager {
     public File friendsFile;
     public HashMap<UUID, String> playerUUID = new HashMap<>();
+    @SneakyThrows
     public void init()
     {
         friendsFile = new File(KyroClient.mc.mcDataDir + "/config/KyroClient/friends.cfg");
+
+        if (!friendsFile.exists())
+        {
+            Files.createFile(friendsFile.toPath());
+        }
 
         try {
             load();
@@ -37,8 +44,8 @@ public class FriendManager {
 
     public boolean has(UUID player)
     {
-
-
+        if (playerUUID.containsKey(player))
+            return true;
         return false;
     }
 

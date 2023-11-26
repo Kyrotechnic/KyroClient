@@ -24,9 +24,23 @@ public class CustomWindow extends Module {
         );
     }
 
+    @Override
+    public void onDisable()
+    {
+        Display.setTitle("Minecraft 1.8.9");
+    }
+
     @SubscribeEvent
     public void tick(TickEvent.ClientTickEvent e)
     {
+        if (!isToggled())
+        {
+            return;
+        }
+
+        if (KyroClient.ticks % 15 != 0)
+            return;
+
         StringBuilder sb = new StringBuilder();
 
         if (!customTitle.getValue().equalsIgnoreCase(""))
@@ -43,6 +57,8 @@ public class CustomWindow extends Module {
         if (showTimeSinceLaunch.isEnabled())
             sb.append(" | " + buildString());
 
+
+        Display.setTitle(sb.toString());
     }
 
     private String buildString()

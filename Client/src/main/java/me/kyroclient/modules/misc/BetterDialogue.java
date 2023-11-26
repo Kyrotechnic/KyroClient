@@ -42,10 +42,10 @@ public class BetterDialogue extends Module {
         switch (npcMode.getSelected())
         {
             case "Crouch":
-                flag = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
+                flag = KyroClient.mc.gameSettings.keyBindSneak.isPressed();
                 break;
             case "Left Click":
-                flag = KyroClient.mc.gameSettings.keyBindAttack.isKeyDown();
+                flag = KyroClient.mc.gameSettings.keyBindAttack.isPressed();
                 break;
         }
 

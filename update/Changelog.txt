@@ -1,4 +1,9 @@
 0.5-b197
+(11/26/2023)
+[+] Custom Block Fricker
+[+] .nuker <add/remove> <block>
+[+] Fix Hide Players Friends
+
 (11/23/2023)
 [+] Cape Manager
 [*] Capes

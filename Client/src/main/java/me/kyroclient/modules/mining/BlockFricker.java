@@ -1,5 +1,6 @@
 package me.kyroclient.modules.mining;
 
+import lombok.SneakyThrows;
 import me.kyroclient.KyroClient;
 import me.kyroclient.modules.Module;
 import me.kyroclient.settings.BooleanSetting;
@@ -17,10 +18,9 @@ import net.minecraft.util.Vec3i;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.io.File;
+import java.nio.file.Files;
+import java.util.*;
 
 public class BlockFricker extends Module {
     public NumberSetting range = new NumberSetting("Range", 5, 3, 6.5, 0.1);
@@ -29,12 +29,21 @@ public class BlockFricker extends Module {
     public BooleanSetting rotate = new BooleanSetting("Rotate", false);
     public BooleanSetting prioritize = new BooleanSetting("Prioritize Closest", true);
     public BooleanSetting finalClick = new BooleanSetting("Sends stop break", true);
-    public ModeSetting type = new ModeSetting("Blocks", "Mithril", "Mithril", "Gold", "Diamond", "Mycelium", "Red Sand", "Quartz", "Netherrack");
+    public ModeSetting type = new ModeSetting("Blocks", "Mithril", "Mithril", "Gold", "Diamond", "Mycelium", "Red Sand", "Quartz", "Netherrack", "Custom");
+    public static File file = new File(KyroClient.mc.mcDataDir + "/config/KyroClient/BlockFricker.cfg");
+    @SneakyThrows
     public BlockFricker()
     {
         super("Block Fricker", Category.MINING);
 
         addSettings(type, range, perTick, swingHand, rotate, prioritize, finalClick);
+
+        if (!file.exists())
+        {
+            Files.createFile(file.toPath());
+        }
+
+        load();
     }
 
     @SubscribeEvent
@@ -113,7 +122,65 @@ public class BlockFricker extends Module {
             case "Netherrack":
                 return (block == Blocks.netherrack);
             default:
+                for (Block block1 : customBlocks)
+                {
+                    if (block1 == block)
+                        return true;
+                }
                 return false;
         }
+    }
+
+    public static List<Block> customBlocks = new ArrayList<>();
+
+    public static void addBlock(Block block)
+    {
+        if (customBlocks.contains(block))
+            return;
+        customBlocks.add(block);
+        save();
+    }
+
+    @SneakyThrows
+    public static void save()
+    {
+        String[] str = new String[customBlocks.size()];
+
+        int i = 0;
+
+        for (Block block : customBlocks)
+        {
+            str[i] = block.getRegistryName();
+            i++;
+        }
+
+        Files.write(file.toPath(), Arrays.asList(str));
+    }
+
+    public static Block getBlock(String id)
+    {
+        Block block = Block.getBlockFromName(id);
+
+        return block;
+    }
+
+    @SneakyThrows
+    public static void load()
+    {
+        customBlocks.clear();
+        List<String> strs = Files.readAllLines(file.toPath());
+
+        for (String string : strs)
+        {
+            customBlocks.add(getBlock(string));
+        }
+    }
+
+    public static void removeBlock(Block block)
+    {
+        if (!customBlocks.contains(block))
+            return;
+        customBlocks.remove(block);
+        save();
     }
 }

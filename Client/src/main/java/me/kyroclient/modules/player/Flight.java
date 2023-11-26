@@ -12,14 +12,8 @@ import me.kyroclient.util.TimerUtil;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class Flight extends Module {
-    public static ModeSetting mode;
-    public static NumberSetting speed;
-    public static NumberSetting time;
-    public static NumberSetting timerSpeed;
-    public static NumberSetting autoDisable;
-    public static NumberSetting test;
-    public static BooleanSetting autoDisableHypixel;
-    public static BooleanSetting timerBoost;
+    public static ModeSetting mode = new ModeSetting("Mode", "Vanilla", "Vanilla");
+    public static NumberSetting speed = new NumberSetting("Speed", 0.7, 0.5, 5, .1);
     public MilliTimer disablerTimer;
     public MilliTimer autoDisableTimer;
     private boolean isFlying;
@@ -34,12 +28,7 @@ public class Flight extends Module {
 
         addSettings(
                 mode,
-                speed,
-                time,
-                timerSpeed,
-                autoDisable,
-                autoDisableHypixel,
-                timerBoost
+                speed
         );
     }
 
@@ -61,9 +50,9 @@ public class Flight extends Module {
         }
     }
 
-    public boolean isFlying() {
+    /*public boolean isFlying() {
         return this.isToggled() && (!Flight.mode.is("Hypixel Slime") || !this.disablerTimer.hasTimePassed((long)Flight.time.getValue()));
-    }
+    }*/
 
     static {
         Flight.mode = new ModeSetting("Mode", "Vanilla", new String[] {"Vanilla"});
