@@ -471,9 +471,11 @@ public class Aura extends Module {
             return false;
         }
         String name = ChatFormatting.stripFormatting(entity.getName());
-        if (name != null && PlayerUtil.isOnSkyBlock() && namesOnly.isEnabled())
+        if (name != null && PlayerUtil.isOnSkyBlock() && namesOnly.isEnabled() && entity instanceof EntityPlayer)
         {
-            Matcher matcher = pattern.matcher(entity.getName());
+            Matcher matcher = pattern.matcher(ChatFormatting.stripFormatting(name));
+
+            EntityPlayer player = (EntityPlayer) entity;
 
             if (matcher.find())
             {
