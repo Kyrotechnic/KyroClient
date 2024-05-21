@@ -57,18 +57,15 @@ public class ModernClickGui extends GuiScreen {
             }
             Fonts.getPrimary().drawStringWithShadow(window.getName(), this.getX() + 12.0, this.getY() + (double)categoryOffset + 5.0, Color.WHITE.getRGB());
             categoryOffset += 14;
-
-            StencilUtils.enableStencilBuffer();
-            RenderUtils.drawBorderedRoundedRect((float)ModernClickGui.getX() + 88.0f, (float)ModernClickGui.getY() + 25.0f, ModernClickGui.getWidth() - 88.0f, ModernClickGui.getHeight() - 25.0f, 6.0f, 2.0f, KyroClient.themeManager.getPrimaryColor().getRGB(), KyroClient.themeManager.getPrimaryColor().getRGB());
-            StencilUtils.readStencilBuffer(1);
-
-            if (selectedWindow == window)
-            {
-                selectedWindow.drawScreen(mouseX, mouseY, partialTicks);
-            }
-
-            StencilUtils.disableStencilBuffer();
         }
+
+        StencilUtils.enableStencilBuffer();
+        RenderUtils.drawBorderedRoundedRect((float)ModernClickGui.getX() + 88.0f, (float)ModernClickGui.getY() + 25.0f, ModernClickGui.getWidth() - 88.0f, ModernClickGui.getHeight() - 25.0f, 6.0f, 2.0f, KyroClient.themeManager.getPrimaryColor().getRGB(), KyroClient.themeManager.getPrimaryColor().getRGB());
+        StencilUtils.readStencilBuffer(1);
+
+        selectedWindow.drawScreen(mouseX, mouseY, partialTicks);
+
+        StencilUtils.disableStencilBuffer();
 
         GlStateManager.popMatrix();
     }
@@ -141,6 +138,12 @@ public class ModernClickGui extends GuiScreen {
     @Override
     public boolean doesGuiPauseGame() {
         return false;
+    }
+    public static void showWindow(Window window)
+    {
+        selectedWindow = window;
+
+        window.initGui();
     }
 
     public static double getX() {

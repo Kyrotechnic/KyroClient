@@ -18,10 +18,25 @@ public class CompRunnableSetting extends Comp {
     }
 
     @Override
+    public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
+
+    }
+
+    @Override
+    public void mouseReleased(int mouseX, int mouseY, int state) {
+
+    }
+
+    @Override
     public void drawScreen(int mouseX, int mouseY, double scrollY)
     {
         RenderUtils.drawBorderedRoundedRect((float) (ModernClickGui.getX() + x), (float) (ModernClickGui.getY() + y), (float) (ModernClickGui.getWidth() - x - 5), 15, 5, 1, KyroClient.themeManager.getPrimaryColor().getRGB(), KyroClient.themeManager.getSecondaryColor().getRGB());
 
         Fonts.getPrimary().drawCenteredString(runnableSetting.name, (float) (ModernClickGui.getX() + x + (ModernClickGui.getWidth() - x)/2), (float) (ModernClickGui.getY() + y + 3), Color.WHITE.getRGB());
+    }
+
+    @Override
+    public void keyTyped(char typedChar, int keyCode) {
+
     }
 }

@@ -34,10 +34,19 @@ public class CompBoolSetting
     }
 
     @Override
+    public void keyTyped(char typedChar, int keyCode) {
+
+    }
+
+    @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
-        super.mouseClicked(mouseX, mouseY, mouseButton);
         if (this.isHovered(mouseX, mouseY, ModernClickGui.getX() + this.x, ModernClickGui.getY() + this.y, 10.0, 10.0) && mouseButton == 0) {
             this.booleanSetting.toggle();
         }
+    }
+
+    @Override
+    public void mouseReleased(int mouseX, int mouseY, int state) {
+
     }
 }

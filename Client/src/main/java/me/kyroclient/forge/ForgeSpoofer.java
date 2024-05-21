@@ -26,7 +26,9 @@ public class ForgeSpoofer {
         register(object, true);
     }
 
-    public static List<ForgeRegister> register(Object object, boolean randomContainer)
+    public static List<ForgeRegister> registers = new ArrayList<>();
+
+    public static void register(Object object, boolean randomContainer)
     {
         ModContainer container = getRandomContainer(containers);
 
@@ -66,7 +68,10 @@ public class ForgeSpoofer {
             }
         }
 
-        return registers;
+        if (registers.isEmpty())
+            return;
+
+        ForgeSpoofer.registers.addAll(registers);
     }
 
     public static ModContainer getRandomContainer(List<ModContainer> containers)

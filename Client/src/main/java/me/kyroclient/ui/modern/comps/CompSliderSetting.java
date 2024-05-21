@@ -51,11 +51,21 @@ public class CompSliderSetting extends Comp {
     }
 
     @Override
+    public void keyTyped(char typedChar, int keyCode) {
+
+    }
+
+    @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton)
     {
         if (isHovered(mouseX, mouseY, ModernClickGui.getX() + x - 2, ModernClickGui.getY() + y + 10, ModernClickGui.getWidth() - x - 5, 10) && mouseButton == 0)
         {
             ModuleWindow.selectedNumber = numberSetting;
         }
+    }
+
+    @Override
+    public void mouseReleased(int mouseX, int mouseY, int state) {
+
     }
 }

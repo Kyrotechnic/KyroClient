@@ -28,9 +28,19 @@ public class CompModeSetting extends Comp {
     }
 
     @Override
+    public void keyTyped(char typedChar, int keyCode) {
+
+    }
+
+    @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
         if (this.isHovered(mouseX, mouseY, ModernClickGui.getX() + x, ModernClickGui.getY() + y, ModernClickGui.getWidth() - x - 5, 15)) {
             this.modeSetting.cycle(mouseButton);
         }
+    }
+
+    @Override
+    public void mouseReleased(int mouseX, int mouseY, int state) {
+
     }
 }

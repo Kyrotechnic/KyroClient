@@ -6,6 +6,7 @@ import me.kyroclient.events.PacketSentEvent;
 import me.kyroclient.forge.ForgeRegister;
 import me.kyroclient.forge.ForgeSpoofer;
 import me.kyroclient.managers.*;
+import me.kyroclient.modules.ClientSettings;
 import me.kyroclient.modules.Module;
 import me.kyroclient.modules.client.Capes;
 import me.kyroclient.modules.client.CustomBrand;
@@ -92,6 +93,7 @@ public class KyroClient {
     public static PlayerVisibility playerVisibility;
     public static NoDebuff noDebuff;
     public static Capes capes;
+    public static ClientSettings clientSettings;
 
 
     //Methods
@@ -99,7 +101,7 @@ public class KyroClient {
     /*
     Time to finally make it spoof being any random mod on boot!
      */
-    public static List<ForgeRegister> registerEvents()
+    public static void registerEvents()
     {
         /*for (Module module : moduleManager.getModules())
         {
@@ -107,18 +109,15 @@ public class KyroClient {
         }*/
 
         ForgeSpoofer.update();
-        List<ForgeRegister> registers = new ArrayList<>();
 
         for (Module module : moduleManager.getModules())
         {
-            List<ForgeRegister> register = ForgeSpoofer.register(module, true);
-            if (register.isEmpty()) continue;
-            registers.addAll(register);
+            ForgeSpoofer.register(module, true);
         }
 
-        registers.add(ForgeSpoofer.register(notificationManager = new NotificationManager(), true).get(0));
-        registers.add(ForgeSpoofer.register(new BlurUtils(), true).get(0));
-        registers.add(ForgeSpoofer.register(new KyroClient(), true).get(0));
+        ForgeSpoofer.register(notificationManager = new NotificationManager(), true);
+        ForgeSpoofer.register(new BlurUtils(), true);
+        ForgeSpoofer.register(new KyroClient(), true);
 
         Fonts.bootstrap();
 
@@ -128,8 +127,6 @@ public class KyroClient {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return registers;
     }
     public static void init()
     {
@@ -202,23 +199,27 @@ public class KyroClient {
         KyroClient.mc.thePlayer.addChatMessage(new ChatComponentText(message));
     }
 
-    @SneakyThrows
     public static void threadTask()
     {
-        URL url2 = new URL("https://raw.githubusercontent.com/Kyrotechnic/KyroClient/main/update/Changelog.txt");
+        try {
+            URL url2 = new URL("https://raw.githubusercontent.com/Kyrotechnic/KyroClient/main/update/Changelog.txt");
 
-        List<String> changelog = new ArrayList<String>();
+            List<String> changelog = new ArrayList<String>();
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(url2.openStream()));
-        String b = null;
-        while ((b = reader.readLine()) != null)
-        {
-            changelog.add(b);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(url2.openStream()));
+            String b = null;
+            while ((b = reader.readLine()) != null) {
+                changelog.add(b);
+            }
+
+            KyroClient.VERSION = changelog.get(0);
+
+            KyroClient.changelog = changelog.stream().filter(c -> !(c.equals(KyroClient.VERSION))).collect(Collectors.toList());
         }
-
-        KyroClient.VERSION = changelog.get(0);
-
-        KyroClient.changelog = changelog.stream().filter(c -> !(c.equals(KyroClient.VERSION))).collect(Collectors.toList());
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public static void handleKey(int key)

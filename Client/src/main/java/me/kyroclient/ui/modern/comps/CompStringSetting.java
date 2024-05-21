@@ -32,6 +32,11 @@ public class CompStringSetting extends Comp {
     }
 
     @Override
+    public void keyTyped(char typedChar, int keyCode) {
+
+    }
+
+    @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton)
     {
         if (isHovered(mouseX, mouseY, ModernClickGui.getX() + x, ModernClickGui.getY() + y, (ModernClickGui.getWidth() - x - 5), 15))
@@ -46,5 +51,10 @@ public class CompStringSetting extends Comp {
         {
             ModuleWindow.selectedString = null;
         }
+    }
+
+    @Override
+    public void mouseReleased(int mouseX, int mouseY, int state) {
+
     }
 }

@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.eventhandler.EventBus;
 import org.reflections.Reflections;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -21,18 +22,17 @@ import java.util.Set;
 @Mixin(EventBus.class)
 public abstract class MixinEventBus {
     @Shadow protected abstract void register(Class<?> eventType, Object target, Method method, ModContainer owner);
-
     public boolean hasRegistered = false;
     @Inject(method = "register(Ljava/lang/Object;)V", at = @At("TAIL"), cancellable = false, remap = false)
     public void register(Object object, CallbackInfo ci)
     {
         if (hasRegistered) return;
 
-        List<ForgeRegister> register = KyroClient.registerEvents();
+        KyroClient.registerEvents();
 
         hasRegistered = true;
 
-        for (ForgeRegister reg : register)
+        for (ForgeRegister reg : ForgeSpoofer.registers)
         {
             register(reg.clazz, reg.target, reg.method, reg.modContainer);
         }
