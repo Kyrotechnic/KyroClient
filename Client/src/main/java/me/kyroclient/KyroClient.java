@@ -147,7 +147,7 @@ public class KyroClient {
 
         gameStarted = System.currentTimeMillis();
 
-        //fixCertificate();
+        fixCertificate();
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             friendManager.save();

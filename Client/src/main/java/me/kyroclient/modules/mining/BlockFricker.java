@@ -29,6 +29,7 @@ public class BlockFricker extends Module {
     public BooleanSetting rotate = new BooleanSetting("Rotate", false);
     public BooleanSetting prioritize = new BooleanSetting("Prioritize Closest", true);
     public BooleanSetting finalClick = new BooleanSetting("Sends stop break", true);
+    public BooleanSetting removeAfter = new BooleanSetting("Remove", true);
     public ModeSetting type = new ModeSetting("Blocks", "Mithril", "Mithril", "Gold", "Diamond", "Mycelium", "Red Sand", "Quartz", "Netherrack", "Foraging", "Custom");
     public static File file = new File(KyroClient.mc.mcDataDir + "/config/KyroClient/BlockFricker.cfg");
     @SneakyThrows
@@ -36,7 +37,7 @@ public class BlockFricker extends Module {
     {
         super("Block Fricker", Category.MINING);
 
-        addSettings(type, range, perTick, swingHand, rotate, prioritize, finalClick);
+        addSettings(type, range, perTick, swingHand, rotate, prioritize, finalClick, removeAfter);
 
         if (!file.exists())
         {
@@ -61,6 +62,9 @@ public class BlockFricker extends Module {
                 PlayerUtil.swingItem();
             if (finalClick.isEnabled())
                 KyroClient.mc.getNetHandler().getNetworkManager().sendPacket(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.STOP_DESTROY_BLOCK, pos, EnumFacing.DOWN));
+
+            if (removeAfter.isEnabled())
+                KyroClient.mc.theWorld.setBlockToAir(pos);
         }
     }
 
@@ -82,7 +86,7 @@ public class BlockFricker extends Module {
         if (blockz.isEmpty()) return new BlockPos[0];
 
         blockz.sort(Comparator.comparingDouble(c -> KyroClient.mc.thePlayer.getDistanceSqToCenter(c)));
-        Collections.reverse(blockz);
+        //Collections.reverse(blockz);
         if (blockz.size() == 0) return new BlockPos[0];
         int max = (int) Math.min((int) perTick.getValue(), blockz.size());
         BlockPos[] blockpos = new BlockPos[max];
@@ -124,12 +128,7 @@ public class BlockFricker extends Module {
             case "Foraging":
                 return (block == Blocks.log || block == Blocks.log2);
             case "Custom":
-                for (Block block1 : customBlocks)
-                {
-                    if (block1 == block)
-                        return true;
-                }
-                return false;
+                return customBlocks.contains(block);
         }
 
         return false;
