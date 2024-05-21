@@ -126,7 +126,7 @@ public class BlockFricker extends Module {
             case "Custom":
                 for (Block block1 : customBlocks)
                 {
-                    if (block1.getMaterial() == block.getMaterial())
+                    if (block1 == block)
                         return true;
                 }
                 return false;

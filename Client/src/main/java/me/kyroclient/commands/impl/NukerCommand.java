@@ -20,22 +20,22 @@ public class NukerCommand extends Command {
             return;
         }
 
-        Block block = getBlock(args[3]);
+        Block block = getBlock(args[2]);
 
         if (block == null) {
-            invalid(args[3]);
+            invalid(args[2]);
             return;
         }
 
-        switch (args[2])
+        switch (args[1])
         {
             case "add":
                 BlockFricker.addBlock(block);
-                KyroClient.sendMessage("Succesfully added block of type " + args[3]);
+                KyroClient.sendMessage("Succesfully added block of type " + args[2]);
                 break;
             case "remove":
                 BlockFricker.removeBlock(block);
-                KyroClient.sendMessage("Succesfully removed block of type " + args[3]);
+                KyroClient.sendMessage("Succesfully removed block of type " + args[2]);
                 break;
         }
     }
